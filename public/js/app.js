@@ -38074,8 +38074,6 @@ var render = function() {
           _vm._v(" "),
           _vm._m(1),
           _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
           _c(
             "router-link",
             { staticClass: "text-center", attrs: { to: "login" } },
@@ -38172,7 +38170,7 @@ var staticRenderFns = [
               }),
               _vm._v(" "),
               _c("label", { attrs: { for: "agreeTerms" } }, [
-                _vm._v("\n                                I agree to the "),
+                _vm._v("\n                                    I agree to the "),
                 _c("a", { attrs: { href: "#" } }, [_vm._v("terms")])
               ])
             ])
@@ -38191,36 +38189,6 @@ var staticRenderFns = [
         ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "social-auth-links text-center" }, [
-      _c("p", [_vm._v("- OR -")]),
-      _vm._v(" "),
-      _c(
-        "a",
-        { staticClass: "btn btn-block btn-primary", attrs: { href: "#" } },
-        [
-          _c("i", { staticClass: "fab fa-facebook mr-2" }),
-          _vm._v(
-            "\n                    Sign up using Facebook\n                "
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        { staticClass: "btn btn-block btn-danger", attrs: { href: "#" } },
-        [
-          _c("i", { staticClass: "fab fa-google-plus mr-2" }),
-          _vm._v(
-            "\n                    Sign up using Google+\n                "
-          )
-        ]
-      )
-    ])
   }
 ]
 render._withStripped = true
