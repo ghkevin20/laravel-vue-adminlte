@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../boilerplate/.idea/boilerplate.iml" filepath="$PROJECT_DIR$/../boilerplate/.idea/boilerplate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../coreui/.idea/coreui.iml" filepath="$PROJECT_DIR$/../coreui/.idea/coreui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../laravel/.idea/laravel.iml" filepath="$PROJECT_DIR$/../laravel/.idea/laravel.iml" />
       <module fileurl="file://$PROJECT_DIR$/../laravel-vuejs/.idea/laravel-vuejs.iml" filepath="$PROJECT_DIR$/../laravel-vuejs/.idea/laravel-vuejs.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/laraveladmin.iml" filepath="$PROJECT_DIR$/.idea/laraveladmin.iml" />
     </modules>
