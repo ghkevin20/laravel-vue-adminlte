@@ -54,7 +54,7 @@
                 <!-- /.social-auth-links -->
 
                 <p class="mb-1">
-                    <a href="forgot-password.html">I forgot my password</a>
+                    <router-link to="forgot-password">I forgot my password</router-link>
                 </p>
                 <p class="mb-0">
                     <router-link to="register" class="text-center">Register a new membership</router-link>
