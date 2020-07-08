@@ -37,25 +37,25 @@
                             </router-link>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <a href="javascript:void(0);" class="nav-link">
+                                <i class="nav-icon fas fa-user-lock"></i>
                                 <p>
-                                    Starter Pages
+                                    Roles & Permissions
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link active">
+                                    <router-link to="/roles" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Active Page</p>
-                                    </a>
+                                        <p>Roles</p>
+                                    </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <router-link to="/permissions" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Inactive Page</p>
-                                    </a>
+                                        <p>Permissions</p>
+                                    </router-link>
                                 </li>
                             </ul>
                         </li>
@@ -96,7 +96,17 @@
                 }).catch(error => {
                     location.reload();
                 });
+            },
+            checkTreeView(){
+                let activeLinks = document.querySelectorAll('.nav-link.active');
+                activeLinks.forEach(function (item,index) {
+                    let treeView = item.closest('.has-treeview');
+                    treeView ? treeView.classList.add('menu-open'):0;
+                });
             }
+        },
+        mounted(){
+            this.checkTreeView();
         }
     }
 </script>

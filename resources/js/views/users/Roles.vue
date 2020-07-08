@@ -15,7 +15,7 @@
     import MainContent from "../../components/MainContent";
 
     export default {
-        name: "Profile",
+        name: "Roles",
         components : {
             ContentHeader,MainContent
         },
