@@ -25,6 +25,10 @@ const routes = [
                 path: 'forgot-password',
                 component: require('./views/auth/ForgotPassword').default
             },
+            {
+                path: 'recover-password',
+                component: require('./views/auth/RecoverPassword').default
+            },
         ]
 
     } // can be access without authentication
