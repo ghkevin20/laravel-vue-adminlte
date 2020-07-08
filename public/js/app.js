@@ -2312,16 +2312,39 @@ __webpack_require__.r(__webpack_exports__);
         location.reload();
       });
     },
+    closeAllTreeView: function closeAllTreeView() {
+      var openTreeViews = document.querySelectorAll('.has-treeview.menu-open');
+      openTreeViews.forEach(function (item, index) {
+        var navTreeViews = item.querySelectorAll('.nav-treeview');
+        navTreeViews.forEach(function (item, index) {
+          $(item).slideUp();
+        });
+        item.classList.remove('menu-open');
+      });
+    },
     checkTreeView: function checkTreeView() {
       var activeLinks = document.querySelectorAll('.nav-link.active');
       activeLinks.forEach(function (item, index) {
         var treeView = item.closest('.has-treeview');
         treeView ? treeView.classList.add('menu-open') : 0;
       });
+    },
+    navEventListener: function navEventListener() {
+      var _this = this;
+
+      var singleLinks = document.querySelectorAll('.nav-link:not(.has-treeview)');
+      singleLinks.forEach(function (item, index) {
+        if (!item.closest('.has-treeview')) {
+          item.addEventListener('click', function () {
+            _this.closeAllTreeView();
+          });
+        }
+      });
     }
   },
   mounted: function mounted() {
     this.checkTreeView();
+    this.navEventListener();
   }
 });
 

@@ -60,7 +60,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/profile" class="nav-link">
+                            <router-link to="/profile" class="nav-link" >
                                 <i class="nav-icon fas fa-user-circle"></i>
                                 <p>
                                     Profile
@@ -97,16 +97,38 @@
                     location.reload();
                 });
             },
-            checkTreeView(){
+            closeAllTreeView() {
+                let openTreeViews = document.querySelectorAll('.has-treeview.menu-open');
+                openTreeViews.forEach(function (item, index) {
+                    let navTreeViews = item.querySelectorAll('.nav-treeview');
+                    navTreeViews.forEach(function (item, index) {
+                        $(item).slideUp();
+                    });
+                    item.classList.remove('menu-open');
+                });
+            },
+            checkTreeView() {
                 let activeLinks = document.querySelectorAll('.nav-link.active');
-                activeLinks.forEach(function (item,index) {
+                activeLinks.forEach(function (item, index) {
                     let treeView = item.closest('.has-treeview');
-                    treeView ? treeView.classList.add('menu-open'):0;
+                    treeView ? treeView.classList.add('menu-open') : 0;
+                });
+            },
+            navEventListener(){
+                let _this = this;
+                let singleLinks = document.querySelectorAll('.nav-link:not(.has-treeview)');
+                singleLinks.forEach(function (item, index) {
+                    if(!item.closest('.has-treeview')){
+                        item.addEventListener('click',function(){
+                            _this.closeAllTreeView();
+                        })
+                    }
                 });
             }
         },
-        mounted(){
+        mounted() {
             this.checkTreeView();
+            this.navEventListener();
         }
     }
 </script>
