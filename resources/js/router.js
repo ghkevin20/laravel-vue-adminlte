@@ -45,12 +45,14 @@ const routes = [
                 component: require('./views/AdminHome').default
             },
         ]
-    }, // can be access without authentication
+    }, // authentication required
 ]
 
 const router = new VueRouter({
     routes,
-    mode: 'history'
+    mode: 'history',
+    linkActiveClass: 'active',
+    linkExactActiveClass: 'active'
 })
 
 export default router

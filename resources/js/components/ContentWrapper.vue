@@ -1,21 +1,14 @@
 <template>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <ContentHeader></ContentHeader>
-        <MainContent></MainContent>
+        <slot></slot>
     </div>
     <!-- /.content-wrapper -->
 </template>
 
 <script>
-    import ContentHeader from "./ContentHeader";
-    import MainContent from "./MainContent";
-
     export default {
-        name: "ContentWrapper",
-        components: {
-            ContentHeader, MainContent
-        }
+        name: "ContentWrapper"
     }
 </script>
 

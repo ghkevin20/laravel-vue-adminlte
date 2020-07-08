@@ -6,7 +6,7 @@
             <a href="index3.html" class="brand-link">
                 <img src="https://vuejs.org/images/logo.png" alt="LaraVue Logo"
                      class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">LaraVue</span>
+                <span class="brand-text font-weight-light">LaravelAdmin</span>
             </a>
 
             <!-- Sidebar -->
@@ -68,7 +68,7 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <a  href="javascript: void(0)" v-on:click="logout" class="nav-link">
+                            <a href="javascript: void(0)" v-on:click="logout" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>
                                     Logout

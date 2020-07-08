@@ -2,7 +2,7 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            <router-view></router-view>
+            <slot></slot>
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->

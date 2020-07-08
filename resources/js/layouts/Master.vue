@@ -5,7 +5,9 @@
 
         <main-side-bar></main-side-bar>
 
-        <content-wrapper></content-wrapper>
+        <content-wrapper>
+            <router-view></router-view>
+        </content-wrapper>
 
         <control-side-bar></control-side-bar>
 
