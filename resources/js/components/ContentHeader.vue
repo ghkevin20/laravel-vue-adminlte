@@ -8,8 +8,10 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Starter Page</li>
+                        <li class="breadcrumb-item" v-for="item in breadCrumbs" :class="{ active : item.active}">
+                            <router-link v-if="item.to" :to="item.to">{{ item.item }}</router-link>
+                            <span v-else>{{ item.item }}</span>
+                        </li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -21,7 +23,10 @@
 <script>
     export default {
         name: "ContentHeader",
-        props: ['title']
+        props: [
+            'title',
+            'breadCrumbs'
+        ]
     }
 </script>
 

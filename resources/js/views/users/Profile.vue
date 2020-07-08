@@ -11,22 +11,24 @@
 </template>
 
 <script>
-    import ContentHeader from "../components/ContentHeader";
-    import MainContent from "../components/MainContent";
+    import ContentHeader from "../../components/ContentHeader";
+    import MainContent from "../../components/MainContent";
 
     export default {
-        name: "AdminHome",
+        name: "Profile",
         components : {
             ContentHeader,MainContent
         },
         data(){
             return {
-                title: 'Home',
+                title: 'Profile',
                 breadCrumbs: [
-                    {item: 'Home', active: true},
+                    {item: 'Home', to: 'home'},
+                    {item: 'Profile', active: true},
                 ]
             }
         }
+
     }
 </script>
 

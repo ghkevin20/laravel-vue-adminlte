@@ -11,7 +11,7 @@ const routes = [
         children: [
             {
                 path: '/',
-                component: require('./views/Home').default
+                component: require('./views/Home').default,
             },
             {
                 path: 'login',
@@ -37,12 +37,14 @@ const routes = [
         meta: {validate: ['auth']},
         children: [
             {
-                path: '/',
-                component: require('./views/AdminHome').default
+                path: 'home',
+                name: 'Home',
+                component: require('./views/AdminHome').default,
             },
             {
-                path: 'home',
-                component: require('./views/AdminHome').default
+                path: 'profile',
+                name: 'Profile',
+                component: require('./views/users/profile').default,
             },
         ]
     }, // authentication required
