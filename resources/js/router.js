@@ -30,8 +30,22 @@ const routes = [
                 component: require('./views/auth/RecoverPassword').default
             },
         ]
-
-    } // can be access without authentication
+    }, // can be access without authentication
+    {
+        path: '/',
+        component: require('./layouts/Master').default,
+        meta: {validate: ['auth']},
+        children: [
+            {
+                path: '/',
+                component: require('./views/AdminHome').default
+            },
+            {
+                path: 'home',
+                component: require('./views/AdminHome').default
+            },
+        ]
+    }, // can be access without authentication
 ]
 
 const router = new VueRouter({
