@@ -25,6 +25,8 @@
     },
     "dependencies": {
         "admin-lte": "^3.0.5",
+        "gridjs": "^1.10.0",
+        "gridjs-vue": "^0.3.5",
         "vue-router": "^3.3.4"
     }
 }

@@ -2979,39 +2979,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3031,7 +2998,8 @@ __webpack_require__.r(__webpack_exports__);
         active: true
       }]
     };
-  }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -40098,528 +40066,411 @@ var render = function() {
           _c("div", { staticClass: "col-12" }, [
             _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header" }, [
-                _c("h3", { staticClass: "card-title" }, [_vm._v("List")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-tools" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "input-group input-group-sm",
-                      staticStyle: { width: "150px" }
-                    },
-                    [
-                      _c("input", {
-                        staticClass: "form-control float-right",
-                        attrs: {
-                          type: "text",
-                          name: "table_search",
-                          placeholder: "Search"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "input-group-append" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default",
-                            attrs: { type: "submit" }
-                          },
-                          [_c("i", { staticClass: "fas fa-search" })]
-                        )
-                      ])
-                    ]
-                  )
+                _c("div", { staticClass: "d-flex align-items-center" }, [
+                  _c("h3", { staticClass: "card-title mb-0" }, [
+                    _vm._v("List")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-tools ml-auto" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "input-group",
+                        staticStyle: { width: "150px" }
+                      },
+                      [
+                        _c("input", {
+                          staticClass: "form-control float-right",
+                          attrs: {
+                            type: "text",
+                            name: "table_search",
+                            placeholder: "Search"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-group-append" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-default",
+                              attrs: { type: "submit" }
+                            },
+                            [_c("i", { staticClass: "fas fa-search" })]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
                 ])
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "card-body table-responsive p-0",
-                  staticStyle: { height: "300px" }
-                },
-                [
-                  _c(
-                    "table",
-                    {
-                      staticClass:
-                        "table table-head-fixed text-nowrap table-bordered"
-                    },
-                    [
-                      _c("thead", [
-                        _c("tr", [
-                          _c("th", [
-                            _vm._v(
-                              "\n                                    ID\n                                "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("User")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Date")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Status")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Reason")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Action")])
+              _c("div", { staticClass: "card-body table-responsive p-0" }, [
+                _c("table", { staticClass: "table table-hover text-nowrap" }, [
+                  _c("thead", [
+                    _c("tr", [
+                      _c("th", [_vm._v("ID")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("User")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Date")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Status")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Reason")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Action")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tbody", [
+                    _c("tr", [
+                      _c("td", [_vm._v("183")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("John Doe")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("11-7-2014")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("span", { staticClass: "tag tag-success" }, [
+                          _vm._v("Approved")
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("tbody", [
-                        _c("tr", [
-                          _c("td", [_vm._v("183")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("John Doe")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("11-7-2014")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", { staticClass: "tag tag-success" }, [
-                              _vm._v("Approved")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
+                      _c("td", [
+                        _vm._v(
+                          "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-default",
+                            attrs: { type: "button" }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-edit" }),
                             _vm._v(
-                              "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
+                              "\n                                            Edit\n                                        "
                             )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-edit" }),
-                                _vm._v(
-                                  "\n                                        Edit\n                                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-trash" }),
-                                _vm._v(
-                                  "\n                                        Remove\n                                    "
-                                )
-                              ]
-                            )
-                          ])
-                        ]),
+                          ]
+                        ),
                         _vm._v(" "),
-                        _c("tr", [
-                          _c("td", [_vm._v("219")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Alexander Pierce")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("11-7-2014")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", { staticClass: "tag tag-warning" }, [
-                              _vm._v("Pending")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-default",
+                            attrs: { type: "button" }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-trash" }),
                             _vm._v(
-                              "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
+                              "\n                                            Remove\n                                        "
                             )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-edit" }),
-                                _vm._v(
-                                  "\n                                        Edit\n                                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-trash" }),
-                                _vm._v(
-                                  "\n                                        Remove\n                                    "
-                                )
-                              ]
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", [_vm._v("657")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Bob Doe")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("11-7-2014")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", { staticClass: "tag tag-primary" }, [
-                              _vm._v("Approved")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-edit" }),
-                                _vm._v(
-                                  "\n                                        Edit\n                                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-trash" }),
-                                _vm._v(
-                                  "\n                                        Remove\n                                    "
-                                )
-                              ]
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", [_vm._v("175")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Mike Doe")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("11-7-2014")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", { staticClass: "tag tag-danger" }, [
-                              _vm._v("Denied")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-edit" }),
-                                _vm._v(
-                                  "\n                                        Edit\n                                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-trash" }),
-                                _vm._v(
-                                  "\n                                        Remove\n                                    "
-                                )
-                              ]
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", [_vm._v("134")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Jim Doe")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("11-7-2014")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", { staticClass: "tag tag-success" }, [
-                              _vm._v("Approved")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-edit" }),
-                                _vm._v(
-                                  "\n                                        Edit\n                                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-trash" }),
-                                _vm._v(
-                                  "\n                                        Remove\n                                    "
-                                )
-                              ]
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", [_vm._v("494")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Victoria Doe")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("11-7-2014")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", { staticClass: "tag tag-warning" }, [
-                              _vm._v("Pending")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-edit" }),
-                                _vm._v(
-                                  "\n                                        Edit\n                                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-trash" }),
-                                _vm._v(
-                                  "\n                                        Remove\n                                    "
-                                )
-                              ]
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", [_vm._v("832")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Michael Doe")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("11-7-2014")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", { staticClass: "tag tag-primary" }, [
-                              _vm._v("Approved")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-edit" }),
-                                _vm._v(
-                                  "\n                                        Edit\n                                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-trash" }),
-                                _vm._v(
-                                  "\n                                        Remove\n                                    "
-                                )
-                              ]
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("tr", [
-                          _c("td", [_vm._v("982")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("Rocky Doe")]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("11-7-2014")]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c("span", { staticClass: "tag tag-danger" }, [
-                              _vm._v("Denied")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-edit" }),
-                                _vm._v(
-                                  "\n                                        Edit\n                                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-default",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _c("span", { staticClass: "fas fa-trash" }),
-                                _vm._v(
-                                  "\n                                        Remove\n                                    "
-                                )
-                              ]
-                            )
-                          ])
-                        ])
+                          ]
+                        )
                       ])
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-footer p-2" }, [
-                _c(
-                  "nav",
-                  { attrs: { "aria-label": "Page navigation example" } },
-                  [
-                    _c("ul", { staticClass: "pagination" }, [
-                      _c("li", { staticClass: "page-item" }, [
-                        _c(
-                          "a",
-                          { staticClass: "page-link", attrs: { href: "#" } },
-                          [_vm._v("Previous")]
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td", [_vm._v("219")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("Alexander Pierce")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("11-7-2014")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("span", { staticClass: "tag tag-warning" }, [
+                          _vm._v("Pending")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
                         )
                       ]),
                       _vm._v(" "),
-                      _c("li", { staticClass: "page-item" }, [
+                      _c("td", [
                         _c(
-                          "a",
-                          { staticClass: "page-link", attrs: { href: "#" } },
-                          [_vm._v("1")]
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-default",
+                            attrs: { type: "button" }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-edit" }),
+                            _vm._v(
+                              "\n                                            Edit\n                                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-default",
+                            attrs: { type: "button" }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-trash" }),
+                            _vm._v(
+                              "\n                                            Remove\n                                        "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td", [_vm._v("657")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("Bob Doe")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("11-7-2014")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("span", { staticClass: "tag tag-primary" }, [
+                          _vm._v("Approved")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
                         )
                       ]),
                       _vm._v(" "),
-                      _c("li", { staticClass: "page-item" }, [
+                      _c("td", [
                         _c(
-                          "a",
-                          { staticClass: "page-link", attrs: { href: "#" } },
-                          [_vm._v("2")]
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-default",
+                            attrs: { type: "button" }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-edit" }),
+                            _vm._v(
+                              "\n                                            Edit\n                                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-default",
+                            attrs: { type: "button" }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-trash" }),
+                            _vm._v(
+                              "\n                                            Remove\n                                        "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("td", [_vm._v("175")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("Mike Doe")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v("11-7-2014")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("span", { staticClass: "tag tag-danger" }, [
+                          _vm._v("Denied")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "Bacon ipsum dolor sit amet salami venison chicken flank fatback doner."
                         )
                       ]),
                       _vm._v(" "),
-                      _c("li", { staticClass: "page-item" }, [
+                      _c("td", [
                         _c(
-                          "a",
-                          { staticClass: "page-link", attrs: { href: "#" } },
-                          [_vm._v("3")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", { staticClass: "page-item" }, [
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-default",
+                            attrs: { type: "button" }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-edit" }),
+                            _vm._v(
+                              "\n                                            Edit\n                                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
                         _c(
-                          "a",
-                          { staticClass: "page-link", attrs: { href: "#" } },
-                          [_vm._v("Next")]
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-default",
+                            attrs: { type: "button" }
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-trash" }),
+                            _vm._v(
+                              "\n                                            Remove\n                                        "
+                            )
+                          ]
                         )
                       ])
                     ])
-                  ]
-                )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer " }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-sm-12 col-md-4 d-flex" }, [
+                    _c("div", { staticClass: "form-inline mx-auto mx-md-0" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c(
+                          "span",
+                          { staticClass: "font-weight-light d-inline" },
+                          [_vm._v("Show")]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c(
+                          "select",
+                          {
+                            staticClass: "form-control text-center",
+                            attrs: { name: "table_per_page" }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { value: "10", selected: "" } },
+                              [_vm._v("10")]
+                            ),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "50" } }, [
+                              _vm._v("50")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "100" } }, [
+                              _vm._v("100")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "500" } }, [
+                              _vm._v("500")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "1000" } }, [
+                              _vm._v("1000")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "All" } }, [
+                              _vm._v("All")
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c(
+                          "span",
+                          { staticClass: "font-weight-light d-inline" },
+                          [_vm._v("items")]
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-12 col-md-4 d-flex" }, [
+                    _c(
+                      "div",
+                      { staticClass: "d-flex align-items-center mx-auto" },
+                      [_c("span", [_vm._v("Showing 1 - 10 of 100 items")])]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-12 col-md-4" }, [
+                    _c("div", { staticClass: "d-flex align-items-center" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "table-pagination mx-auto ml-md-auto mx-md-0"
+                        },
+                        [
+                          _c(
+                            "nav",
+                            {
+                              attrs: { "aria-label": "Page navigation example" }
+                            },
+                            [
+                              _c("ul", { staticClass: "pagination mb-0" }, [
+                                _c("li", { staticClass: "page-item" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "page-link",
+                                      attrs: { href: "#" }
+                                    },
+                                    [_vm._v("Previous")]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", { staticClass: "page-item" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "page-link",
+                                      attrs: { href: "#" }
+                                    },
+                                    [_vm._v("1")]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", { staticClass: "page-item" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "page-link",
+                                      attrs: { href: "#" }
+                                    },
+                                    [_vm._v("2")]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", { staticClass: "page-item" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "page-link",
+                                      attrs: { href: "#" }
+                                    },
+                                    [_vm._v("3")]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", { staticClass: "page-item" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "page-link",
+                                      attrs: { href: "#" }
+                                    },
+                                    [_vm._v("Next")]
+                                  )
+                                ])
+                              ])
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  ])
+                ])
               ])
             ])
           ])
