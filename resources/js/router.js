@@ -47,6 +47,11 @@ const routes = [
                 component: require('./views/users/profile').default,
             },
             {
+                path: 'users',
+                name: 'Users',
+                component: require('./views/users').default,
+            },
+            {
                 path: 'roles',
                 name: 'Roles',
                 component: require('./views/users/roles').default,

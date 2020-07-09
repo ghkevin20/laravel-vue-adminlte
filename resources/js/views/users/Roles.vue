@@ -16,15 +16,15 @@
 
     export default {
         name: "Roles",
-        components : {
-            ContentHeader,MainContent
+        components: {
+            ContentHeader, MainContent
         },
-        data(){
+        data() {
             return {
                 title: this.$options.name,
                 breadCrumbs: [
                     {item: 'Home', to: 'home'},
-                    {item: 'Profile', active: true},
+                    {item: 'Roles', active: true},
                 ]
             }
         }
