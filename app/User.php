@@ -2,14 +2,18 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Helpers\DataViewer;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use SoftDeletes, Notifiable;
+    use SoftDeletes, DataViewer, Notifiable;
+
+    public static $columns = [
+        'id', 'name', 'email', 'email_verified_at', 'created_at', 'updated_at'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -29,12 +33,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+//    /**
+//     * The attributes that should be cast to native types.
+//     *
+//     * @var array
+//     */
+//    protected $casts = [
+//        'email_verified_at' => 'datetime:Y-M-d h:i A',
+//        'created_at' => 'datetime:Y-M-d h:i A',
+//        'updated_at' => 'datetime:Y-M-d h:i A',
+//        'deleted_at' => 'datetime:Y-M-d h:i A',
+//    ];
 }
