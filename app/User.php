@@ -33,15 +33,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-//    /**
-//     * The attributes that should be cast to native types.
-//     *
-//     * @var array
-//     */
-//    protected $casts = [
-//        'email_verified_at' => 'datetime:Y-M-d h:i A',
-//        'created_at' => 'datetime:Y-M-d h:i A',
-//        'updated_at' => 'datetime:Y-M-d h:i A',
-//        'deleted_at' => 'datetime:Y-M-d h:i A',
-//    ];
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime:Y-M-d h:i A',
+        'created_at' => 'datetime:Y-M-d h:i A',
+        'updated_at' => 'datetime:Y-M-d h:i A',
+        'deleted_at' => 'datetime:Y-M-d h:i A',
+    ];
 }

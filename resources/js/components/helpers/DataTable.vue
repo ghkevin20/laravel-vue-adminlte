@@ -6,7 +6,7 @@
                     <div class="d-flex align-items-center">
                         <h3 class="card-title mb-0">List</h3>
                         <div class="card-tools ml-auto form-inline">
-                            <slot name="card-tools"></slot>
+                            <button type="button" class="btn btn-primary" @click="create">Create</button>
                             &#160;
                             <div class="input-group" style="width: 150px;">
                                 <input type="text" name="table_search" v-model="query.search_input"
@@ -44,10 +44,11 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                         <tr>
-                            <th v-for="column in columns" @click="toggleOder(column)"
-                                class="cursor-pointer no-select">
-                                <span>{{ column }}</span>
-                                <span v-if="column === query.column">
+                            <th v-for="column in columns"
+                                @click="(column.orderable !== false)?toggleOder(column.name):0"
+                                class="no-select" :class="{ 'cursor-pointer': column.orderable !== false}">
+                                <span>{{ column.header }}</span>
+                                <span v-if="column.name === query.column">
                                     <span v-if="query.direction === 'asc'">&uarr;</span>
                                     <span v-if="query.direction === 'desc'">&darr;</span>
                                 </span>
@@ -59,26 +60,27 @@
                         </thead>
                         <tbody>
                         <tr v-for="row in model.data">
-                            <td v-for="(value,key) in row">{{ value }}</td>
-                            <td v-if="(query.filter === 'All' || query.filter === 'Active') && actions">
-                                <button type="button" class="btn btn-sm btn-outline-info"
-                                        v-if="actions.includes('view')" @click="view(row.id)">View
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary"
-                                        :data-link="source + '/' + row.id + '/edit'"
-                                        v-if="actions.includes('edit')">Edit
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-danger"
-                                        :data-link="source + '/' + row.id"
-                                        v-if="actions.includes('delete')">Remove
-                                </button>
+                            <td v-for="(value,key) in columns">{{ row[value.name] }}</td>
+                            <td v-if="actions">
+                                <span v-if="row.deleted_at !== null">
+                                     <button type="button" class="btn btn-sm btn-warning"
+                                             v-if="trashActions.includes('restore')" @click="restore(row.id)">Restore
+                                    </button>
+                                </span>
+                                <span v-else>
+                                    <button type="button" class="btn btn-sm btn-outline-info"
+                                            v-if="actions.includes('view')" @click="view(row.id)">View
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary"
+                                            :data-link="source + '/' + row.id + '/edit'"
+                                            v-if="actions.includes('edit')" @click="edit(row.id)">Edit
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                            :data-link="source + '/' + row.id"
+                                            v-if="actions.includes('delete')" @click="remove(row.id)">Remove
+                                    </button>
+                                </span>
                             </td>
-                            <td v-if="query.filter === 'Trashed'">
-                                <button type="button" class="btn btn-sm btn-outline-warning"
-                                        v-if="trashActions.includes('restore')">Restore
-                                </button>
-                            </td>
-
                         </tr>
                         </tbody>
                     </table>
@@ -143,22 +145,39 @@
                 </div>
             </div>
             <!-- /.card -->
-            <data-table-view :show="actionState.view.show" :data="actionState.view.data" @update="updateView"></data-table-view>
+
         </div>
     </div>
 </template>
 
 <script>
-    import DataTableView from "./DataTableView";
+    import Swal from 'sweetalert2'
 
     export default {
         name: "DataTable",
         props: {
-            'source': '',
-            'softDelete': false
-        },
-        components: {
-            DataTableView
+            source: '',
+            softDelete: {
+                type: Boolean,
+                default: false
+            },
+            columns: {
+                required: true,
+                type: Array,
+                default: function () {
+                    return [];
+                }
+            },
+            defaultOrder: {
+                type: Array,
+                default: function () {
+                    return []
+                }
+            },
+            refresh:{
+                type: Number,
+                default:0
+            }
         },
         data() {
             return {
@@ -168,40 +187,17 @@
                     next_page_url: false,
                     prev_page_url: false
                 },
-                columns: {},
                 query: {
                     page: 1,
-                    column: 'id',
-                    direction: 'desc',
+                    column: (this.defaultOrder[0] !== undefined) ? this.columns[this.defaultOrder[0]].name : null,
+                    direction: (this.defaultOrder[1] !== undefined) ? this.defaultOrder[1] : 'desc',
                     per_page: 10,
                     search_input: '',
                     filter: 'Active'
                 },
                 visiblePages: 3,
                 actions: ['view', 'edit', 'delete'],
-                trashActions: ['restore'],
-                actionState: {
-                    create: {
-                        show: false,
-                        data: null
-                    },
-                    view: {
-                        show: false,
-                        data: null
-                    },
-                    edit: {
-                        show: false,
-                        data: null
-                    },
-                    delete: {
-                        show: false,
-                        data: null
-                    },
-                    restore: {
-                        show: false,
-                        data: null
-                    }
-                }
+                trashActions: ['restore']
             }
         },
         created() {
@@ -210,11 +206,11 @@
         methods: {
             fetchIndexData() {
                 var vm = this;
-                var url = `${this.source}?column=${this.query.column}&direction=${this.query.direction}&page=${this.query.page}&per_page=${this.query.per_page}&search_input=${this.query.search_input}&filter=${this.query.filter}`;
+                var url = `${this.source}?&page=${this.query.page}&per_page=${this.query.per_page}&search_input=${this.query.search_input}&filter=${this.query.filter}${(this.query.column) ? '&column=' + this.query.column + '&direction=' + this.query.direction : ''}`;
                 axios.get(url)
                     .then(function (response) {
+                        console.log(url);
                         vm.$set(vm.$data, 'model', response.data.model);
-                        vm.$set(vm.$data, 'columns', response.data.columns);
                     })
                     .catch(function (response) {
                         console.log(response);
@@ -266,22 +262,77 @@
                 this.query.filter = event.target.innerText;
                 this.fetchIndexData();
             },
+            create() {
+                this.$emit('actionCreate');
+            },
             view(id) {
+                this.$emit('actionView',id);
+            },
+            edit(id) {
+                this.$emit('actionEdit',id);
+            },
+            remove(id) {
                 const vm = this;
                 const url = `${this.source}/${id}`;
-                axios.get(url)
-                    .then(function (response) {
-                        if (response.status === 200){
-                            vm.actionState.view.data = response.data.data;
-                        }
-                    })
-                    .catch(function (response) {
-                        console.log(response);
-                    });
-                this.actionState.view.show = true;
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Please confirm your action",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.value) {
+                        axios.delete(url)
+                            .then(function (response) {
+                                if (response.status === 200) {
+                                    Swal.fire(
+                                        'Removed!',
+                                        '',
+                                        'success'
+                                    )
+                                    vm.fetchIndexData();
+                                }
+                            })
+                            .catch(function (response) {
+                                console.log(response);
+                            });
+                    }
+                });
             },
-            updateView(show){
-                this.actionState.view.show = show
+            restore(id) {
+                const vm = this;
+                const url = `${this.source}/${id}/restore`;
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Please confirm your action",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.value) {
+                        axios.patch(url)
+                            .then(function (response) {
+                                if (response.status === 200) {
+                                    Swal.fire(
+                                        'Restored!',
+                                        '',
+                                        'success'
+                                    )
+                                    vm.fetchIndexData();
+                                }
+                            })
+                            .catch(function (response) {
+                                console.log(response);
+                            });
+                    }
+                });
+            }
+        },
+        watch:{
+            refresh:function (val) {
+                this.fetchIndexData();
             }
         }
 

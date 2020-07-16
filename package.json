@@ -27,6 +27,7 @@
         "admin-lte": "^3.0.5",
         "gridjs": "^1.10.0",
         "gridjs-vue": "^0.3.5",
+        "sweetalert2": "^9.15.3",
         "vue-router": "^3.3.4"
     }
 }

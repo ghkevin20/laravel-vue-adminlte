@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('users','API\UserController');
+Route::patch('users/{user}/restore','API\UserController@restore');
 Route::get('users','API\UserController@getData');
 
 

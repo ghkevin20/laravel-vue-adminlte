@@ -23,7 +23,7 @@ trait DataViewer {
             'column', 'direction', 'per_page',
             'search_column', 'search_operator', 'search_input'
         ]), [
-            'column' => 'alpha_dash|in:'.implode(',', self::$columns),
+            'column' => 'nullable',
             'direction' => 'in:asc,desc',
             'per_page' => 'integer|min:1',
             'search_input' => 'max:255'

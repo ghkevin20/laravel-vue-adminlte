@@ -10,8 +10,8 @@
                 </div>
                 <div class="modal-body">
                     <dl v-if="data">
-                        <span v-for="(value,key) in data">
-                            <dt>{{ key }}</dt>
+                        <span v-for="(value,index) in data">
+                            <dt>{{ index }}</dt>
                             <dd>{{ value }}</dd>
                         </span>
                     </dl>
