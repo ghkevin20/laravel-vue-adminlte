@@ -2528,6 +2528,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "DataTable",
@@ -3748,6 +3755,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ViewForm",
@@ -3839,6 +3857,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -3874,8 +3895,15 @@ __webpack_require__.r(__webpack_exports__);
             'name': 'id',
             'header': 'ID'
           }, {
+            'name': 'avatar',
+            'header': 'Avatar',
+            'orderable': false
+          }, {
             'name': 'name',
             'header': 'Name'
+          }, {
+            'name': 'gender',
+            'header': 'Gender'
           }, {
             'name': 'email',
             'header': 'Email'
@@ -3886,7 +3914,7 @@ __webpack_require__.r(__webpack_exports__);
             'name': 'updated_at',
             'header': 'Updated At'
           }],
-          defaultOrder: [3, 'desc']
+          defaultOrder: [5, 'desc']
         },
         create: {
           show: false
@@ -44438,7 +44466,23 @@ var render = function() {
                   "tr",
                   [
                     _vm._l(_vm.columns, function(value, key) {
-                      return _c("td", [_vm._v(_vm._s(row[value.name]))])
+                      return _c(
+                        "td",
+                        [
+                          _vm._t(
+                            "column_" + value.name,
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(row[value.name]) +
+                                  "\n                            "
+                              )
+                            ],
+                            { value: row[value.name] }
+                          )
+                        ],
+                        2
+                      )
                     }),
                     _vm._v(" "),
                     _vm.actions
@@ -46015,18 +46059,46 @@ var render = function() {
         },
         [
           _vm.data
-            ? _c(
-                "dl",
-                { attrs: { slot: "modal-body" }, slot: "modal-body" },
-                _vm._l(_vm.data, function(value, key) {
-                  return _c("div", [
-                    _c("dt", [_vm._v(_vm._s(key))]),
-                    _vm._v(" "),
-                    _c("dd", [_vm._v(_vm._s(value))])
-                  ])
-                }),
-                0
-              )
+            ? _c("div", { attrs: { slot: "modal-body" }, slot: "modal-body" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex justify-content-center align-items-center"
+                  },
+                  [
+                    _c("img", {
+                      attrs: {
+                        src: "/storage/avatars/" + _vm.data.avatar,
+                        alt: "Avatar",
+                        width: "230"
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("dl", [
+                  _c("dt", [_vm._v("Name")]),
+                  _vm._v(" "),
+                  _c("dd", [_vm._v(_vm._s(_vm.data.name))]),
+                  _vm._v(" "),
+                  _c("dt", [_vm._v("Gender")]),
+                  _vm._v(" "),
+                  _c("dd", [_vm._v(_vm._s(_vm.data.gender))]),
+                  _vm._v(" "),
+                  _c("dt", [_vm._v("Email")]),
+                  _vm._v(" "),
+                  _c("dd", [_vm._v(_vm._s(_vm.data.email))]),
+                  _vm._v(" "),
+                  _c("dt", [_vm._v("Created At")]),
+                  _vm._v(" "),
+                  _c("dd", [_vm._v(_vm._s(_vm.data.created_at))]),
+                  _vm._v(" "),
+                  _c("dt", [_vm._v("Updated At")]),
+                  _vm._v(" "),
+                  _c("dd", [_vm._v(_vm._s(_vm.data.updated_at))])
+                ])
+              ])
             : _vm._e()
         ]
       )
@@ -46078,7 +46150,25 @@ var render = function() {
               actionCreate: _vm.actionCreate,
               actionView: _vm.actionView,
               actionEdit: _vm.actionEdit
-            }
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "column_avatar",
+                fn: function(ref) {
+                  var value = ref.value
+                  return [
+                    _c("img", {
+                      attrs: {
+                        src: "/storage/avatars/" + value,
+                        alt: "Avatar",
+                        height: "64",
+                        width: "64"
+                      }
+                    })
+                  ]
+                }
+              }
+            ])
           }),
           _vm._v(" "),
           _c("view-form", {

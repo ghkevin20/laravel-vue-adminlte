@@ -1,12 +1,23 @@
 <template>
     <div>
         <modal title="View" :show="modalShow" @toggleShow="toggleShow">
-            <dl slot="modal-body" v-if="data">
-                <div v-for="(value,key) in data">
-                    <dt>{{ key }}</dt>
-                    <dd>{{ value }}</dd>
+            <div slot="modal-body" v-if="data">
+                <div class="d-flex justify-content-center align-items-center">
+                    <img :src="`/storage/avatars/${data.avatar}`" alt="Avatar" width="230">
                 </div>
-            </dl>
+                <dl>
+                    <dt>Name</dt>
+                    <dd>{{ data.name }}</dd>
+                    <dt>Gender</dt>
+                    <dd>{{ data.gender }}</dd>
+                    <dt>Email</dt>
+                    <dd>{{ data.email }}</dd>
+                    <dt>Created At</dt>
+                    <dd>{{ data.created_at }}</dd>
+                    <dt>Updated At</dt>
+                    <dd>{{ data.updated_at }}</dd>
+                </dl>
+            </div>
         </modal>
     </div>
 </template>

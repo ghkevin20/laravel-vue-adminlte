@@ -15,6 +15,9 @@
                 @actionView="actionView"
                 @actionEdit="actionEdit"
             >
+                <template v-slot:column_avatar="{ value }">
+                    <img :src="`/storage/avatars/${value}`" alt="Avatar"  height="64" width="64">
+                </template>
             </data-table>
             <view-form
                 :data="users.view.data"
@@ -67,12 +70,14 @@
                         refresh: 0,
                         columns: [
                             {'name': 'id', 'header': 'ID'},
+                            {'name': 'avatar', 'header': 'Avatar','orderable':false},
                             {'name': 'name', 'header': 'Name'},
+                            {'name': 'gender', 'header': 'Gender'},
                             {'name': 'email', 'header': 'Email'},
                             {'name': 'created_at', 'header': 'Created At'},
                             {'name': 'updated_at', 'header': 'Updated At'},
                         ],
-                        defaultOrder: [3, 'desc']
+                        defaultOrder: [5, 'desc']
                     },
                     create: {
                         show: false

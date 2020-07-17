@@ -60,7 +60,14 @@
                         </thead>
                         <tbody>
                         <tr v-for="row in model.data">
-                            <td v-for="(value,key) in columns">{{ row[value.name] }}</td>
+                            <td v-for="(value,key) in columns">
+                                <slot
+                                    :name="`column_${value.name}`"
+                                    :value="row[value.name]"
+                                >
+                                    {{ row[value.name] }}
+                                </slot>
+                            </td>
                             <td v-if="actions">
                                 <span v-if="row.deleted_at !== null">
                                      <button type="button" class="btn btn-sm btn-warning"
