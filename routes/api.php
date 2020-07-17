@@ -18,6 +18,12 @@ Route::apiResource('users','API\UserController');
 Route::patch('users/{user}/restore','API\UserController@restore');
 Route::get('users','API\UserController@getData');
 
+Route::get('categories/datatable','API\CategoryController@datatable');
+
+Route::apiResource('categories','API\CategoryController');
+
+
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

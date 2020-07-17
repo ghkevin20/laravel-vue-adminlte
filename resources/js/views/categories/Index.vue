@@ -6,35 +6,35 @@
         ></content-header>
         <main-content>
             <data-table
-                :source="users.source"
+                :source="categories.source"
                 :soft-delete="true"
-                :columns="users.table.columns"
-                :default-order="users.table.defaultOrder"
-                :refresh="users.table.refresh"
+                :columns="categories.table.columns"
+                :default-order="categories.table.defaultOrder"
+                :refresh="categories.table.refresh"
                 @actionCreate="actionCreate"
                 @actionView="actionView"
                 @actionEdit="actionEdit"
             >
             </data-table>
-            <view-form
-                :data="users.view.data"
-                :show="users.view.show"
-                @toggleShow="toggleView"
-            ></view-form>
-            <create-form
-                :url="users.source"
-                :show="users.create.show"
-                :clear-after-submit="true"
-                @toggleShow="toggleCreate"
-                @submit="users.table.refresh++"
-            ></create-form>
-            <edit-form
-                :url="users.source+'/'+users.edit.id"
-                :data="users.edit.data"
-                :show="users.edit.show"
-                @toggleShow="toggleEdit"
-                @submit="users.table.refresh++"
-            ></edit-form>
+<!--            <view-form-->
+<!--                :data="users.view.data"-->
+<!--                :show="users.view.show"-->
+<!--                @toggleShow="toggleView"-->
+<!--            ></view-form>-->
+<!--            <create-form-->
+<!--                :url="users.source"-->
+<!--                :show="users.create.show"-->
+<!--                :clear-after-submit="true"-->
+<!--                @toggleShow="toggleCreate"-->
+<!--                @submit="users.table.refresh++"-->
+<!--            ></create-form>-->
+<!--            <edit-form-->
+<!--                :url="users.source+'/'+users.edit.id"-->
+<!--                :data="users.edit.data"-->
+<!--                :show="users.edit.show"-->
+<!--                @toggleShow="toggleEdit"-->
+<!--                @submit="users.table.refresh++"-->
+<!--            ></edit-form>-->
         </main-content>
     </div>
 </template>
@@ -44,15 +44,16 @@
     import ContentHeader from '../../components/ContentHeader';
     import MainContent from '../../components/MainContent';
     import DataTable from "../../components/helpers/DataTable";
-    import CreateForm from "./CreateForm";
-    import ViewForm from "./ViewForm";
-    import EditForm from "./EditForm";
+    // import CreateForm from "./CreateForm";
+    // import ViewForm from "./ViewForm";
+    // import EditForm from "./EditForm";
 
 
     export default {
-        name: "Users",
+        name: "Categories",
         components: {
-            ContentHeader, MainContent, DataTable, CreateForm, ViewForm, EditForm
+            ContentHeader, MainContent, DataTable,
+            // CreateForm, ViewForm, EditForm
         },
         data() {
             return {
@@ -61,14 +62,14 @@
                     {item: 'Home', to: 'home'},
                     {item: 'Categories', active: true},
                 ],
-                users: {
-                    source: '/api/users',
+                categories: {
+                    source: '/api/categories/datatable',
                     table: {
-                        refresh: 0,
+                        refresh:0,
                         columns: [
                             {'name': 'id', 'header': 'ID'},
                             {'name': 'name', 'header': 'Name'},
-                            {'name': 'email', 'header': 'Email'},
+                            {'name': 'user_name', 'header': 'User Name'},
                             {'name': 'created_at', 'header': 'Created At'},
                             {'name': 'updated_at', 'header': 'Updated At'},
                         ],
@@ -78,12 +79,12 @@
                         show: false
                     },
                     view: {
-                        id: '',
+                        id:'',
                         data: {},
                         show: false
                     },
                     edit: {
-                        id: '',
+                        id:'',
                         data: {},
                         show: false
                     }
@@ -92,25 +93,25 @@
         },
         methods: {
             toggleCreate(isShow) {
-                this.users.create.show = isShow
+                this.categories.create.show = isShow
             },
             toggleView(isShow) {
-                this.users.view.show = isShow
+                this.categories.view.show = isShow
             },
             toggleEdit(isShow) {
-                this.users.edit.show = isShow
+                this.categories.edit.show = isShow
             },
             actionCreate() {
-                this.users.create.show = true;
+                this.categories.create.show = true;
             },
             actionView(id) {
                 const vm = this;
-                const url = this.users.source + '/' + id;
+                const url = this.categories.source + '/' + id;
                 axios.get(url)
                     .then(function (response) {
                         if (response.status === 200) {
-                            vm.users.view.data = response.data.data;
-                            vm.users.view.show = true;
+                            vm.categories.view.data = response.data.data;
+                            vm.categories.view.show = true;
                         }
                     })
                     .catch(function (response) {
@@ -120,13 +121,13 @@
             },
             actionEdit(id) {
                 const vm = this;
-                const url = this.users.source + '/' + id;
-                vm.users.edit.id = id;
+                const url = this.categories.source + '/' + id;
+                vm.categories.edit.id = id;
                 axios.get(url)
                     .then(function (response) {
                         if (response.status === 200) {
-                            vm.users.edit.data = response.data.data;
-                            vm.users.edit.show = true;
+                            vm.categories.edit.data = response.data.data;
+                            vm.categories.edit.show = true;
                         }
                     })
                     .catch(function (response) {

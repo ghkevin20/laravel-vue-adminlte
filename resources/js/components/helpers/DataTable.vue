@@ -206,7 +206,7 @@
         methods: {
             fetchIndexData() {
                 var vm = this;
-                var url = `${this.source}?&page=${this.query.page}&per_page=${this.query.per_page}&search_input=${this.query.search_input}&filter=${this.query.filter}${(this.query.column) ? '&column=' + this.query.column + '&direction=' + this.query.direction : ''}`;
+                var url = `${this.source}?per_page=${this.query.per_page}&page=${this.query.page}&search=${this.query.search_input}&filter=${this.query.filter}${(this.query.column) ? '&sort=' + this.query.column + '&order=' + this.query.direction : ''}`;
                 axios.get(url)
                     .then(function (response) {
                         console.log(url);
