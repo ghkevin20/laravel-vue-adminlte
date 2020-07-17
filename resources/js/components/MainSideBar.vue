@@ -107,7 +107,7 @@
             logout() {
                 axios.post('/logout').then(response => {
                     // this.$router.push("/login")
-                    window.location = "login";
+                    // window.location = "login";
 
                 }).catch(error => {
                     location.reload();

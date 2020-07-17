@@ -14,15 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('users','API\UserController');
 Route::patch('users/{user}/restore','API\UserController@restore');
-Route::get('users','API\UserController@getData');
-
-Route::get('categories/datatable','API\CategoryController@datatable');
-
+Route::apiResource('users','API\UserController');
 Route::apiResource('categories','API\CategoryController');
-
-
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

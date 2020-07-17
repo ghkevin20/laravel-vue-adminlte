@@ -16,14 +16,20 @@ class CategoryController extends Controller
      */
     public function index()
     {
-
+        $columns = [
+            'categories.id',
+            'categories.name',
+            'users.name AS user_name',
+            'categories.created_at',
+            'categories.updated_at',
+            'categories.deleted_at',
+        ];
 
         $query = Category::query()
-            ->join('users', 'user_id', '=', 'users.id');
+            ->join('users', 'user_id', '=', 'users.id')
+            ->select($columns);
 
-        return response([
-            'request' => $query
-        ]);
+        return response(Datatable::make($query,$columns));
     }
 
     /**
@@ -69,25 +75,5 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function datatable(Request $request)
-    {
-        $columns = [
-            'categories.id',
-            'categories.name',
-            'users.name AS user_name',
-            'categories.created_at',
-            'categories.updated_at',
-            'categories.deleted_at',
-        ];
-
-        $query = Category::query()
-            ->join('users', 'user_id', '=', 'users.id')
-            ->select($columns);
-
-        return response([
-            'model' => Datatable::make($query,$columns),
-        ]);
     }
 }

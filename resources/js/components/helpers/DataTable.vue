@@ -9,7 +9,7 @@
                             <button type="button" class="btn btn-primary" @click="create">Create</button>
                             &#160;
                             <div class="input-group" style="width: 150px;">
-                                <input type="text" name="table_search" v-model="query.search_input"
+                                <input type="text" name="table_search" v-model="query.search"
                                        @keyup.enter="fetchIndexData()"
                                        class="form-control float-right"
                                        placeholder="Search">
@@ -48,9 +48,9 @@
                                 @click="(column.orderable !== false)?toggleOder(column.name):0"
                                 class="no-select" :class="{ 'cursor-pointer': column.orderable !== false}">
                                 <span>{{ column.header }}</span>
-                                <span v-if="column.name === query.column">
-                                    <span v-if="query.direction === 'asc'">&uarr;</span>
-                                    <span v-if="query.direction === 'desc'">&darr;</span>
+                                <span v-if="column.name === query.sort">
+                                    <span v-if="query.order === 'asc'">&uarr;</span>
+                                    <span v-if="query.order === 'desc'">&darr;</span>
                                 </span>
                             </th>
                             <th v-if="actions">
@@ -189,10 +189,10 @@
                 },
                 query: {
                     page: 1,
-                    column: (this.defaultOrder[0] !== undefined) ? this.columns[this.defaultOrder[0]].name : null,
-                    direction: (this.defaultOrder[1] !== undefined) ? this.defaultOrder[1] : 'desc',
+                    sort: (this.defaultOrder[0] !== undefined) ? this.columns[this.defaultOrder[0]].name : null,
+                    order: (this.defaultOrder[1] !== undefined) ? this.defaultOrder[1] : 'desc',
                     per_page: 10,
-                    search_input: '',
+                    search: '',
                     filter: 'Active'
                 },
                 visiblePages: 3,
@@ -206,26 +206,25 @@
         methods: {
             fetchIndexData() {
                 var vm = this;
-                var url = `${this.source}?per_page=${this.query.per_page}&page=${this.query.page}&search=${this.query.search_input}&filter=${this.query.filter}${(this.query.column) ? '&sort=' + this.query.column + '&order=' + this.query.direction : ''}`;
+                var url = `${this.source}?per_page=${this.query.per_page}&page=${this.query.page}&search=${this.query.search}&filter=${this.query.filter}${(this.query.sort) ? '&sort=' + this.query.sort + '&order=' + this.query.order : ''}`;
                 axios.get(url)
                     .then(function (response) {
-                        console.log(url);
-                        vm.$set(vm.$data, 'model', response.data.model);
+                        vm.$set(vm.$data, 'model', response.data);
                     })
                     .catch(function (response) {
                         console.log(response);
                     });
             },
             toggleOder(column) {
-                if (column === this.query.column) {
-                    if (this.query.direction === 'desc') {
-                        this.query.direction = 'asc';
+                if (column === this.query.sort) {
+                    if (this.query.order === 'desc') {
+                        this.query.order = 'asc';
                     } else {
-                        this.query.direction = 'desc';
+                        this.query.order = 'desc';
                     }
                 } else {
-                    this.query.column = column;
-                    this.query.direction = 'desc';
+                    this.query.sort = column;
+                    this.query.order = 'desc';
                 }
 
                 this.fetchIndexData();

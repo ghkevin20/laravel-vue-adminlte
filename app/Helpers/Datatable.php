@@ -1,9 +1,15 @@
 <?php
+
 namespace App\Helpers;
 
-class Datatable {
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
-    public static function make($query,$columns){
+class Datatable
+{
+
+    public static function make($query, $columns)
+    {
         $request = app()->make('request');
 
         $result = [
@@ -21,6 +27,22 @@ class Datatable {
                 $array = explode('.', $column);
                 $arrangedColumns[trim($array[1])] = $column;
             }
+        }
+
+        $validator = Validator::make($request->only([
+            'per_page', 'page', 'search',
+            'filter', 'sort', 'order'
+        ]), [
+            'per_page' => 'integer|min:1',
+            'page' => 'integer|min:1',
+            'search' => 'nullable|string|max:255',
+            'sort' => 'nullable|alpha_dash|in:'.implode(',',array_keys($arrangedColumns)),
+            'order' => 'required_with:sort|in:asc,desc',
+            'filter' => 'nullable|in:Active,Trashed,All',
+        ]);
+
+        if($validator->fails()) {
+            return ['errors'=>$validator->getMessageBag()];
         }
 
         if ($request->has('search') && !is_null($request->get('search'))) {

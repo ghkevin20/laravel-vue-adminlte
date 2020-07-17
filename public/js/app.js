@@ -2321,9 +2321,8 @@ __webpack_require__.r(__webpack_exports__);
   name: "MainSideBar",
   methods: {
     logout: function logout() {
-      axios.post('/logout').then(function (response) {
-        // this.$router.push("/login")
-        window.location = "login";
+      axios.post('/logout').then(function (response) {// this.$router.push("/login")
+        // window.location = "login";
       })["catch"](function (error) {
         location.reload();
       });
@@ -2566,10 +2565,10 @@ __webpack_require__.r(__webpack_exports__);
       },
       query: {
         page: 1,
-        column: this.defaultOrder[0] !== undefined ? this.columns[this.defaultOrder[0]].name : null,
-        direction: this.defaultOrder[1] !== undefined ? this.defaultOrder[1] : 'desc',
+        sort: this.defaultOrder[0] !== undefined ? this.columns[this.defaultOrder[0]].name : null,
+        order: this.defaultOrder[1] !== undefined ? this.defaultOrder[1] : 'desc',
         per_page: 10,
-        search_input: '',
+        search: '',
         filter: 'Active'
       },
       visiblePages: 3,
@@ -2583,24 +2582,23 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     fetchIndexData: function fetchIndexData() {
       var vm = this;
-      var url = "".concat(this.source, "?per_page=").concat(this.query.per_page, "&page=").concat(this.query.page, "&search=").concat(this.query.search_input, "&filter=").concat(this.query.filter).concat(this.query.column ? '&sort=' + this.query.column + '&order=' + this.query.direction : '');
+      var url = "".concat(this.source, "?per_page=").concat(this.query.per_page, "&page=").concat(this.query.page, "&search=").concat(this.query.search, "&filter=").concat(this.query.filter).concat(this.query.sort ? '&sort=' + this.query.sort + '&order=' + this.query.order : '');
       axios.get(url).then(function (response) {
-        console.log(url);
-        vm.$set(vm.$data, 'model', response.data.model);
+        vm.$set(vm.$data, 'model', response.data);
       })["catch"](function (response) {
         console.log(response);
       });
     },
     toggleOder: function toggleOder(column) {
-      if (column === this.query.column) {
-        if (this.query.direction === 'desc') {
-          this.query.direction = 'asc';
+      if (column === this.query.sort) {
+        if (this.query.order === 'desc') {
+          this.query.order = 'asc';
         } else {
-          this.query.direction = 'desc';
+          this.query.order = 'desc';
         }
       } else {
-        this.query.column = column;
-        this.query.direction = 'desc';
+        this.query.sort = column;
+        this.query.order = 'desc';
       }
 
       this.fetchIndexData();
@@ -44251,8 +44249,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.query.search_input,
-                        expression: "query.search_input"
+                        value: _vm.query.search,
+                        expression: "query.search"
                       }
                     ],
                     staticClass: "form-control float-right",
@@ -44261,7 +44259,7 @@ var render = function() {
                       name: "table_search",
                       placeholder: "Search"
                     },
-                    domProps: { value: _vm.query.search_input },
+                    domProps: { value: _vm.query.search },
                     on: {
                       keyup: function($event) {
                         if (
@@ -44282,7 +44280,7 @@ var render = function() {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.query, "search_input", $event.target.value)
+                        _vm.$set(_vm.query, "search", $event.target.value)
                       }
                     }
                   }),
@@ -44406,13 +44404,13 @@ var render = function() {
                       [
                         _c("span", [_vm._v(_vm._s(column.header))]),
                         _vm._v(" "),
-                        column.name === _vm.query.column
+                        column.name === _vm.query.sort
                           ? _c("span", [
-                              _vm.query.direction === "asc"
+                              _vm.query.order === "asc"
                                 ? _c("span", [_vm._v("↑")])
                                 : _vm._e(),
                               _vm._v(" "),
-                              _vm.query.direction === "desc"
+                              _vm.query.order === "desc"
                                 ? _c("span", [_vm._v("↓")])
                                 : _vm._e()
                             ])

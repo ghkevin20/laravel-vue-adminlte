@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\Datatable;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
@@ -17,7 +18,19 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $columns = [
+            'users.id',
+            'users.name',
+            'users.email',
+            'users.created_at',
+            'users.updated_at',
+            'users.deleted_at',
+        ];
+
+        $query = User::query()
+            ->select($columns);
+
+        return response(Datatable::make($query,$columns));
     }
 
     /**
