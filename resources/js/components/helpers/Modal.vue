@@ -4,15 +4,15 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">{{ title }}</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" @click="close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <slot name="modal-body" v-if="show"></slot>
+                    <slot name="modal-body"></slot>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" @click="close()">Close</button>
+                    <button type="button" class="btn btn-default" @click="close">Close</button>
                     <button type="submit" v-if="submit" class="btn btn-primary" @click="emitSubmit">Submit</button>
                 </div>
             </div>
@@ -50,6 +50,7 @@
             },
             close() {
                 this.modalShow = false;
+                $(this.$refs['modal']).modal('hide');
                 this.emitToggle();
             },
             setShow(){

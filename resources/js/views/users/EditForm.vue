@@ -4,30 +4,30 @@
             <div slot="modal-body" class="row">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Name *"
+                        <label for="update_name">Name</label>
+                        <input type="text" class="form-control" id="update_name" name="name" placeholder="Name *"
                                v-model="fields.name"
                                :class="{ 'is-invalid': this.invalidFields.includes('name') }">
                         <div class="invalid-feedback">{{ this.invalidMessages.name }}</div>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email *"
+                        <label for="update_email">Email</label>
+                        <input type="email" class="form-control" id="update_email" name="email" placeholder="Email *"
                                v-model="fields.email"
                                :class="{ 'is-invalid': this.invalidFields.includes('email') }">
                         <div class="invalid-feedback">{{ this.invalidMessages.email }}</div>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password"
+                        <label for="update_password">Password</label>
+                        <input type="password" class="form-control" id="update_password" name="password" autocomplete="off"
                                placeholder="Password *"
                                v-model="fields.password"
                                :class="{ 'is-invalid': this.invalidFields.includes('password') }">
                         <div class="invalid-feedback">{{ this.invalidMessages.password }}</div>
                     </div>
                     <div class="form-group">
-                        <label for="password_confirmation">Confirm Password</label>
-                        <input type="password" class="form-control" id="password_confirmation"
+                        <label for="update_password_confirmation">Confirm Password</label>
+                        <input type="password" class="form-control" id="update_password_confirmation" autocomplete="off"
                                name="password_confirmation"
                                placeholder="Confirm Password *" v-model="fields.password_confirmation"
                                :class="{ 'is-invalid': this.invalidFields.includes('password_confirmation') }">

@@ -3,12 +3,29 @@
         <modal title="Create" :show="modalShow" @toggleShow="toggleShow" :submit="true">
             <div slot="modal-body" class="row">
                 <div class="col-12">
+                    <div class="form-group d-flex justify-content-center align-items-center">
+                        <avatar-cropper @updateBlob="updateBlob"></avatar-cropper>
+                    </div>
+                    <div class="d-none form-control" :class="{ 'is-invalid': this.invalidFields.includes('avatar') }"></div>
+                    <div class="d-inline invalid-feedback">{{ this.invalidMessages.avatar }}</div>
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Name *"
                                v-model="fields.name"
                                :class="{ 'is-invalid': this.invalidFields.includes('name') }">
                         <div class="invalid-feedback">{{ this.invalidMessages.name }}</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select class="form-control" id="gender" name="gender"
+                                v-model="fields.gender"
+                                :class="{ 'is-invalid': this.invalidFields.includes('gender') }"
+                        >
+                            <option value="">- Select Option -</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <div class="invalid-feedback">{{ this.invalidMessages.gender }}</div>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
@@ -19,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password"
+                        <input type="password" class="form-control" id="password" name="password" autocomplete="off"
                                placeholder="Password *"
                                v-model="fields.password"
                                :class="{ 'is-invalid': this.invalidFields.includes('password') }">
@@ -27,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label for="password_confirmation">Confirm Password</label>
-                        <input type="password" class="form-control" id="password_confirmation"
+                        <input type="password" class="form-control" id="password_confirmation" autocomplete="off"
                                name="password_confirmation"
                                placeholder="Confirm Password *" v-model="fields.password_confirmation"
                                :class="{ 'is-invalid': this.invalidFields.includes('password_confirmation') }">
@@ -41,8 +58,10 @@
 
 <script>
     import axios from 'axios';
-    import Modal from "../../components/helpers/Modal";
     import Swal from 'sweetalert2';
+    import Modal from "../../components/helpers/Modal";
+    import AvatarCropper from "../../components/helpers/AvatarCropper";
+
 
     export default {
         name: "CreateForm",
@@ -58,19 +77,23 @@
             }
         },
         components: {
-            Modal
+            Modal, AvatarCropper
         },
         data() {
             return {
                 modalShow: this.show,
                 defaultFields: {
+                    avatar: null,
                     name: '',
+                    gender: '',
                     email: '',
                     password: '',
                     password_confirmation: ''
                 },
                 fields: {
+                    avatar: null,
                     name: '',
+                    gender: '',
                     email: '',
                     password: '',
                     password_confirmation: ''
@@ -97,10 +120,12 @@
                 }
 
                 let formData = new FormData();
-                formData.append('name', this.fields.name);
-                formData.append('email', this.fields.email);
-                formData.append('password', this.fields.password);
-                formData.append('password_confirmation', this.fields.password_confirmation);
+
+                for (const field in this.fields) {
+                    if(this.fields[field]){
+                        formData.append(field, this.fields[field]);
+                    }
+                }
 
                 axios.post(this.url, formData, config)
                     .then(function (response) {
@@ -142,16 +167,28 @@
                         }
                     });
 
+            },
+            updateBlob(avatar){
+                this.fields.avatar = avatar;
             }
         },
         watch: {
             show: function (val) {
                 this.modalShow = val;
             }
+        },
+        mounted() {
+
         }
     }
 </script>
 
 <style scoped>
+    /* Ensure the size of the image fit the container perfectly */
+    img {
+        display: block;
 
+        /* This rule is very important, please don't ignore this */
+        max-width: 100%;
+    }
 </style>
