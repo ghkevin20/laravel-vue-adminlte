@@ -2413,7 +2413,7 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     defaultPreviewSource: {
       type: String,
-      "default": '/storage/avatars/no-image.png'
+      "default": '/storage/avatars/upload-image.png'
     }
   },
   data: function data() {
@@ -2659,6 +2659,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "DataTable",
   props: {
+    title: '',
     source: '',
     softDelete: {
       type: Boolean,
@@ -3968,6 +3969,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CreateForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CreateForm */ "./resources/js/views/users/CreateForm.vue");
 /* harmony import */ var _ViewForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ViewForm */ "./resources/js/views/users/ViewForm.vue");
 /* harmony import */ var _EditForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./EditForm */ "./resources/js/views/users/EditForm.vue");
+//
 //
 //
 //
@@ -48128,7 +48130,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { ref: "avatar-cropper", staticClass: "avatar-cropper" }, [
     _c("img", {
-      staticClass: "avatar-cropper-preview",
+      staticClass: "img-fluid img-thumbnail avatar-cropper-preview",
       attrs: { src: _vm.previewSource, width: "200" },
       on: { click: _vm.avatarClick }
     }),
@@ -48235,7 +48237,9 @@ var render = function() {
       _c("div", { staticClass: "card data-table" }, [
         _c("div", { staticClass: "card-header" }, [
           _c("div", { staticClass: "d-flex align-items-center" }, [
-            _c("h3", { staticClass: "card-title mb-0" }, [_vm._v("List")]),
+            _c("h3", { staticClass: "card-title mb-0" }, [
+              _vm._v(_vm._s(_vm.title))
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-tools ml-auto form-inline" }, [
               _c(
@@ -50191,6 +50195,7 @@ var render = function() {
         [
           _c("data-table", {
             attrs: {
+              title: "List",
               source: _vm.users.source,
               "soft-delete": true,
               columns: _vm.users.table.columns,

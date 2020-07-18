@@ -39,4 +39,16 @@ class User extends Authenticatable
         'updated_at' => 'datetime:Y-M-d h:i A',
         'deleted_at' => 'datetime:Y-M-d h:i A',
     ];
+
+    /**
+     * Get the user's avatar.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getAvatarAttribute($value)
+    {
+        return $value?$value:'avatar-'.strtolower($this->gender).'.png';
+    }
+
 }

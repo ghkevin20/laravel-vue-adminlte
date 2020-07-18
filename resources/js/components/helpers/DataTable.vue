@@ -4,7 +4,7 @@
             <div class="card data-table">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
-                        <h3 class="card-title mb-0">List</h3>
+                        <h3 class="card-title mb-0">{{ title }}</h3>
                         <div class="card-tools ml-auto form-inline">
                             <button type="button" class="btn btn-primary" @click="create">Create</button>
                             &#160;
@@ -163,6 +163,7 @@
     export default {
         name: "DataTable",
         props: {
+            title: '',
             source: '',
             softDelete: {
                 type: Boolean,

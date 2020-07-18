@@ -6,6 +6,7 @@
         ></content-header>
         <main-content>
             <data-table
+                title="List"
                 :source="users.source"
                 :soft-delete="true"
                 :columns="users.table.columns"
@@ -16,7 +17,7 @@
                 @actionEdit="actionEdit"
             >
                 <template v-slot:column_avatar="{ value }">
-                    <img :src="`/storage/avatars/${value}`" alt="Avatar"  height="64" width="64">
+                    <img :src="`/storage/avatars/${value}`" alt="Avatar" height="64" width="64">
                 </template>
             </data-table>
             <view-form
@@ -70,7 +71,7 @@
                         refresh: 0,
                         columns: [
                             {'name': 'id', 'header': 'ID'},
-                            {'name': 'avatar', 'header': 'Avatar','orderable':false},
+                            {'name': 'avatar', 'header': 'Avatar', 'orderable': false},
                             {'name': 'name', 'header': 'Name'},
                             {'name': 'gender', 'header': 'Gender'},
                             {'name': 'email', 'header': 'Email'},

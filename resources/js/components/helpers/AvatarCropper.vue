@@ -1,6 +1,6 @@
 <template>
     <div ref="avatar-cropper" class="avatar-cropper">
-        <img :src="previewSource" width="200" class="avatar-cropper-preview"
+        <img :src="previewSource" width="200" class="img-fluid img-thumbnail avatar-cropper-preview"
              @click="avatarClick">
         <input type="file" name="avatar" class="form-control sr-only" accept="image/jpeg,image/jpg,image/png"
                ref="file-upload" @change="fileChanged">
@@ -37,7 +37,7 @@
         props: {
             defaultPreviewSource:{
                type: String,
-               default: '/storage/avatars/no-image.png'
+               default: '/storage/avatars/upload-image.png'
            }
         },
         data() {
