@@ -6,9 +6,14 @@
                     <div class="d-flex align-items-center">
                         <h3 class="card-title mb-0">{{ title }}</h3>
                         <div class="card-tools ml-auto form-inline">
-                            <button type="button" class="btn btn-primary" @click="create">Create</button>
-                            &#160;
-                            <div class="input-group" style="width: 150px;">
+                            <div v-if="actions.includes('create')">
+                                <button type="button" class="btn btn-primary" @click="create">
+                                    <span class="fas fa-plus-circle"></span>
+                                    Create
+                                </button>
+                                &#160;
+                            </div>
+                            <div class="input-group" style="width: 150px;" v-if="controls.includes('search')">
                                 <input type="text" name="table_search" v-model="query.search"
                                        @keyup.enter="fetchIndexData()"
                                        class="form-control float-right"
@@ -19,23 +24,26 @@
                                     </button>
                                 </div>
                             </div>
-                            &#160;
-                            <div class="btn-group" v-if="softDelete">
-                                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                    {{ query.filter }}
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="javascript: void(0);" class="dropdown-item"
-                                       :class="{ active: query.filter === 'Active' }" @click="filter($event)">Active</a>
-                                    <a href="javascript: void(0);" class="dropdown-item"
-                                       :class="{ active: query.filter === 'Trashed' }"
-                                       @click="filter($event)">Trashed</a>
-                                    <a href="javascript: void(0);" class="dropdown-item"
-                                       :class="{ active: query.filter === 'All' }" @click="filter($event)">All</a>
+                            <div v-if="controls.includes('filter')">
+                                &#160;
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        <span class="fas fa-filter"></span>
+                                        {{ query.filter }}
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a href="javascript: void(0);" class="dropdown-item"
+                                           :class="{ active: query.filter === 'Active' }"
+                                           @click="filter($event)">Active</a>
+                                        <a href="javascript: void(0);" class="dropdown-item"
+                                           :class="{ active: query.filter === 'Trashed' }"
+                                           @click="filter($event)">Trashed</a>
+                                        <a href="javascript: void(0);" class="dropdown-item"
+                                           :class="{ active: query.filter === 'All' }" @click="filter($event)">All</a>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -53,7 +61,7 @@
                                     <span v-if="query.order === 'desc'">&darr;</span>
                                 </span>
                             </th>
-                            <th v-if="actions">
+                            <th v-if="actions.length">
                                 Actions
                             </th>
                         </tr>
@@ -64,27 +72,34 @@
                                 <slot
                                     :name="`column_${value.name}`"
                                     :value="row[value.name]"
-                                >
-                                    {{ row[value.name] }}
+                                >{{ row[value.name] }}
                                 </slot>
                             </td>
-                            <td v-if="actions">
+                            <td v-if="actions.length">
                                 <span v-if="row.deleted_at !== null">
                                      <button type="button" class="btn btn-sm btn-warning"
-                                             v-if="trashActions.includes('restore')" @click="restore(row.id)">Restore
+                                             v-if="trashActions.includes('restore')" @click="restore(row.id)">
+                                         <span class="fas fa-trash-restore-alt"></span>
+                                         Restore
                                     </button>
                                 </span>
                                 <span v-else>
                                     <button type="button" class="btn btn-sm btn-outline-info"
-                                            v-if="actions.includes('view')" @click="view(row.id)">View
+                                            v-if="actions.includes('view')" @click="view(row.id)">
+                                        <span class="fas fa-eye"></span>
+                                        View
                                     </button>
                                     <button type="button" class="btn btn-sm btn-outline-primary"
                                             :data-link="source + '/' + row.id + '/edit'"
-                                            v-if="actions.includes('edit')" @click="edit(row.id)">Edit
+                                            v-if="actions.includes('edit')" @click="edit(row.id)">
+                                        <span class="fas fa-edit"></span>
+                                        Edit
                                     </button>
                                     <button type="button" class="btn btn-sm btn-outline-danger"
                                             :data-link="source + '/' + row.id"
-                                            v-if="actions.includes('delete')" @click="remove(row.id)">Remove
+                                            v-if="actions.includes('delete')" @click="remove(row.id)">
+                                        <span class="fas fa-trash-alt"></span>
+                                        Remove
                                     </button>
                                 </span>
                             </td>
@@ -182,9 +197,27 @@
                     return []
                 }
             },
-            refresh:{
+            refresh: {
                 type: Number,
-                default:0
+                default: 0
+            },
+            actions: {
+                type: Array,
+                default: function () {
+                    return []
+                }
+            },
+            trashActions: {
+                type: Array,
+                default: function () {
+                    return []
+                }
+            },
+            controls: {
+                type: Array,
+                default: function () {
+                    return ['search']
+                }
             }
         },
         data() {
@@ -202,10 +235,7 @@
                     per_page: 10,
                     search: '',
                     filter: 'Active'
-                },
-                visiblePages: 3,
-                actions: ['view', 'edit', 'delete'],
-                trashActions: ['restore']
+                }
             }
         },
         created() {
@@ -273,10 +303,10 @@
                 this.$emit('actionCreate');
             },
             view(id) {
-                this.$emit('actionView',id);
+                this.$emit('actionView', id);
             },
             edit(id) {
-                this.$emit('actionEdit',id);
+                this.$emit('actionEdit', id);
             },
             remove(id) {
                 const vm = this;
@@ -337,8 +367,8 @@
                 });
             }
         },
-        watch:{
-            refresh:function (val) {
+        watch: {
+            refresh: function (val) {
                 this.fetchIndexData();
             }
         }

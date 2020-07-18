@@ -12,8 +12,8 @@
                     <slot name="modal-body"></slot>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" @click="close">Close</button>
-                    <button type="submit" v-if="submit" class="btn btn-primary" @click="emitSubmit">Submit</button>
+                    <button type="button" class="btn btn-default" @click="close"><span class="fas fa-times-circle"></span> Close</button>
+                    <button type="submit" v-if="submit" class="btn btn-primary" @click="emitSubmit"><span class="fas fa-paper-plane"></span> Submit</button>
                 </div>
             </div>
             <!-- /.modal-content -->

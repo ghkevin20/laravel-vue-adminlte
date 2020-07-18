@@ -2655,6 +2655,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "DataTable",
@@ -2681,6 +2696,24 @@ __webpack_require__.r(__webpack_exports__);
     refresh: {
       type: Number,
       "default": 0
+    },
+    actions: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    trashActions: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    controls: {
+      type: Array,
+      "default": function _default() {
+        return ['search'];
+      }
     }
   },
   data: function data() {
@@ -2698,10 +2731,7 @@ __webpack_require__.r(__webpack_exports__);
         per_page: 10,
         search: '',
         filter: 'Active'
-      },
-      visiblePages: 3,
-      actions: ['view', 'edit', 'delete'],
-      trashActions: ['restore']
+      }
     };
   },
   created: function created() {
@@ -3969,6 +3999,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CreateForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CreateForm */ "./resources/js/views/users/CreateForm.vue");
 /* harmony import */ var _ViewForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ViewForm */ "./resources/js/views/users/ViewForm.vue");
 /* harmony import */ var _EditForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./EditForm */ "./resources/js/views/users/EditForm.vue");
+//
+//
+//
 //
 //
 //
@@ -48242,151 +48275,174 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-tools ml-auto form-inline" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "button" },
-                  on: { click: _vm.create }
-                },
-                [_vm._v("Create")]
-              ),
-              _vm._v("\n                         \n                        "),
-              _c(
-                "div",
-                { staticClass: "input-group", staticStyle: { width: "150px" } },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.query.search,
-                        expression: "query.search"
-                      }
-                    ],
-                    staticClass: "form-control float-right",
-                    attrs: {
-                      type: "text",
-                      name: "table_search",
-                      placeholder: "Search"
-                    },
-                    domProps: { value: _vm.query.search },
-                    on: {
-                      keyup: function($event) {
-                        if (
-                          !$event.type.indexOf("key") &&
-                          _vm._k(
-                            $event.keyCode,
-                            "enter",
-                            13,
-                            $event.key,
-                            "Enter"
-                          )
-                        ) {
-                          return null
-                        }
-                        return _vm.fetchIndexData()
-                      },
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.query, "search", $event.target.value)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-group-append" }, [
+              _vm.actions.includes("create")
+                ? _c("div", [
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-default",
-                        attrs: { type: "submit" },
-                        on: {
-                          click: function($event) {
-                            return _vm.fetchIndexData()
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-search" })]
-                    )
-                  ])
-                ]
-              ),
-              _vm._v("\n                         \n                        "),
-              _vm.softDelete
-                ? _c("div", { staticClass: "btn-group" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-dark dropdown-toggle",
-                        attrs: {
-                          type: "button",
-                          "data-toggle": "dropdown",
-                          "aria-haspopup": "true",
-                          "aria-expanded": "false"
-                        }
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: { click: _vm.create }
                       },
                       [
+                        _c("span", { staticClass: "fas fa-plus-circle" }),
                         _vm._v(
-                          "\n                                " +
-                            _vm._s(_vm.query.filter) +
-                            "\n                            "
+                          "\n                                Create\n                            "
                         )
                       ]
                     ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "dropdown-menu dropdown-menu-right" },
-                      [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "dropdown-item",
-                            class: { active: _vm.query.filter === "Active" },
-                            attrs: { href: "javascript: void(0);" },
-                            on: {
-                              click: function($event) {
-                                return _vm.filter($event)
-                              }
-                            }
-                          },
-                          [_vm._v("Active")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "dropdown-item",
-                            class: { active: _vm.query.filter === "Trashed" },
-                            attrs: { href: "javascript: void(0);" },
-                            on: {
-                              click: function($event) {
-                                return _vm.filter($event)
-                              }
-                            }
-                          },
-                          [_vm._v("Trashed")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "dropdown-item",
-                            class: { active: _vm.query.filter === "All" },
-                            attrs: { href: "javascript: void(0);" },
-                            on: {
-                              click: function($event) {
-                                return _vm.filter($event)
-                              }
-                            }
-                          },
-                          [_vm._v("All")]
-                        )
-                      ]
+                    _vm._v(
+                      "\n                             \n                        "
                     )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.controls.includes("search")
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "input-group",
+                      staticStyle: { width: "150px" }
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.query.search,
+                            expression: "query.search"
+                          }
+                        ],
+                        staticClass: "form-control float-right",
+                        attrs: {
+                          type: "text",
+                          name: "table_search",
+                          placeholder: "Search"
+                        },
+                        domProps: { value: _vm.query.search },
+                        on: {
+                          keyup: function($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.fetchIndexData()
+                          },
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.query, "search", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-group-append" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-default",
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function($event) {
+                                return _vm.fetchIndexData()
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-search" })]
+                        )
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.controls.includes("filter")
+                ? _c("div", [
+                    _vm._v(
+                      "\n                             \n                            "
+                    ),
+                    _c("div", { staticClass: "btn-group" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-dark dropdown-toggle",
+                          attrs: {
+                            type: "button",
+                            "data-toggle": "dropdown",
+                            "aria-haspopup": "true",
+                            "aria-expanded": "false"
+                          }
+                        },
+                        [
+                          _c("span", { staticClass: "fas fa-filter" }),
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(_vm.query.filter) +
+                              "\n                                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "dropdown-menu dropdown-menu-right" },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              class: { active: _vm.query.filter === "Active" },
+                              attrs: { href: "javascript: void(0);" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.filter($event)
+                                }
+                              }
+                            },
+                            [_vm._v("Active")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              class: { active: _vm.query.filter === "Trashed" },
+                              attrs: { href: "javascript: void(0);" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.filter($event)
+                                }
+                              }
+                            },
+                            [_vm._v("Trashed")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              class: { active: _vm.query.filter === "All" },
+                              attrs: { href: "javascript: void(0);" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.filter($event)
+                                }
+                              }
+                            },
+                            [_vm._v("All")]
+                          )
+                        ]
+                      )
+                    ])
                   ])
                 : _vm._e()
             ])
@@ -48431,7 +48487,7 @@ var render = function() {
                     )
                   }),
                   _vm._v(" "),
-                  _vm.actions
+                  _vm.actions.length
                     ? _c("th", [
                         _vm._v(
                           "\n                            Actions\n                        "
@@ -48457,8 +48513,7 @@ var render = function() {
                             "column_" + value.name,
                             [
                               _vm._v(
-                                "\n                                " +
-                                  _vm._s(row[value.name]) +
+                                _vm._s(row[value.name]) +
                                   "\n                            "
                               )
                             ],
@@ -48469,7 +48524,7 @@ var render = function() {
                       )
                     }),
                     _vm._v(" "),
-                    _vm.actions
+                    _vm.actions.length
                       ? _c("td", [
                           row.deleted_at !== null
                             ? _c("span", [
@@ -48486,8 +48541,12 @@ var render = function() {
                                         }
                                       },
                                       [
+                                        _c("span", {
+                                          staticClass:
+                                            "fas fa-trash-restore-alt"
+                                        }),
                                         _vm._v(
-                                          "Restore\n                                "
+                                          "\n                                     Restore\n                                "
                                         )
                                       ]
                                     )
@@ -48508,8 +48567,11 @@ var render = function() {
                                         }
                                       },
                                       [
+                                        _c("span", {
+                                          staticClass: "fas fa-eye"
+                                        }),
                                         _vm._v(
-                                          "View\n                                "
+                                          "\n                                    View\n                                "
                                         )
                                       ]
                                     )
@@ -48533,8 +48595,11 @@ var render = function() {
                                         }
                                       },
                                       [
+                                        _c("span", {
+                                          staticClass: "fas fa-edit"
+                                        }),
                                         _vm._v(
-                                          "Edit\n                                "
+                                          "\n                                    Edit\n                                "
                                         )
                                       ]
                                     )
@@ -48557,8 +48622,11 @@ var render = function() {
                                         }
                                       },
                                       [
+                                        _c("span", {
+                                          staticClass: "fas fa-trash-alt"
+                                        }),
                                         _vm._v(
-                                          "Remove\n                                "
+                                          "\n                                    Remove\n                                "
                                         )
                                       ]
                                     )
@@ -48846,7 +48914,10 @@ var render = function() {
               attrs: { type: "button" },
               on: { click: _vm.close }
             },
-            [_vm._v("Close")]
+            [
+              _c("span", { staticClass: "fas fa-times-circle" }),
+              _vm._v(" Close")
+            ]
           ),
           _vm._v(" "),
           _vm.submit
@@ -48857,7 +48928,10 @@ var render = function() {
                   attrs: { type: "submit" },
                   on: { click: _vm.emitSubmit }
                 },
-                [_vm._v("Submit")]
+                [
+                  _c("span", { staticClass: "fas fa-paper-plane" }),
+                  _vm._v(" Submit")
+                ]
               )
             : _vm._e()
         ])
@@ -50200,7 +50274,10 @@ var render = function() {
               "soft-delete": true,
               columns: _vm.users.table.columns,
               "default-order": _vm.users.table.defaultOrder,
-              refresh: _vm.users.table.refresh
+              refresh: _vm.users.table.refresh,
+              actions: ["create", "view", "edit", "delete"],
+              "trash-actions": ["restore"],
+              controls: ["search", "filter"]
             },
             on: {
               actionCreate: _vm.actionCreate,
