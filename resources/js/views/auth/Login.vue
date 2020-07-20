@@ -8,9 +8,9 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form action="../../index3.html" method="post">
+                <form role="form" method="post" @submit.prevent="login">
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input type="email" class="form-control" placeholder="Email" v-model="email">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input type="password" class="form-control" placeholder="Password" v-model="password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -42,15 +42,15 @@
                     </div>
                 </form>
 
-<!--                <div class="social-auth-links text-center mb-3">-->
-<!--                    <p>- OR -</p>-->
-<!--                    <a href="#" class="btn btn-block btn-primary">-->
-<!--                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook-->
-<!--                    </a>-->
-<!--                    <a href="#" class="btn btn-block btn-danger">-->
-<!--                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+-->
-<!--                    </a>-->
-<!--                </div>-->
+                <!--                <div class="social-auth-links text-center mb-3">-->
+                <!--                    <p>- OR -</p>-->
+                <!--                    <a href="#" class="btn btn-block btn-primary">-->
+                <!--                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook-->
+                <!--                    </a>-->
+                <!--                    <a href="#" class="btn btn-block btn-danger">-->
+                <!--                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+-->
+                <!--                    </a>-->
+                <!--                </div>-->
                 <!-- /.social-auth-links -->
 
                 <p class="mb-1">
@@ -66,10 +66,31 @@
 </template>
 
 <script>
+    import axios from 'axios'
+
     export default {
         name: "Login",
         beforeCreate() {
             document.querySelector("body").className = 'hold-transition login-page';
+        },
+        data() {
+            return {
+                email: '',
+                password: ''
+            }
+        },
+        methods: {
+            login() {
+                axios.get('/sanctum/csrf-cookie').then(response => {
+                    axios.post('/login', {
+                        email: this.email,
+                        password: this.password
+                    }).then(response2 => {
+                        document.querySelector("body").classList.remove('login-page');
+                        this.$router.push('/home');
+                    })
+                });
+            }
         }
     }
 </script>

@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::patch('users/{user}/restore','API\UserController@restore');
-Route::apiResource('users','API\UserController');
-Route::apiResource('categories','API\CategoryController');
-
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/user',function (Request $request){
+        return $request->user();
+    });
+    Route::patch('users/{user}/restore', 'API\UserController@restore');
+    Route::apiResource('users', 'API\UserController');
+    Route::apiResource('categories', 'API\CategoryController');
 });

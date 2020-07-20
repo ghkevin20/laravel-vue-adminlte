@@ -5,7 +5,9 @@
             :breadCrumbs="this.breadCrumbs"
         ></content-header>
         <main-content>
-
+            <div>
+                Logged in as {{ name }}
+            </div>
         </main-content>
     </div>
 </template>
@@ -24,8 +26,14 @@
                 title: 'Home',
                 breadCrumbs: [
                     {item: 'Home', active: true},
-                ]
+                ],
+                name: ''
             }
+        },
+        mounted() {
+            axios.get('/api/user').then(response => {
+                this.name = response.data.email
+            });
         }
     }
 </script>

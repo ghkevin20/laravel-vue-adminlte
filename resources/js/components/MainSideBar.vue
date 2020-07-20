@@ -84,7 +84,7 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <a href="javascript: void(0)" v-on:click="logout" class="nav-link">
+                            <a href="javascript: void(0)" @click="logout" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>
                                     Logout
@@ -106,7 +106,7 @@
         methods: {
             logout() {
                 axios.post('/logout').then(response => {
-                    // this.$router.push("/login")
+                    this.$router.push("/login")
                     // window.location = "login";
 
                 }).catch(error => {
