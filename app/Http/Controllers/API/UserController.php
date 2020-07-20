@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -46,7 +47,7 @@ class UserController extends Controller
         $requestData = $request->all();
 
         $validator = Validator::make($requestData, [
-            'avatar' => 'image|dimensions:ratio=1|mimes:jpeg,jpg,png|nullable|max:1999',
+            'avatar' => 'image|dimensions:ratio=1|mimes:jpeg,jpg,png|nullable|max:2048',
             'name' => 'required|string|max:255',
             'gender' => 'required|string|in:Male,Female',
             'email' => 'required|email|max:255|unique:users,email',
@@ -102,15 +103,32 @@ class UserController extends Controller
         $requestData = $request->all();
 
         $validator = Validator::make($requestData, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$id],
-            'password' => [ 'string', 'min:8', 'confirmed'],
+            'avatar' => 'image|dimensions:ratio=1|mimes:jpeg,jpg,png|nullable|max:1999',
+            'name' => 'required|string|max:255',
+            'gender' => 'required|string|in:Male,Female',
+            'email' => 'required|email|max:255|unique:users,email,'.$id,
+            'password' => 'string|min:8|max:16|confirmed',
+            'password_confirmation' => 'required_with:password'
         ]);
 
         if ($validator->fails()) return response(['message' => 'There is a problem with your request', 'errors' => $validator->errors()], 422);
 
         if(!$request->has('password')){
             $requestData['password'] = Hash::make($data['password']);
+        }
+
+        if ($request->hasFile('avatar')) {
+            // Delete Previous File
+            if (!empty($data->checkavatar)){
+                Storage::delete('public/avatars/'.$data->avatar);
+            }
+
+            // Update the final filename to store and make it unique
+            $filename = uniqid(rand(100,999)).'_'.time().'.png';
+            // Store in Storage
+            $request->file('avatar')->storeAs('public/avatars',$filename);
+            // Store in Database
+            $requestData['avatar'] = $filename;
         }
 
         $data->update($requestData);

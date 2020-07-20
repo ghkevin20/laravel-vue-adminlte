@@ -107,6 +107,13 @@
                     vm.cropper.destroy();
                 }
             }
+        },
+        watch:{
+            defaultPreviewSource: function (newVal,oldVal) {
+                if(newVal !== oldVal){
+                    this.previewSource = newVal
+                }
+            }
         }
     }
 </script>

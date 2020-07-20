@@ -3,6 +3,11 @@
         <modal title="Edit" :show="modalShow" @toggleShow="toggleShow" :submit="true">
             <div slot="modal-body" class="row">
                 <div class="col-12">
+                    <div class="form-group d-flex justify-content-center align-items-center" >
+                        <avatar-cropper :default-preview-source="`/storage/avatars/${this.data.avatar}`" @updateBlob="updateBlob"></avatar-cropper>
+                    </div>
+                    <div class="d-none form-control" :class="{ 'is-invalid': this.invalidFields.includes('avatar') }"></div>
+                    <div class="d-inline invalid-feedback">{{ this.invalidMessages.avatar }}</div>
                     <div class="form-group">
                         <label for="update_name">Name</label>
                         <input type="text" class="form-control" id="update_name" name="name" placeholder="Name *"
@@ -16,6 +21,18 @@
                                v-model="fields.email"
                                :class="{ 'is-invalid': this.invalidFields.includes('email') }">
                         <div class="invalid-feedback">{{ this.invalidMessages.email }}</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="update_gender">Gender</label>
+                        <select class="form-control" id="update_gender" name="gender"
+                                v-model="fields.gender"
+                                :class="{ 'is-invalid': this.invalidFields.includes('gender') }"
+                        >
+                            <option value="">- Select Option -</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <div class="invalid-feedback">{{ this.invalidMessages.gender }}</div>
                     </div>
                     <div class="form-group">
                         <label for="update_password">Password</label>
@@ -41,8 +58,9 @@
 
 <script>
     import axios from 'axios';
-    import Modal from "../../components/helpers/Modal";
     import Swal from 'sweetalert2';
+    import Modal from "../../components/helpers/Modal";
+    import AvatarCropper from "../../components/helpers/AvatarCropper";
 
     export default {
         name: "EditForm",
@@ -59,20 +77,15 @@
             }
         },
         components: {
-            Modal
+            Modal, AvatarCropper
         },
         data() {
             return {
                 modalShow: this.show,
-                defaultFields: {
-                    name: '',
-                    email: '',
-                    password: '',
-                    password_confirmation: ''
-                },
+                defaultFields: {},
                 fields: this.data,
                 invalidFields: [],
-                invalidMessages: {}
+                invalidMessages: {},
             }
         },
         methods: {
@@ -94,10 +107,16 @@
 
                 let formData = new FormData();
                 formData.append('_method', 'PUT');
-                formData.append('name', this.fields.name);
-                formData.append('email', this.fields.email);
-                formData.append('password', this.fields.password);
-                formData.append('password_confirmation', this.fields.password_confirmation);
+                // formData.append('name', this.fields.name);
+                // formData.append('email', this.fields.email);
+                // formData.append('password', this.fields.password);
+                // formData.append('password_confirmation', this.fields.password_confirmation);
+
+                for (const field in this.fields) {
+                    if(this.fields[field]){
+                        formData.append(field, this.fields[field]);
+                    }
+                }
 
                 axios.post(this.url, formData, config)
                     .then(function (response) {
@@ -139,6 +158,9 @@
                         }
                     });
 
+            },
+            updateBlob(avatar){
+                this.fields.avatar = avatar;
             }
         },
         watch: {
@@ -147,7 +169,7 @@
             },
             data: {
                 handler(val){
-                    this.fields = this.data;
+                    this.fields = Object.assign({}, this.data);
                 },
                 deep: true
             }

@@ -176,9 +176,6 @@
             show: function (val) {
                 this.modalShow = val;
             }
-        },
-        mounted() {
-
         }
     }
 </script>

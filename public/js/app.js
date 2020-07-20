@@ -2480,6 +2480,13 @@ __webpack_require__.r(__webpack_exports__);
         vm.cropper.destroy();
       }
     }
+  },
+  watch: {
+    defaultPreviewSource: function defaultPreviewSource(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.previewSource = newVal;
+      }
+    }
   }
 });
 
@@ -3743,8 +3750,7 @@ __webpack_require__.r(__webpack_exports__);
     show: function show(val) {
       this.modalShow = val;
     }
-  },
-  mounted: function mounted() {}
+  }
 });
 
 /***/ }),
@@ -3760,9 +3766,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_helpers_Modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/helpers/Modal */ "./resources/js/components/helpers/Modal.vue");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_helpers_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/helpers/Modal */ "./resources/js/components/helpers/Modal.vue");
+/* harmony import */ var _components_helpers_AvatarCropper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/helpers/AvatarCropper */ "./resources/js/components/helpers/AvatarCropper.vue");
 //
 //
 //
@@ -3804,6 +3811,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -3822,17 +3847,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    Modal: _components_helpers_Modal__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Modal: _components_helpers_Modal__WEBPACK_IMPORTED_MODULE_2__["default"],
+    AvatarCropper: _components_helpers_AvatarCropper__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
       modalShow: this.show,
-      defaultFields: {
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: ''
-      },
+      defaultFields: {},
       fields: this.data,
       invalidFields: [],
       invalidMessages: {}
@@ -3856,14 +3877,20 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       var formData = new FormData();
-      formData.append('_method', 'PUT');
-      formData.append('name', this.fields.name);
-      formData.append('email', this.fields.email);
-      formData.append('password', this.fields.password);
-      formData.append('password_confirmation', this.fields.password_confirmation);
+      formData.append('_method', 'PUT'); // formData.append('name', this.fields.name);
+      // formData.append('email', this.fields.email);
+      // formData.append('password', this.fields.password);
+      // formData.append('password_confirmation', this.fields.password_confirmation);
+
+      for (var field in this.fields) {
+        if (this.fields[field]) {
+          formData.append(field, this.fields[field]);
+        }
+      }
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, config).then(function (response) {
         if (response.status === 200) {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
+          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
             icon: 'success',
             title: 'Success!',
             text: 'Nothing went wrong.'
@@ -3891,13 +3918,16 @@ __webpack_require__.r(__webpack_exports__);
         } else if (error.request) {
           console.log(error.request);
         } else {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
+          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!'
           });
         }
       });
+    },
+    updateBlob: function updateBlob(avatar) {
+      this.fields.avatar = avatar;
     }
   },
   watch: {
@@ -3906,7 +3936,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     data: {
       handler: function handler(val) {
-        this.fields = this.data;
+        this.fields = Object.assign({}, this.data);
       },
       deep: true
     }
@@ -12362,7 +12392,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Ensure the size of the image fit the container perfectly */\nimg[data-v-fae8c834] {\n    display: block;\n\n    /* This rule is very important, please don't ignore this */\n    max-width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Ensure the size of the image fit the container perfectly */\nimg[data-v-fae8c834] {\n    display: block;\n\n    /* This rule is very important, please don't ignore this */\n    max-width: 100%;\n}\n", ""]);
 
 // exports
 
@@ -49977,6 +50007,33 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "col-12" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "form-group d-flex justify-content-center align-items-center"
+                  },
+                  [
+                    _c("avatar-cropper", {
+                      attrs: {
+                        "default-preview-source":
+                          "/storage/avatars/" + this.data.avatar
+                      },
+                      on: { updateBlob: _vm.updateBlob }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass: "d-none form-control",
+                  class: { "is-invalid": this.invalidFields.includes("avatar") }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "d-inline invalid-feedback" }, [
+                  _vm._v(_vm._s(this.invalidMessages.avatar))
+                ]),
+                _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", { attrs: { for: "update_name" } }, [
                     _vm._v("Name")
@@ -50054,6 +50111,67 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "invalid-feedback" }, [
                     _vm._v(_vm._s(this.invalidMessages.email))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "update_gender" } }, [
+                    _vm._v("Gender")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.fields.gender,
+                          expression: "fields.gender"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: {
+                        "is-invalid": this.invalidFields.includes("gender")
+                      },
+                      attrs: { id: "update_gender", name: "gender" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.fields,
+                            "gender",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("- Select Option -")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "Male" } }, [
+                        _vm._v("Male")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "Female" } }, [
+                        _vm._v("Female")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(_vm._s(this.invalidMessages.gender))
                   ])
                 ]),
                 _vm._v(" "),

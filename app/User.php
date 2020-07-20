@@ -51,4 +51,15 @@ class User extends Authenticatable
         return $value?$value:'avatar-'.strtolower($this->gender).'.png';
     }
 
+    /**
+     * Check Actual Value of User's Avatar
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getCheckAvatarAttribute()
+    {
+        return ($this->avatar == "avatar-".strtolower($this->gender).".png")?"":$this->avatar;
+    }
+
 }
