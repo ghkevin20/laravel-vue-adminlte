@@ -3635,6 +3635,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -3684,10 +3685,12 @@ __webpack_require__.r(__webpack_exports__);
       this.modalShow = isShow;
       this.$emit('toggleShow', isShow);
     },
-    clearFields: function clearFields() {
-      this.fields = Object.assign({}, this.defaultFields);
+    clearValidation: function clearValidation() {
       this.invalidFields = [];
       this.invalidMessages = {};
+    },
+    clearFields: function clearFields() {
+      this.fields = Object.assign({}, this.defaultFields);
     },
     submit: function submit() {
       var vm = this;
@@ -3716,6 +3719,7 @@ __webpack_require__.r(__webpack_exports__);
             vm.clearFields();
           }
 
+          vm.clearValidation();
           vm.$emit('submit');
         }
       })["catch"](function (error) {
@@ -3864,10 +3868,12 @@ __webpack_require__.r(__webpack_exports__);
       this.modalShow = isShow;
       this.$emit('toggleShow', isShow);
     },
-    clearFields: function clearFields() {
-      this.fields = Object.assign({}, this.defaultFields);
+    clearValidation: function clearValidation() {
       this.invalidFields = [];
       this.invalidMessages = {};
+    },
+    clearFields: function clearFields() {
+      this.fields = Object.assign({}, this.defaultFields);
     },
     submit: function submit() {
       var vm = this;
@@ -3877,14 +3883,17 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       var formData = new FormData();
-      formData.append('_method', 'PUT'); // formData.append('name', this.fields.name);
-      // formData.append('email', this.fields.email);
-      // formData.append('password', this.fields.password);
-      // formData.append('password_confirmation', this.fields.password_confirmation);
+      formData.append('_method', 'PUT');
 
       for (var field in this.fields) {
         if (this.fields[field]) {
-          formData.append(field, this.fields[field]);
+          if (field === 'avatar') {
+            if (field instanceof Blob) {
+              formData.append(field, this.fields[field]);
+            }
+          } else {
+            formData.append(field, this.fields[field]);
+          }
         }
       }
 
@@ -3900,6 +3909,7 @@ __webpack_require__.r(__webpack_exports__);
             vm.clearFields();
           }
 
+          vm.clearValidation();
           vm.$emit('submit');
         }
       })["catch"](function (error) {
@@ -12392,7 +12402,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Ensure the size of the image fit the container perfectly */\nimg[data-v-fae8c834] {\n    display: block;\n\n    /* This rule is very important, please don't ignore this */\n    max-width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Ensure the size of the image fit the container perfectly */\nimg[data-v-fae8c834] {\n    display: block;\n\n    /* This rule is very important, please don't ignore this */\n    max-width: 100%;\n}\n", ""]);
 
 // exports
 

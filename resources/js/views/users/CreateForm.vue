@@ -6,7 +6,8 @@
                     <div class="form-group d-flex justify-content-center align-items-center">
                         <avatar-cropper @updateBlob="updateBlob"></avatar-cropper>
                     </div>
-                    <div class="d-none form-control" :class="{ 'is-invalid': this.invalidFields.includes('avatar') }"></div>
+                    <div class="d-none form-control"
+                         :class="{ 'is-invalid': this.invalidFields.includes('avatar') }"></div>
                     <div class="d-inline invalid-feedback">{{ this.invalidMessages.avatar }}</div>
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -107,10 +108,12 @@
                 this.modalShow = isShow;
                 this.$emit('toggleShow', isShow);
             },
-            clearFields(){
-                this.fields = Object.assign({}, this.defaultFields);
+            clearValidation() {
                 this.invalidFields = [];
                 this.invalidMessages = {};
+            },
+            clearFields() {
+                this.fields = Object.assign({}, this.defaultFields);
             },
             submit() {
                 const vm = this;
@@ -122,7 +125,7 @@
                 let formData = new FormData();
 
                 for (const field in this.fields) {
-                    if(this.fields[field]){
+                    if (this.fields[field]) {
                         formData.append(field, this.fields[field]);
                     }
                 }
@@ -136,9 +139,11 @@
                                 text: 'Nothing went wrong.'
                             });
 
-                            if (vm.clearAfterSubmit){
+                            if (vm.clearAfterSubmit) {
                                 vm.clearFields();
                             }
+
+                            vm.clearValidation();
 
                             vm.$emit('submit')
                         }
@@ -149,7 +154,7 @@
                                 const errors = error.response.data.errors;
                                 let invalidFields = [];
                                 let invalidMessages = {};
-                                Object.keys(errors).forEach(function (key){
+                                Object.keys(errors).forEach(function (key) {
                                     invalidFields.push(key);
                                     invalidMessages[key] = errors[key][0];
                                 });
@@ -168,7 +173,7 @@
                     });
 
             },
-            updateBlob(avatar){
+            updateBlob(avatar) {
                 this.fields.avatar = avatar;
             }
         },

@@ -93,10 +93,12 @@
                 this.modalShow = isShow;
                 this.$emit('toggleShow', isShow);
             },
-            clearFields(){
-                this.fields = Object.assign({}, this.defaultFields);
+            clearValidation() {
                 this.invalidFields = [];
                 this.invalidMessages = {};
+            },
+            clearFields() {
+                this.fields = Object.assign({}, this.defaultFields);
             },
             submit() {
                 const vm = this;
@@ -107,14 +109,18 @@
 
                 let formData = new FormData();
                 formData.append('_method', 'PUT');
-                // formData.append('name', this.fields.name);
-                // formData.append('email', this.fields.email);
-                // formData.append('password', this.fields.password);
-                // formData.append('password_confirmation', this.fields.password_confirmation);
 
                 for (const field in this.fields) {
                     if(this.fields[field]){
-                        formData.append(field, this.fields[field]);
+
+
+                        if(field === 'avatar'){
+                            if(field  instanceof Blob){
+                                formData.append(field, this.fields[field]);
+                            }
+                        }else{
+                            formData.append(field, this.fields[field]);
+                        }
                     }
                 }
 
@@ -127,9 +133,11 @@
                                 text: 'Nothing went wrong.'
                             });
 
-                            if (vm.clearAfterSubmit){
+                            if (vm.clearAfterSubmit) {
                                 vm.clearFields();
                             }
+
+                            vm.clearValidation();
 
                             vm.$emit('submit')
                         }
