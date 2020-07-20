@@ -82,7 +82,7 @@
         methods: {
             login() {
                 axios.get('/sanctum/csrf-cookie').then(response => {
-                    axios.post('/login', {
+                    axios.post('/api/login', {
                         email: this.email,
                         password: this.password
                     }).then(response2 => {

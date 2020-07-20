@@ -105,12 +105,14 @@
         name: "MainSideBar",
         methods: {
             logout() {
-                axios.post('/logout').then(response => {
-                    this.$router.push("/login")
-                    // window.location = "login";
-
+                axios.post('api/logout').then(response => {
+                    if (response.status === 200){
+                        this.$router.push("/login")
+                    }else{
+                        console.log(response)
+                    }
                 }).catch(error => {
-                    location.reload();
+                    console.log(error)
                 });
             },
             closeAllTreeView() {

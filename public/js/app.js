@@ -2323,11 +2323,14 @@ __webpack_require__.r(__webpack_exports__);
     logout: function logout() {
       var _this2 = this;
 
-      axios.post('/logout').then(function (response) {
-        _this2.$router.push("/login"); // window.location = "login";
-
+      axios.post('api/logout').then(function (response) {
+        if (response.status === 200) {
+          _this2.$router.push("/login");
+        } else {
+          console.log(response);
+        }
       })["catch"](function (error) {
-        location.reload();
+        console.log(error);
       });
     },
     closeAllTreeView: function closeAllTreeView() {
@@ -3265,7 +3268,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/sanctum/csrf-cookie').then(function (response) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/login', {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/login', {
           email: _this.email,
           password: _this.password
         }).then(function (response2) {
