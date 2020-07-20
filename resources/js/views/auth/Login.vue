@@ -87,6 +87,7 @@
                         password: this.password
                     }).then(response2 => {
                         document.querySelector("body").classList.remove('login-page');
+                        console.log(this.$store.dispatch('authenticate'));
                         this.$router.push('/home');
                     })
                 });

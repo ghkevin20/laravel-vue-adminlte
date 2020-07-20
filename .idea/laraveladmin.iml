@@ -112,7 +112,5 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="laravel-vuejs" />
     <orderEntry type="module" module-name="boilerplate" />
-    <orderEntry type="module" module-name="laravel" />
-    <orderEntry type="module" module-name="coreui" />
   </component>
 </module>

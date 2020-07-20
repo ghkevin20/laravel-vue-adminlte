@@ -4,11 +4,17 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 import Vue from 'vue'
-import App from "./App.vue";
+import App from "./App.vue"
 
+import store from './store'
 import router from './router'
 
+
+
 require('./bootstrap');
+
+
+
 
 // window.Vue = require('vue');
 
@@ -32,8 +38,10 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
 const app = new Vue({
     el: '#app',
+    store,
     router,
     components: {
         App
