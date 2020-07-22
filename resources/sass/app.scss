@@ -1,14 +1,14 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
-// Variables
-@import 'variables';
+//// Fonts
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+//
+//// Variables
+//@import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+//@import '~bootstrap/scss/bootstrap';
 
 // AdminLTE
-@import "~admin-lte/build/scss/AdminLTE";
+@import "~admin-lte/dist/css/adminlte.min.css";
 
 // Fontawesome 5 free
 @import '~@fortawesome/fontawesome-free/css/all.min.css';

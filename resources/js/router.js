@@ -1,6 +1,7 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import store from './store'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import store from './store';
+import axios from "axios";
 
 Vue.use(VueRouter);
 
@@ -8,7 +9,7 @@ const routes = [
     {
         path: '/',
         component: require('./layouts/Public').default,
-        meta: {},
+        meta: {validate: ['guest']},
         children: [
             {
                 path: '/',
@@ -35,7 +36,7 @@ const routes = [
     {
         path: '/',
         component: require('./layouts/Master').default,
-        meta: { requiresAuth: true },
+        meta: {validate: ['auth']},
         children: [
             {
                 path: 'home',
@@ -64,7 +65,7 @@ const routes = [
             },
         ]
     }, // authentication required
-]
+];
 
 const router = new VueRouter({
     routes,
@@ -75,24 +76,49 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        // this route requires auth, check if logged in
-        // if not, redirect to login page.
-        if (!store.getters.auth) {
-            next({path: '/login'})
-            alert('hello1');
-        } else {
-            next()
-            alert('hello2');
-        }
+    if (to.matched.some(record => record.meta.validate)) {
+        const find = to.matched.find(record => record.meta.validate)
+
+        axios.post('/api/check')
+            .then(response => {
+                // alert('alert');
+                if (response.data.authenticated) {
+                    store.dispatch('authenticate');
+                    store.dispatch('setUser', response.data.data);
+
+                    if (find.meta.validate.includes('guest')) {
+                        next({path: '/home'});
+                    }else{
+                        next();
+                    }
+                } else {
+                    store.dispatch('disprove');
+                    store.dispatch('unsetUser');
+
+                    if (find.meta.validate.includes('auth')) {
+                        next({path: '/login'});
+                    }else{
+                        next();
+                    }
+                }
+            })
+            .catch(error => {
+                document.cookie = "XSRF-TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+                store.dispatch('disprove');
+                store.dispatch('unsetUser');
+
+                if(to.path !== '/login'){
+                    next({path: '/login'});
+                }else{
+                    next()
+                }
+            });
     } else {
-        if (store.getters.auth) {
-            next({path: '/home'})
-        }
-        alert(store.getters.auth)
-        next() // make sure to always call next()!
+        next(); // make sure to always call next()!
     }
+
 })
 
-export default router
+export default router;
 

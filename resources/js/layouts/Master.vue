@@ -9,8 +9,6 @@
             <router-view></router-view>
         </content-wrapper>
 
-        <control-side-bar></control-side-bar>
-
         <main-footer></main-footer>
 
     </div>
@@ -27,6 +25,18 @@
         name: "Master",
         components: {
             MainHeader, MainSideBar, ContentWrapper, ControlSideBar, MainFooter
+        },
+        beforeRouteEnter(to,from,next) {
+            document.querySelector("body").classList.add('hold-transition');
+            document.querySelector("body").classList.add('sidebar-mini');
+            next()
+        },
+        destroyed() {
+            document.querySelector("body").classList.remove('hold-transition');
+            document.querySelector("body").classList.remove('sidebar-mini');
+        },
+        mounted() {
+            $('[data-widget="treeview"]').Treeview()
         }
     }
 </script>

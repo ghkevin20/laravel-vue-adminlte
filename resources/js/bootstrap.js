@@ -11,7 +11,11 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
-    require('admin-lte');
+
+    window.AdminLTE = require('admin-lte')
+    // window.AdminLTE = require('admin-lte/build/js/AdminLTE')
+
+
 } catch (e) {}
 
 /**

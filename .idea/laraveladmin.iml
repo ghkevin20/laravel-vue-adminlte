@@ -112,5 +112,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="laravel-vuejs" />
     <orderEntry type="module" module-name="boilerplate" />
+    <orderEntry type="module" module-name="vue2-admin-lte" />
   </component>
 </module>

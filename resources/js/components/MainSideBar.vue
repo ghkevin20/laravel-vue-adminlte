@@ -14,7 +14,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="https://vuejs.org/images/logo.png" class="img-circle elevation-2"
+                        <img :src="`/storage/avatars/${user.avatar}`" class="img-circle elevation-2"
                              alt="User Image">
                     </div>
                     <div class="info">
@@ -101,12 +101,16 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
+
     export default {
         name: "MainSideBar",
         methods: {
             logout() {
                 axios.post('api/logout').then(response => {
                     if (response.status === 200){
+                        this.$store.dispatch('disprove');
+                        this.$store.dispatch('unsetUser');
                         this.$router.push("/login")
                     }else{
                         console.log(response)
@@ -147,6 +151,11 @@
         mounted() {
             this.checkTreeView();
             this.navEventListener();
+        },
+        computed: {
+            ...mapGetters([
+                'user'
+            ])
         }
     }
 </script>

@@ -3,21 +3,13 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-import Vue from 'vue'
-import App from "./App.vue"
-
-import store from './store'
-import router from './router'
-
-
+import Vue from 'vue';
+import store from './store';
+import router from './router';
 
 require('./bootstrap');
 
-
-
-
 // window.Vue = require('vue');
-
 
 /**
  * The following block of code may be used to automatically register your
@@ -42,8 +34,5 @@ require('./bootstrap');
 const app = new Vue({
     el: '#app',
     store,
-    router,
-    components: {
-        App
-    },
+    router
 });

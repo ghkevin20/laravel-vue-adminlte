@@ -6,7 +6,7 @@
         ></content-header>
         <main-content>
             <div>
-                Logged in as {{ name }}
+                Logged in as
             </div>
         </main-content>
     </div>
@@ -27,14 +27,8 @@
                 breadCrumbs: [
                     {item: 'Home', active: true},
                 ],
-                name: ''
             }
         },
-        mounted() {
-            axios.get('/api/user').then(response => {
-                this.name = response.data.email
-            });
-        }
     }
 </script>
 
