@@ -48164,7 +48164,30 @@ var render = function() {
       "aside",
       { staticClass: "main-sidebar sidebar-dark-primary elevation-4" },
       [
-        _vm._m(0),
+        _c("a", { staticClass: "brand-link", attrs: { href: "#" } }, [
+          _c("img", {
+            staticClass: "brand-image img-circle elevation-3",
+            staticStyle: { opacity: ".8" },
+            attrs: {
+              src: "https://vuejs.org/images/logo.png",
+              alt:
+                this.$store.getters.appNameFirst +
+                " " +
+                this.$store.getters.appNameLast +
+                " Logo"
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "brand-text font-weight-light" }, [
+            _vm._v(
+              _vm._s(
+                this.$store.getters.appNameFirst +
+                  " " +
+                  this.$store.getters.appNameLast
+              )
+            )
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "sidebar" }, [
           _c("div", { staticClass: "user-panel mt-3 pb-3 mb-3 d-flex" }, [
@@ -48178,7 +48201,11 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "info" }, [
+              _c("a", { staticClass: "d-block", attrs: { href: "#" } }, [
+                _vm._v(_vm._s(_vm.user.name))
+              ])
+            ])
           ]),
           _vm._v(" "),
           _c("nav", { staticClass: "mt-2" }, [
@@ -48257,7 +48284,7 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("li", { staticClass: "nav-item has-treeview" }, [
-                  _vm._m(2),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c("ul", { staticClass: "nav nav-treeview" }, [
                     _c(
@@ -48348,39 +48375,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "brand-link", attrs: { href: "index3.html" } },
-      [
-        _c("img", {
-          staticClass: "brand-image img-circle elevation-3",
-          staticStyle: { opacity: ".8" },
-          attrs: {
-            src: "https://vuejs.org/images/logo.png",
-            alt: "LaraVue Logo"
-          }
-        }),
-        _vm._v(" "),
-        _c("span", { staticClass: "brand-text font-weight-light" }, [
-          _vm._v("LaravelAdmin")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "info" }, [
-      _c("a", { staticClass: "d-block", attrs: { href: "#" } }, [
-        _vm._v("Kevin Rosario")
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -50143,7 +50137,7 @@ var render = function() {
                       _vm._v("Male")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "Male" } }, [
+                    _c("option", { attrs: { value: "Female" } }, [
                       _vm._v("Female")
                     ])
                   ]

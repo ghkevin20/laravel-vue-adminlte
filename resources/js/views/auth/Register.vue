@@ -33,7 +33,7 @@
                                 v-model="fields.gender">
                             <option value="" selected disabled>Gender</option>
                             <option value="Male">Male</option>
-                            <option value="Male">Female</option>
+                            <option value="Female">Female</option>
                         </select>
                         <div class="input-group-append">
                             <div class="input-group-text">
