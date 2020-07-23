@@ -46,7 +46,7 @@ const routes = [
             {
                 path: 'profile',
                 name: 'Profile',
-                component: require('./views/users/profile').default,
+                component: require('./views/profile').default,
             },
             {
                 path: 'users',

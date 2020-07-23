@@ -15,11 +15,11 @@
 </template>
 
 <script>
-    import MainHeader from "../components/MainHeader";
-    import MainSideBar from '../components/MainSideBar';
-    import ContentWrapper from '../components/ContentWrapper';
-    import ControlSideBar from '../components/ControlSideBar';
-    import MainFooter from '../components/MainFooter';
+    import MainHeader from "./MainHeader";
+    import MainSideBar from './MainSideBar';
+    import ContentWrapper from './ContentWrapper';
+    import ControlSideBar from './ControlSideBar';
+    import MainFooter from './MainFooter';
 
     export default {
         name: "Master",

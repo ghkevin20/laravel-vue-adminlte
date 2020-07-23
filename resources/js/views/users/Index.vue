@@ -48,8 +48,8 @@
 
 <script>
     import axios from 'axios';
-    import ContentHeader from '../../components/ContentHeader';
-    import MainContent from '../../components/MainContent';
+    import ContentHeader from '../../layouts/ContentHeader';
+    import MainContent from '../../layouts/MainContent';
     import DataTable from "../../components/helpers/DataTable";
     import CreateForm from "./CreateForm";
     import ViewForm from "./ViewForm";

@@ -11,8 +11,8 @@
 </template>
 
 <script>
-    import ContentHeader from "../../components/ContentHeader";
-    import MainContent from "../../components/MainContent";
+    import ContentHeader from "../../layouts/ContentHeader";
+    import MainContent from "../../layouts/MainContent";
 
     export default {
         name: "Roles",
