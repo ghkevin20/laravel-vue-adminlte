@@ -4,9 +4,9 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="#" class="brand-link">
-                <img src="https://vuejs.org/images/logo.png" :alt="`${this.$store.getters.appNameFirst} ${this.$store.getters.appNameLast} Logo`"
+                <img src="https://vuejs.org/images/logo.png" :alt="`${appNameFirst} ${appNameLast} Logo`"
                      class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">{{ `${this.$store.getters.appNameFirst} ${this.$store.getters.appNameLast}` }}</span>
+                <span class="brand-text font-weight-light">{{ `${appNameFirst} ${appNameLast}` }}</span>
             </a>
 
             <!-- Sidebar -->
@@ -105,6 +105,17 @@
 
     export default {
         name: "MainSideBar",
+        props:{
+            appNameFirst: {
+                type: String,
+                required: true
+            },
+            appNameLast: '',
+            user: {
+                type: Object,
+                required: true
+            },
+        },
         methods: {
             logout() {
                 axios.post('api/logout').then(response => {
@@ -151,11 +162,6 @@
         mounted() {
             this.checkTreeView();
             this.navEventListener();
-        },
-        computed: {
-            ...mapGetters([
-                'user'
-            ])
         }
     }
 </script>

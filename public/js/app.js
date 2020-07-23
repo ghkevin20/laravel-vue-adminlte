@@ -2661,9 +2661,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "MainFooter"
+  name: "MainFooter",
+  props: {
+    contentRight: '',
+    contentLeft: '',
+    contentLeftStrong: ''
+  }
 });
 
 /***/ }),
@@ -2808,12 +2812,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2919,6 +2917,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MainSideBar",
+  props: {
+    appNameFirst: {
+      type: String,
+      required: true
+    },
+    appNameLast: '',
+    user: {
+      type: Object,
+      required: true
+    }
+  },
   methods: {
     logout: function logout() {
       var _this2 = this;
@@ -2970,8 +2979,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.checkTreeView();
     this.navEventListener();
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['user']))
+  }
 });
 
 /***/ }),
@@ -2990,6 +2998,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ContentWrapper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ContentWrapper */ "./resources/js/layouts/ContentWrapper.vue");
 /* harmony import */ var _ControlSideBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ControlSideBar */ "./resources/js/layouts/ControlSideBar.vue");
 /* harmony import */ var _MainFooter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MainFooter */ "./resources/js/layouts/MainFooter.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3006,6 +3021,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -3032,7 +3052,8 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     document.querySelector('body').classList.remove('hold-transition');
     $('ul[data-widget="treeview"]').Treeview('init');
-  }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['appNameFirst', 'appNameLast', 'user']))
 });
 
 /***/ }),
@@ -49238,27 +49259,20 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("footer", { staticClass: "main-footer" }, [
+    _vm.contentRight
+      ? _c("div", { staticClass: "float-right d-none d-sm-inline" }, [
+          _vm._v("\n        " + _vm._s(_vm.contentRight) + "\n    ")
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.contentLeftStrong
+      ? _c("strong", [_vm._v(_vm._s(_vm.contentLeftStrong))])
+      : _vm._e(),
+    _vm._v(_vm._s(_vm.contentLeft) + "\n")
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("footer", { staticClass: "main-footer" }, [
-      _c("div", { staticClass: "float-right d-none d-sm-inline" }, [
-        _vm._v("\n        Anything you want\n    ")
-      ]),
-      _vm._v(" "),
-      _c("strong", [
-        _vm._v("Copyright © 2020 "),
-        _c("a", { attrs: { href: "#" } }, [_vm._v("LaraVue")]),
-        _vm._v(".")
-      ]),
-      _vm._v(" All rights\n    reserved.\n")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -49366,22 +49380,12 @@ var render = function() {
             staticStyle: { opacity: ".8" },
             attrs: {
               src: "https://vuejs.org/images/logo.png",
-              alt:
-                this.$store.getters.appNameFirst +
-                " " +
-                this.$store.getters.appNameLast +
-                " Logo"
+              alt: _vm.appNameFirst + " " + _vm.appNameLast + " Logo"
             }
           }),
           _vm._v(" "),
           _c("span", { staticClass: "brand-text font-weight-light" }, [
-            _vm._v(
-              _vm._s(
-                this.$store.getters.appNameFirst +
-                  " " +
-                  this.$store.getters.appNameLast
-              )
-            )
+            _vm._v(_vm._s(_vm.appNameFirst + " " + _vm.appNameLast))
           ])
         ]),
         _vm._v(" "),
@@ -49618,11 +49622,22 @@ var render = function() {
     [
       _c("main-header"),
       _vm._v(" "),
-      _c("main-side-bar"),
+      _c("main-side-bar", {
+        attrs: {
+          user: _vm.user,
+          "app-name-first": _vm.appNameFirst,
+          "app-name-last": _vm.appNameLast
+        }
+      }),
       _vm._v(" "),
       _c("content-wrapper", [_c("router-view")], 1),
       _vm._v(" "),
-      _c("main-footer")
+      _c("main-footer", {
+        attrs: {
+          "content-left-strong":
+            _vm.appNameFirst + " " + _vm.appNameLast + " 2020"
+        }
+      })
     ],
     1
   )
