@@ -3030,9 +3030,7 @@ __webpack_require__.r(__webpack_exports__);
     document.querySelector("body").classList.remove('sidebar-mini');
   },
   mounted: function mounted() {
-    $(document).ready(function () {
-      $('ul[data-widget="treeview"]').Treeview();
-    });
+    $('ul[data-widget="treeview"]').Treeview('init');
   }
 });
 

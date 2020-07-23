@@ -36,9 +36,7 @@
             document.querySelector("body").classList.remove('sidebar-mini');
         },
         mounted() {
-            $(document).ready(function () {
-                $('ul[data-widget="treeview"]').Treeview();
-            });
+            $('ul[data-widget="treeview"]').Treeview('init');
         }
     }
 </script>
