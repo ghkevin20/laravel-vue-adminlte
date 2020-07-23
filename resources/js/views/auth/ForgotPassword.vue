@@ -36,10 +36,10 @@
                 </form>
 
                 <p class="mt-3 mb-1">
-                    <router-link to="login">Login</router-link>
+                    <router-link to="/login">Login</router-link>
                 </p>
                 <p class="mb-0">
-                    <router-link to="register" class="text-center">Register a new membership</router-link>
+                    <router-link to="/register" class="text-center">Register a new membership</router-link>
                 </p>
             </div>
             <!-- /.login-card-body -->
@@ -73,9 +73,8 @@
                 vm.invalidFields = [];
                 vm.invalidMessages = {};
                 axios.get('/sanctum/csrf-cookie').then(response => {
-                    axios.post('/api/password/reset', {
+                    axios.post('/api/password/forgot', {
                         email: this.fields.email,
-                        password: this.fields.password
                     })
                         .then(response2 => {
                             Swal.fire({

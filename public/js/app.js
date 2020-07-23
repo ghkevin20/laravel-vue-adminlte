@@ -3217,9 +3217,8 @@ __webpack_require__.r(__webpack_exports__);
       vm.invalidFields = [];
       vm.invalidMessages = {};
       axios.get('/sanctum/csrf-cookie').then(function (response) {
-        axios.post('/api/password/reset', {
-          email: _this.fields.email,
-          password: _this.fields.password
+        axios.post('/api/password/forgot', {
+          email: _this.fields.email
         }).then(function (response2) {
           Swal.fire({
             icon: 'success',
@@ -3491,10 +3490,102 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "RecoverPassword",
-  beforeCreate: function beforeCreate() {
-    document.querySelector("body").className = 'hold-transition login-page';
+  mounted: function mounted() {
+    this.$root.$el.classList.add('login-page');
+  },
+  destroyed: function destroyed() {
+    this.$root.$el.classList.remove('login-page');
+  },
+  data: function data() {
+    return {
+      fields: {
+        email: '',
+        password: '',
+        password_confirmation: ''
+      },
+      errorMessage: '',
+      invalidFields: [],
+      invalidMessages: {}
+    };
+  },
+  methods: {
+    recoverPassword: function recoverPassword() {
+      var _this = this;
+
+      var vm = this;
+      vm.errorMessage = '';
+      vm.invalidFields = [];
+      vm.invalidMessages = {};
+      axios.get('/sanctum/csrf-cookie').then(function (response) {
+        axios.post('/api/password/reset', {
+          token: _this.$route.params.token,
+          email: _this.fields.email,
+          password: _this.fields.password,
+          password_confirmation: _this.fields.password_confirmation
+        }).then(function (response2) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: response2.data.message
+          });
+
+          _this.$router.push('/login');
+        })["catch"](function (error) {
+          if (error.response) {
+            if (error.response.status === 422 || error.response.status === 401) {
+              var errors = error.response.data.errors;
+              var invalidFields = [];
+              var invalidMessages = {};
+
+              if (errors) {
+                Object.keys(errors).forEach(function (key) {
+                  invalidFields.push(key);
+                  invalidMessages[key] = errors[key][0];
+                });
+              }
+
+              vm.invalidFields = invalidFields;
+              vm.invalidMessages = invalidMessages;
+              vm.errorMessage = error.response.data.message;
+            }
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!'
+            });
+          }
+        });
+      });
+    }
   }
 });
 
@@ -49361,7 +49452,7 @@ var render = function() {
         _c(
           "p",
           { staticClass: "mt-3 mb-1" },
-          [_c("router-link", { attrs: { to: "login" } }, [_vm._v("Login")])],
+          [_c("router-link", { attrs: { to: "/login" } }, [_vm._v("Login")])],
           1
         ),
         _vm._v(" "),
@@ -49371,7 +49462,7 @@ var render = function() {
           [
             _c(
               "router-link",
-              { staticClass: "text-center", attrs: { to: "register" } },
+              { staticClass: "text-center", attrs: { to: "/register" } },
               [_vm._v("Register a new membership")]
             )
           ],
@@ -49564,7 +49655,7 @@ var render = function() {
           "p",
           { staticClass: "mb-1" },
           [
-            _c("router-link", { attrs: { to: "forgot-password" } }, [
+            _c("router-link", { attrs: { to: "/forgot-password" } }, [
               _vm._v("I forgot my password")
             ])
           ],
@@ -49577,7 +49668,7 @@ var render = function() {
           [
             _c(
               "router-link",
-              { staticClass: "text-center", attrs: { to: "register" } },
+              { staticClass: "text-center", attrs: { to: "/register" } },
               [_vm._v("Register a new membership")]
             )
           ],
@@ -49677,7 +49768,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "login-box" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "login-logo" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("b", [_vm._v(_vm._s(this.$store.getters.appNameFirst))]),
+        _vm._v(" " + _vm._s(this.$store.getters.appNameLast))
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-body login-card-body" }, [
@@ -49687,12 +49783,147 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(1),
+        this.errorMessage
+          ? _c(
+              "div",
+              {
+                staticClass: "alert alert-danger alert-dismissible fade show",
+                attrs: { role: "alert" }
+              },
+              [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(this.errorMessage) +
+                    "\n                "
+                ),
+                _vm._m(0)
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "form",
+          {
+            attrs: { role: "form", method: "post" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.recoverPassword($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "input-group mb-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fields.email,
+                    expression: "fields.email"
+                  }
+                ],
+                staticClass: "form-control",
+                class: { "is-invalid": this.invalidFields.includes("email") },
+                attrs: { type: "email", placeholder: "Email" },
+                domProps: { value: _vm.fields.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.fields, "email", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(_vm._s(this.invalidMessages.email))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group mb-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fields.password,
+                    expression: "fields.password"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": this.invalidFields.includes("password")
+                },
+                attrs: { type: "password", placeholder: "Password" },
+                domProps: { value: _vm.fields.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.fields, "password", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(_vm._s(this.invalidMessages.password))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group mb-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fields.password_confirmation,
+                    expression: "fields.password_confirmation"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": this.invalidFields.includes(
+                    "password_confirmation"
+                  )
+                },
+                attrs: { type: "password", placeholder: "Confirm password" },
+                domProps: { value: _vm.fields.password_confirmation },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.fields,
+                      "password_confirmation",
+                      $event.target.value
+                    )
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(_vm._s(this.invalidMessages.password_confirmation))
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(4)
+          ]
+        ),
         _vm._v(" "),
         _c(
           "p",
           { staticClass: "mt-3 mb-1" },
-          [_c("router-link", { attrs: { to: "login" } }, [_vm._v("Login")])],
+          [_c("router-link", { attrs: { to: "/login" } }, [_vm._v("Login")])],
           1
         )
       ])
@@ -49704,10 +49935,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "login-logo" }, [
-      _c("a", { attrs: { href: "../../index2.html" } }, [
-        _c("b", [_vm._v("Admin")]),
-        _vm._v("LTE")
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("div", { staticClass: "input-group-text" }, [
+        _c("span", { staticClass: "fas fa-envelope" })
       ])
     ])
   },
@@ -49715,44 +49962,36 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("form", { attrs: { action: "login.html", method: "post" } }, [
-      _c("div", { staticClass: "input-group mb-3" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "password", placeholder: "Password" }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group-append" }, [
-          _c("div", { staticClass: "input-group-text" }, [
-            _c("span", { staticClass: "fas fa-lock" })
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "input-group mb-3" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "password", placeholder: "Confirm Password" }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group-append" }, [
-          _c("div", { staticClass: "input-group-text" }, [
-            _c("span", { staticClass: "fas fa-lock" })
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary btn-block",
-              attrs: { type: "submit" }
-            },
-            [_vm._v("Change password")]
-          )
-        ])
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("div", { staticClass: "input-group-text" }, [
+        _c("span", { staticClass: "fas fa-lock" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("div", { staticClass: "input-group-text" }, [
+        _c("span", { staticClass: "fas fa-lock" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary btn-block",
+            attrs: { type: "submit" }
+          },
+          [_vm._v("Change password")]
+        )
       ])
     ])
   }
@@ -50026,7 +50265,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "router-link",
-            { staticClass: "text-center", attrs: { to: "login" } },
+            { staticClass: "text-center", attrs: { to: "/login" } },
             [_vm._v("I already have a membership")]
           )
         ],

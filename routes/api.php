@@ -17,7 +17,8 @@ Route::post('/login','API\AuthController@login');
 Route::post('/register','API\AuthController@register');
 Route::post('/logout','API\AuthController@logout');
 Route::post('/check','API\AuthController@check');
-Route::post('/password/reset','API\ForgotPasswordController@sendResetLinkEmail');
+Route::post('/password/forgot','API\ForgotPasswordController@sendResetLinkEmail');
+Route::post('/password/reset','API\ResetPasswordController@reset');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user',function (Request $request){
