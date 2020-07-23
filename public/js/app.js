@@ -3030,6 +3030,7 @@ __webpack_require__.r(__webpack_exports__);
     document.querySelector("body").classList.remove('sidebar-mini');
   },
   mounted: function mounted() {
+    document.querySelector('body').classList.remove('hold-transition');
     $('ul[data-widget="treeview"]').Treeview('init');
   }
 });

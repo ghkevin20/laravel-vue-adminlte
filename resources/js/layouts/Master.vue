@@ -36,6 +36,7 @@
             document.querySelector("body").classList.remove('sidebar-mini');
         },
         mounted() {
+            document.querySelector('body').classList.remove('hold-transition')
             $('ul[data-widget="treeview"]').Treeview('init');
         }
     }
