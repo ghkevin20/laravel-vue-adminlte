@@ -2678,6 +2678,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "DataTable",
@@ -2860,6 +2866,17 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     refresh: function refresh(val) {
       this.fetchIndexData();
+    }
+  },
+  computed: {
+    currentPageNumber: function currentPageNumber() {
+      return this.model.current_page ? this.model.current_page : 0;
+    },
+    lastPageNumber: function lastPageNumber() {
+      return this.model.last_page ? this.model.last_page : 0;
+    },
+    dataCount: function dataCount() {
+      return this.model.data ? this.model.data.length : 0;
     }
   }
 });
@@ -48583,144 +48600,162 @@ var render = function() {
             _vm._v(" "),
             _c(
               "tbody",
-              _vm._l(_vm.model.data, function(row) {
-                return _c(
-                  "tr",
-                  [
-                    _vm._l(_vm.columns, function(value, key) {
-                      return _c(
+              [
+                _vm.dataCount === 0
+                  ? _c("tr", [
+                      _c(
                         "td",
+                        {
+                          staticClass: "text-center",
+                          attrs: { colspan: _vm.columns.length }
+                        },
+                        [_c("i", [_vm._v("No result found.")])]
+                      )
+                    ])
+                  : _vm._l(_vm.model.data, function(row) {
+                      return _c(
+                        "tr",
                         [
-                          _vm._t(
-                            "column_" + value.name,
-                            [
-                              _vm._v(
-                                _vm._s(row[value.name]) +
-                                  "\n                            "
-                              )
-                            ],
-                            { value: row[value.name] }
-                          )
+                          _vm._l(_vm.columns, function(value, key) {
+                            return _c(
+                              "td",
+                              [
+                                _vm._t(
+                                  "column_" + value.name,
+                                  [
+                                    _vm._v(
+                                      _vm._s(row[value.name]) +
+                                        "\n                            "
+                                    )
+                                  ],
+                                  { value: row[value.name] }
+                                )
+                              ],
+                              2
+                            )
+                          }),
+                          _vm._v(" "),
+                          _vm.actions.length
+                            ? _c("td", [
+                                row.deleted_at !== null
+                                  ? _c("span", [
+                                      _vm.trashActions.includes("restore")
+                                        ? _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-sm btn-warning",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.restore(row.id)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("span", {
+                                                staticClass:
+                                                  "fas fa-trash-restore-alt"
+                                              }),
+                                              _vm._v(
+                                                "\n                                     Restore\n                                "
+                                              )
+                                            ]
+                                          )
+                                        : _vm._e()
+                                    ])
+                                  : _c("span", [
+                                      _vm.actions.includes("view")
+                                        ? _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-sm btn-outline-info",
+                                              attrs: { type: "button" },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.view(row.id)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("span", {
+                                                staticClass: "fas fa-eye"
+                                              }),
+                                              _vm._v(
+                                                "\n                                    View\n                                "
+                                              )
+                                            ]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.actions.includes("edit")
+                                        ? _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-sm btn-outline-primary",
+                                              attrs: {
+                                                type: "button",
+                                                "data-link":
+                                                  _vm.source +
+                                                  "/" +
+                                                  row.id +
+                                                  "/edit"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.edit(row.id)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("span", {
+                                                staticClass: "fas fa-edit"
+                                              }),
+                                              _vm._v(
+                                                "\n                                    Edit\n                                "
+                                              )
+                                            ]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.actions.includes("delete")
+                                        ? _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "btn btn-sm btn-outline-danger",
+                                              attrs: {
+                                                type: "button",
+                                                "data-link":
+                                                  _vm.source + "/" + row.id
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.remove(row.id)
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("span", {
+                                                staticClass: "fas fa-trash-alt"
+                                              }),
+                                              _vm._v(
+                                                "\n                                    Remove\n                                "
+                                              )
+                                            ]
+                                          )
+                                        : _vm._e()
+                                    ])
+                              ])
+                            : _vm._e()
                         ],
                         2
                       )
-                    }),
-                    _vm._v(" "),
-                    _vm.actions.length
-                      ? _c("td", [
-                          row.deleted_at !== null
-                            ? _c("span", [
-                                _vm.trashActions.includes("restore")
-                                  ? _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-sm btn-warning",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.restore(row.id)
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("span", {
-                                          staticClass:
-                                            "fas fa-trash-restore-alt"
-                                        }),
-                                        _vm._v(
-                                          "\n                                     Restore\n                                "
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e()
-                              ])
-                            : _c("span", [
-                                _vm.actions.includes("view")
-                                  ? _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-sm btn-outline-info",
-                                        attrs: { type: "button" },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.view(row.id)
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("span", {
-                                          staticClass: "fas fa-eye"
-                                        }),
-                                        _vm._v(
-                                          "\n                                    View\n                                "
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.actions.includes("edit")
-                                  ? _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-sm btn-outline-primary",
-                                        attrs: {
-                                          type: "button",
-                                          "data-link":
-                                            _vm.source + "/" + row.id + "/edit"
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.edit(row.id)
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("span", {
-                                          staticClass: "fas fa-edit"
-                                        }),
-                                        _vm._v(
-                                          "\n                                    Edit\n                                "
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.actions.includes("delete")
-                                  ? _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "btn btn-sm btn-outline-danger",
-                                        attrs: {
-                                          type: "button",
-                                          "data-link": _vm.source + "/" + row.id
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.remove(row.id)
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("span", {
-                                          staticClass: "fas fa-trash-alt"
-                                        }),
-                                        _vm._v(
-                                          "\n                                    Remove\n                                "
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e()
-                              ])
-                        ])
-                      : _vm._e()
-                  ],
-                  2
-                )
-              }),
-              0
+                    })
+              ],
+              2
             )
           ])
         ]),
@@ -48801,7 +48836,7 @@ var render = function() {
                             "li",
                             {
                               staticClass: "page-item",
-                              class: { disabled: _vm.model.current_page <= 1 }
+                              class: { disabled: _vm.currentPageNumber <= 1 }
                             },
                             [
                               _c(
@@ -48824,7 +48859,7 @@ var render = function() {
                             "li",
                             {
                               staticClass: "page-item",
-                              class: { disabled: _vm.model.current_page <= 1 }
+                              class: { disabled: _vm.currentPageNumber <= 1 }
                             },
                             [
                               _c(
@@ -48853,9 +48888,9 @@ var render = function() {
                               [
                                 _vm._v(
                                   _vm._s(
-                                    _vm.model.current_page +
+                                    _vm.currentPageNumber +
                                       " / " +
-                                      _vm.model.last_page
+                                      _vm.lastPageNumber
                                   )
                                 )
                               ]
@@ -48868,7 +48903,7 @@ var render = function() {
                               staticClass: "page-item",
                               class: {
                                 disabled:
-                                  _vm.model.current_page >= _vm.model.last_page
+                                  _vm.currentPageNumber >= _vm.lastPageNumber
                               }
                             },
                             [
@@ -48894,7 +48929,7 @@ var render = function() {
                               staticClass: "page-item",
                               class: {
                                 disabled:
-                                  _vm.model.current_page >= _vm.model.last_page
+                                  _vm.currentPageNumber >= _vm.lastPageNumber
                               }
                             },
                             [

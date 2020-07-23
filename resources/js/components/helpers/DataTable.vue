@@ -67,7 +67,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="row in model.data">
+                        <tr v-if="dataCount === 0">
+                            <td :colspan="columns.length" class="text-center">
+                                <i>No result found.</i>
+                            </td>
+                        </tr>
+                        <tr v-else v-for="row in model.data">
                             <td v-for="(value,key) in columns">
                                 <slot
                                     :name="`column_${value.name}`"
@@ -104,6 +109,7 @@
                                 </span>
                             </td>
                         </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -140,22 +146,22 @@
                                 <div class="table-pagination mx-auto ml-md-auto mx-md-0">
                                     <nav aria-label="Page navigation example">
                                         <ul class="pagination mb-0">
-                                            <li class="page-item" :class="{ disabled: model.current_page <= 1 }">
+                                            <li class="page-item" :class="{ disabled: currentPageNumber <= 1 }">
                                                 <a href="javascript:void(0);" class="page-link" @click="firstPage()">&laquo;</a>
                                             </li>
-                                            <li class="page-item" :class="{ disabled: model.current_page <= 1 }">
+                                            <li class="page-item" :class="{ disabled: currentPageNumber <= 1 }">
                                                 <a href="javascript:void(0);" class="page-link"
                                                    @click="prev()">&lsaquo;</a></li>
-                                            <li class="page-item disabled"><a href="javascript:void(0);"
-                                                                              class="page-link">{{
-                                                model.current_page + ' / ' + model.last_page
-                                                }}</a></li>
+                                            <li class="page-item disabled">
+                                                <a href="javascript:void(0);"
+                                                   class="page-link">{{ currentPageNumber + ' / ' + lastPageNumber
+                                                    }}</a></li>
                                             <li class="page-item"
-                                                :class="{ disabled: model.current_page >= model.last_page }">
+                                                :class="{ disabled: currentPageNumber >= lastPageNumber }">
                                                 <a href="javascript:void(0);" class="page-link"
                                                    @click="next()">&rsaquo;</a></li>
                                             <li class="page-item"
-                                                :class="{ disabled: model.current_page >= model.last_page }">
+                                                :class="{ disabled: currentPageNumber >= lastPageNumber }">
                                                 <a href="javascript:void(0);" class="page-link" @click="lastPage()">&raquo;</a>
                                             </li>
                                         </ul>
@@ -308,6 +314,7 @@
             edit(id) {
                 this.$emit('actionEdit', id);
             },
+
             remove(id) {
                 const vm = this;
                 const url = `${this.source}/${id}`;
@@ -370,6 +377,17 @@
         watch: {
             refresh: function (val) {
                 this.fetchIndexData();
+            }
+        },
+        computed:{
+            currentPageNumber() {
+                return this.model.current_page ? this.model.current_page : 0
+            },
+            lastPageNumber() {
+                return this.model.last_page ? this.model.last_page : 0
+            },
+            dataCount(){
+                return this.model.data?this.model.data.length:0;
             }
         }
 
