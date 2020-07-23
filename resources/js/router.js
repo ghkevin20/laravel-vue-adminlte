@@ -28,7 +28,7 @@ const routes = [
                 component: require('./views/auth/ForgotPassword').default
             },
             {
-                path: 'recover-password',
+                path: 'recover-password/:token',
                 component: require('./views/auth/RecoverPassword').default
             },
         ]

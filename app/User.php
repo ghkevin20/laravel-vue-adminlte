@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Notifications\PasswordReset;
+use App\Notifications\ResetPasswordNotificaiton;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -60,6 +63,17 @@ class User extends Authenticatable
     public function getCheckAvatarAttribute()
     {
         return ($this->avatar == "avatar-".strtolower($this->gender).".png")?"":$this->avatar;
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 
 }

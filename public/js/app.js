@@ -68373,7 +68373,7 @@ var routes = [{
     path: 'forgot-password',
     component: __webpack_require__(/*! ./views/auth/ForgotPassword */ "./resources/js/views/auth/ForgotPassword.vue")["default"]
   }, {
-    path: 'recover-password',
+    path: 'recover-password/:token',
     component: __webpack_require__(/*! ./views/auth/RecoverPassword */ "./resources/js/views/auth/RecoverPassword.vue")["default"]
   }]
 }, // can be access without authentication
