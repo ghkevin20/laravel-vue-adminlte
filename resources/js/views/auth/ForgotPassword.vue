@@ -1,21 +1,31 @@
 <template>
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Admin</b>LTE</a>
+            <a href="#"><b>{{ this.$store.getters.appNameFirst }}</b> {{ this.$store.getters.appNameLast }}</a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p>
 
-                <form role="form" method="post" v-on:submit.prevent="forgotPassword()">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="this.errorMessage">
+                    {{ this.errorMessage }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form role="form" method="post" @submit.prevent="forgotPassword">
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input type="email" class="form-control" placeholder="Email"
+                               :class="{ 'is-invalid': this.invalidFields.includes('email') }"
+                               v-model="fields.email">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
+                        <div class="invalid-feedback">{{ this.invalidMessages.email }}</div>
                     </div>
                     <div class="row">
                         <div class="col-12">
@@ -40,13 +50,69 @@
 <script>
     export default {
         name: "ForgotPassword",
-        beforeCreate() {
-            document.querySelector("body").className = 'hold-transition login-page';
+        mounted() {
+            this.$root.$el.classList.add('login-page')
+        },
+        destroyed() {
+            this.$root.$el.classList.remove('login-page')
+        },
+        data() {
+            return {
+                fields: {
+                    email: '',
+                },
+                errorMessage: '',
+                invalidFields: [],
+                invalidMessages: {}
+            }
         },
         methods: {
-            forgotPassword(){
-                // Temporary redirect
-                window.location = 'recover-password'
+            forgotPassword() {
+                const vm = this;
+                vm.errorMessage = '';
+                vm.invalidFields = [];
+                vm.invalidMessages = {};
+                axios.get('/sanctum/csrf-cookie').then(response => {
+                    axios.post('/api/password/reset', {
+                        email: this.fields.email,
+                        password: this.fields.password
+                    })
+                        .then(response2 => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: response2.data.message
+                            })
+                            this.$router.push('/login');
+                        })
+                        .catch(error => {
+                            if (error.response) {
+                                if (error.response.status === 422 || error.response.status === 401) {
+                                    const errors = error.response.data.errors;
+                                    let invalidFields = [];
+                                    let invalidMessages = {};
+                                    if (errors) {
+                                        Object.keys(errors).forEach(function (key) {
+                                            invalidFields.push(key);
+                                            invalidMessages[key] = errors[key][0];
+                                        });
+                                    }
+                                    vm.invalidFields = invalidFields;
+                                    vm.invalidMessages = invalidMessages;
+                                    vm.errorMessage = error.response.data.message;
+                                }
+                            } else if (error.request) {
+                                console.log(error.request);
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Something went wrong!'
+                                })
+                            }
+                        });
+
+                });
             }
         }
     }

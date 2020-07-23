@@ -1,15 +1,18 @@
 <template>
     <div class="register-box">
         <div class="register-logo">
-            <a href="../../index2.html"><b>{{ this.$store.getters.appNameFirst }}</b> {{ this.$store.getters.appNameLast
-                }}</a>
+            <a href="#"><b>{{ this.$store.getters.appNameFirst }}</b> {{ this.$store.getters.appNameLast }}</a>
         </div>
 
         <div class="card">
             <div class="card-body register-card-body">
-                <div class="login-box-msg">
-                    <p>Register a new membership</p>
-                    <div class="text-danger invalid-feedback d-block mb-1">{{ this.errorMessage }}</div>
+                <p class="login-box-msg">Register a new membership</p>
+
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="this.errorMessage">
+                    {{ this.errorMessage }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
 
                 <form role="form" method="post" @submit.prevent="register">
@@ -113,11 +116,11 @@
 
     export default {
         name: "Register",
-        beforeCreate() {
-            document.querySelector("body").classList.add('register-page');
+        mounted() {
+            this.$root.$el.classList.add('login-page')
         },
         destroyed() {
-            document.querySelector("body").classList.remove('register-page');
+            this.$root.$el.classList.remove('login-page')
         },
         data() {
             return {

@@ -3049,8 +3049,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Public",
   beforeCreate: function beforeCreate() {
@@ -3182,15 +3180,83 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ForgotPassword",
-  beforeCreate: function beforeCreate() {
-    document.querySelector("body").className = 'hold-transition login-page';
+  mounted: function mounted() {
+    this.$root.$el.classList.add('login-page');
+  },
+  destroyed: function destroyed() {
+    this.$root.$el.classList.remove('login-page');
+  },
+  data: function data() {
+    return {
+      fields: {
+        email: ''
+      },
+      errorMessage: '',
+      invalidFields: [],
+      invalidMessages: {}
+    };
   },
   methods: {
     forgotPassword: function forgotPassword() {
-      // Temporary redirect
-      window.location = 'recover-password';
+      var _this = this;
+
+      var vm = this;
+      vm.errorMessage = '';
+      vm.invalidFields = [];
+      vm.invalidMessages = {};
+      axios.get('/sanctum/csrf-cookie').then(function (response) {
+        axios.post('/api/password/reset', {
+          email: _this.fields.email,
+          password: _this.fields.password
+        }).then(function (response2) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: response2.data.message
+          });
+
+          _this.$router.push('/login');
+        })["catch"](function (error) {
+          if (error.response) {
+            if (error.response.status === 422 || error.response.status === 401) {
+              var errors = error.response.data.errors;
+              var invalidFields = [];
+              var invalidMessages = {};
+
+              if (errors) {
+                Object.keys(errors).forEach(function (key) {
+                  invalidFields.push(key);
+                  invalidMessages[key] = errors[key][0];
+                });
+              }
+
+              vm.invalidFields = invalidFields;
+              vm.invalidMessages = invalidMessages;
+              vm.errorMessage = error.response.data.message;
+            }
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!'
+            });
+          }
+        });
+      });
     }
   }
 });
@@ -3288,15 +3354,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Login",
-  beforeCreate: function beforeCreate() {
-    document.querySelector("body").classList.add('login-page');
+  mounted: function mounted() {
+    this.$root.$el.classList.add('login-page');
   },
   destroyed: function destroyed() {
-    document.querySelector("body").classList.remove('login-page');
+    this.$root.$el.classList.remove('login-page');
   },
   data: function data() {
     return {
@@ -3551,14 +3621,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Register",
-  beforeCreate: function beforeCreate() {
-    document.querySelector("body").classList.add('register-page');
+  mounted: function mounted() {
+    this.$root.$el.classList.add('login-page');
   },
   destroyed: function destroyed() {
-    document.querySelector("body").classList.remove('register-page');
+    this.$root.$el.classList.remove('login-page');
   },
   data: function data() {
     return {
@@ -12634,7 +12707,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.login-card-body .input-group .input-group-text, .register-card-body .input-group .input-group-text {\n    border-bottom-right-radius: .25rem!important;\n    border-top-right-radius: .25rem!important;\n}\n", ""]);
+exports.push([module.i, "\n.login-card-body .input-group .input-group-text, .register-card-body .input-group .input-group-text {\n    border-bottom-right-radius: .25rem!important;\n    border-top-right-radius: .25rem!important;\n}\n.login-box-msg{\n}\n", ""]);
 
 // exports
 
@@ -49113,7 +49186,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("router-view")], 1)
+  return _c("router-view")
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -49205,7 +49278,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "login-box" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "login-logo" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("b", [_vm._v(_vm._s(this.$store.getters.appNameFirst))]),
+        _vm._v(" " + _vm._s(this.$store.getters.appNameLast))
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-body login-card-body" }, [
@@ -49215,6 +49293,24 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
+        this.errorMessage
+          ? _c(
+              "div",
+              {
+                staticClass: "alert alert-danger alert-dismissible fade show",
+                attrs: { role: "alert" }
+              },
+              [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(this.errorMessage) +
+                    "\n                "
+                ),
+                _vm._m(0)
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c(
           "form",
           {
@@ -49222,11 +49318,44 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.forgotPassword()
+                return _vm.forgotPassword($event)
               }
             }
           },
-          [_vm._m(1), _vm._v(" "), _vm._m(2)]
+          [
+            _c("div", { staticClass: "input-group mb-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fields.email,
+                    expression: "fields.email"
+                  }
+                ],
+                staticClass: "form-control",
+                class: { "is-invalid": this.invalidFields.includes("email") },
+                attrs: { type: "email", placeholder: "Email" },
+                domProps: { value: _vm.fields.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.fields, "email", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(_vm._s(this.invalidMessages.email))
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(2)
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -49257,27 +49386,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "login-logo" }, [
-      _c("a", { attrs: { href: "../../index2.html" } }, [
-        _c("b", [_vm._v("Admin")]),
-        _vm._v("LTE")
-      ])
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group mb-3" }, [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "email", placeholder: "Email" }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "input-group-append" }, [
-        _c("div", { staticClass: "input-group-text" }, [
-          _c("span", { staticClass: "fas fa-envelope" })
-        ])
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("div", { staticClass: "input-group-text" }, [
+        _c("span", { staticClass: "fas fa-envelope" })
       ])
     ])
   },
@@ -49330,15 +49458,27 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-body login-card-body" }, [
-        _c("div", { staticClass: "login-box-msg" }, [
-          _c("p", [_vm._v("Sign in to start your session")]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "text-danger invalid-feedback d-block mb-1" },
-            [_vm._v(_vm._s(this.errorMessage))]
-          )
+        _c("p", { staticClass: "login-box-msg" }, [
+          _vm._v("Sign in to start your session")
         ]),
+        _vm._v(" "),
+        this.errorMessage
+          ? _c(
+              "div",
+              {
+                staticClass: "alert alert-danger alert-dismissible fade show",
+                attrs: { role: "alert" }
+              },
+              [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(this.errorMessage) +
+                    "\n                "
+                ),
+                _vm._m(0)
+              ]
+            )
+          : _vm._e(),
         _vm._v(" "),
         _c(
           "form",
@@ -49376,7 +49516,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _vm._m(0),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(_vm._s(this.invalidMessages.email))
@@ -49409,14 +49549,14 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _vm._m(1),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(_vm._s(this.invalidMessages.password))
               ])
             ]),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(3)
           ]
         ),
         _vm._v(" "),
@@ -49448,6 +49588,23 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -49623,7 +49780,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "register-box" }, [
     _c("div", { staticClass: "register-logo" }, [
-      _c("a", { attrs: { href: "../../index2.html" } }, [
+      _c("a", { attrs: { href: "#" } }, [
         _c("b", [_vm._v(_vm._s(this.$store.getters.appNameFirst))]),
         _vm._v(" " + _vm._s(this.$store.getters.appNameLast))
       ])
@@ -49634,15 +49791,27 @@ var render = function() {
         "div",
         { staticClass: "card-body register-card-body" },
         [
-          _c("div", { staticClass: "login-box-msg" }, [
-            _c("p", [_vm._v("Register a new membership")]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "text-danger invalid-feedback d-block mb-1" },
-              [_vm._v(_vm._s(this.errorMessage))]
-            )
+          _c("p", { staticClass: "login-box-msg" }, [
+            _vm._v("Register a new membership")
           ]),
+          _vm._v(" "),
+          this.errorMessage
+            ? _c(
+                "div",
+                {
+                  staticClass: "alert alert-danger alert-dismissible fade show",
+                  attrs: { role: "alert" }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(this.errorMessage) +
+                      "\n                "
+                  ),
+                  _vm._m(0)
+                ]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "form",
@@ -49680,7 +49849,7 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm._m(0),
+                _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "invalid-feedback" }, [
                   _vm._v(_vm._s(this.invalidMessages.name))
@@ -49741,7 +49910,7 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(1),
+                _vm._m(2),
                 _vm._v(" "),
                 _c("div", { staticClass: "invalid-feedback" }, [
                   _vm._v(_vm._s(this.invalidMessages.gender))
@@ -49772,7 +49941,7 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm._m(2),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("div", { staticClass: "invalid-feedback" }, [
                   _vm._v(_vm._s(this.invalidMessages.email))
@@ -49805,7 +49974,7 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm._m(3),
+                _vm._m(4),
                 _vm._v(" "),
                 _c("div", { staticClass: "invalid-feedback" }, [
                   _vm._v(_vm._s(this.invalidMessages.password))
@@ -49844,14 +50013,14 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm._m(4),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("div", { staticClass: "invalid-feedback" }, [
                   _vm._v(_vm._s(this.invalidMessages.password_confirmation))
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(5)
+              _vm._m(6)
             ]
           ),
           _vm._v(" "),
@@ -49867,6 +50036,23 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

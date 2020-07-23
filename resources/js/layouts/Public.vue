@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <router-view></router-view>
-    </div>
+    <router-view></router-view>
 </template>
 
 <script>
@@ -24,5 +22,8 @@
     .login-card-body .input-group .input-group-text, .register-card-body .input-group .input-group-text {
         border-bottom-right-radius: .25rem!important;
         border-top-right-radius: .25rem!important;
+    }
+    .login-box-msg{
+
     }
 </style>

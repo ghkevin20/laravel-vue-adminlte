@@ -6,9 +6,13 @@
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <div class="login-box-msg">
-                    <p>Sign in to start your session</p>
-                    <div class="text-danger invalid-feedback d-block mb-1">{{ this.errorMessage }}</div>
+                <p class="login-box-msg">Sign in to start your session</p>
+
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="this.errorMessage">
+                    {{ this.errorMessage }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
 
                 <form role="form" method="post" @submit.prevent="login">
@@ -82,11 +86,11 @@
 
     export default {
         name: "Login",
-        beforeCreate() {
-            document.querySelector("body").classList.add('login-page');
+        mounted() {
+           this.$root.$el.classList.add('login-page')
         },
         destroyed() {
-            document.querySelector("body").classList.remove('login-page');
+            this.$root.$el.classList.remove('login-page')
         },
         data() {
             return {
