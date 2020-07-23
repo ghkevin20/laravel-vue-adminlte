@@ -24,11 +24,11 @@ Route::post('/password/reset','API\ResetPasswordController@reset');
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::patch('/users/{user}/restore', 'API\UserController@restore');
-
     Route::apiResource('/users', 'API\UserController');
 
     Route::apiResource('/categories', 'API\CategoryController');
 
     Route::post('/profile/update','API\ProfileController@update');
+    Route::post('/profile/change-password','API\ProfileController@changePassword');
 
 });

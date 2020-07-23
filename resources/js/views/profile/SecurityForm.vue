@@ -1,35 +1,36 @@
 <template>
-    <form role="form" ref="details-form" class="form-horizontal" @submit.prevent="submit">
+    <form role="form" ref="security-form" class="form-horizontal" @submit.prevent="submit">
         <div class="form-group row">
-            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <label for="current_password" class="col-sm-2 col-form-label">Current Password</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="name"
-                       placeholder="Name"
-                       :class="{ 'is-invalid': this.invalidFields.includes('name') }"
-                       v-model="fields.name">
-                <div class="invalid-feedback">{{ this.invalidMessages.name }}</div>
+                <input type="password" class="form-control" id="current_password"
+                       placeholder="Current Password"
+                       :class="{ 'is-invalid': this.invalidFields.includes('current_password') }"
+                       v-model="fields.current_password">
+                <div class="invalid-feedback">{{ this.invalidMessages.current_password }}</div>
             </div>
         </div>
         <div class="form-group row">
-            <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+            <label for="new_password" class="col-sm-2 col-form-label">New Password</label>
             <div class="col-sm-10">
-                <select type="text" class="form-control" id="gender"
-                        :class="{ 'is-invalid': this.invalidFields.includes('gender') }"
-                        v-model="fields.gender">
-                    <option value="" selected disabled>Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-                <div class="invalid-feedback">{{ this.invalidMessages.gender }}</div>
+                <input type="password" class="form-control" id="new_password"
+                       placeholder="New Password"
+                       :class="{ 'is-invalid': this.invalidFields.includes('new_password') }"
+                       v-model="fields.new_password">
+                <div class="invalid-feedback">{{ this.invalidMessages.new_password }}</div>
             </div>
         </div>
         <div class="form-group row">
-            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <label for="password_confirmation" class="col-sm-2 col-form-label">Password Confirmation</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" id="email"
-                       placeholder="Email" :value="data.email" readonly>
+                <input type="password" class="form-control" id="password_confirmation"
+                       placeholder="Password Confirmation"
+                       :class="{ 'is-invalid': this.invalidFields.includes('new_password_confirmation') }"
+                       v-model="fields.new_password_confirmation">
+                <div class="invalid-feedback">{{ this.invalidMessages.new_password_confirmation }}</div>
             </div>
         </div>
+
         <div class="form-group row">
             <div class="offset-sm-2 col-sm-10">
                 <button type="submit" class="btn btn-primary">Update</button>
@@ -43,21 +44,16 @@
     import Swal from 'sweetalert2';
 
     export default {
-        name: "DetailsForm",
+        name: "SecurityForm",
         props: {
-            url: '',
-            data: {
-                type:Object,
-                default: function () {
-                    return {}
-                }
-            },
+            url: ''
         },
         data() {
             return {
                 fields: {
-                    name: '',
-                    gender: '',
+                    current_password: '',
+                    new_password: '',
+                    new_password_confirmation: '',
                 },
                 invalidFields: [],
                 invalidMessages: {},
@@ -67,6 +63,12 @@
             clearValidation() {
                 this.invalidFields = [];
                 this.invalidMessages = {};
+            },
+            clearFields() {
+                this.fields = Object.assign({}, this.defaultFields);
+            },
+            setDefaultFields(){
+                this.defaultFields = Object.assign({},this.fields)
             },
             submit() {
                 const vm = this;
@@ -91,6 +93,8 @@
                                 title: 'Success!',
                                 text: 'Nothing went wrong.'
                             });
+
+                            vm.clearFields();
 
                             vm.clearValidation();
 
@@ -123,14 +127,11 @@
                         }
                     });
 
-            },
-            updateFields(){
-                this.fields.name = this.data.name;
-                this.fields.gender = this.data.gender;
             }
         },
         mounted() {
-            this.updateFields();
+            this.setDefaultFields();
         }
+
     }
 </script>
