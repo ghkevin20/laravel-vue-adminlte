@@ -3142,6 +3142,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -3191,6 +3195,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ForgotPassword",
   mounted: function mounted() {
@@ -3217,11 +3223,11 @@ __webpack_require__.r(__webpack_exports__);
       vm.errorMessage = '';
       vm.invalidFields = [];
       vm.invalidMessages = {};
-      axios.get('/sanctum/csrf-cookie').then(function (response) {
-        axios.post('/api/password/forgot', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/sanctum/csrf-cookie').then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/password/forgot', {
           email: _this.fields.email
         }).then(function (response2) {
-          Swal.fire({
+          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
             icon: 'success',
             title: 'Success!',
             text: response2.data.message
@@ -3249,7 +3255,7 @@ __webpack_require__.r(__webpack_exports__);
           } else if (error.request) {
             console.log(error.request);
           } else {
-            Swal.fire({
+            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
               icon: 'error',
               title: 'Oops...',
               text: 'Something went wrong!'
@@ -3447,6 +3453,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -3515,6 +3525,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "RecoverPassword",
   mounted: function mounted() {
@@ -3543,14 +3555,14 @@ __webpack_require__.r(__webpack_exports__);
       vm.errorMessage = '';
       vm.invalidFields = [];
       vm.invalidMessages = {};
-      axios.get('/sanctum/csrf-cookie').then(function (response) {
-        axios.post('/api/password/reset', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/sanctum/csrf-cookie').then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/password/reset', {
           token: _this.$route.params.token,
           email: _this.fields.email,
           password: _this.fields.password,
           password_confirmation: _this.fields.password_confirmation
         }).then(function (response2) {
-          Swal.fire({
+          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
             icon: 'success',
             title: 'Success!',
             text: response2.data.message
@@ -3578,7 +3590,7 @@ __webpack_require__.r(__webpack_exports__);
           } else if (error.request) {
             console.log(error.request);
           } else {
-            Swal.fire({
+            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
               icon: 'error',
               title: 'Oops...',
               text: 'Something went wrong!'
@@ -3601,8 +3613,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -3716,6 +3730,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Register",
@@ -3747,15 +3762,15 @@ __webpack_require__.r(__webpack_exports__);
       vm.errorMessage = '';
       vm.invalidFields = [];
       vm.invalidMessages = {};
-      axios.get('/sanctum/csrf-cookie').then(function (response) {
-        axios.post('/api/register', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/sanctum/csrf-cookie').then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/register', {
           name: _this.fields.name,
           gender: _this.fields.gender,
           email: _this.fields.email,
           password: _this.fields.password,
           password_confirmation: _this.fields.password_confirmation
         }).then(function (response2) {
-          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+          sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
             icon: 'success',
             title: 'Success!',
             text: 'You are now registered.'
@@ -3784,7 +3799,7 @@ __webpack_require__.r(__webpack_exports__);
           } else if (error.request) {
             console.log(error.request);
           } else {
-            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
               icon: 'error',
               title: 'Oops...',
               text: 'Something went wrong!'

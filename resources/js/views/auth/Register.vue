@@ -112,7 +112,8 @@
 </template>
 
 <script>
-    import Swal from 'sweetalert2';
+    import axios from 'axios'
+    import Swal from 'sweetalert2'
 
     export default {
         name: "Register",
