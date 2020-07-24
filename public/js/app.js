@@ -1960,6 +1960,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AvatarCropper",
@@ -4309,6 +4311,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DetailsForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DetailsForm */ "./resources/js/views/profile/DetailsForm.vue");
 /* harmony import */ var _SecurityForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SecurityForm */ "./resources/js/views/profile/SecurityForm.vue");
 /* harmony import */ var _components_helpers_AvatarCropper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/helpers/AvatarCropper */ "./resources/js/components/helpers/AvatarCropper.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_7__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4382,6 +4388,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+
+
 
 
 
@@ -4409,8 +4420,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }],
       detailsUrl: '/api/profile/update',
       securityUrl: '/api/profile/change-password',
-      changeAvatarUrl: '/api/profile/change-avatar'
+      changeAvatarUrl: '/api/profile/upload-avatar'
     };
+  },
+  methods: {
+    avatarClick: function avatarClick() {
+      this.$refs.avatar.avatarClick();
+    },
+    uploadAvatar: function uploadAvatar(avatar) {
+      var vm = this;
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      var formData = new FormData();
+      formData.append('avatar', avatar);
+      axios__WEBPACK_IMPORTED_MODULE_6___default.a.post(this.changeAvatarUrl, formData, config).then(function (response) {
+        if (response.status === 200) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Nothing went wrong.'
+          });
+          vm.$emit('submit');
+        }
+      })["catch"](function (error) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!'
+        });
+      });
+    }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['user']))
 });
@@ -13172,7 +13214,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.avatar-cropper-preview[data-v-01c396e2] {\n    cursor: pointer;\n}\n.avatar-cropper-modal[data-v-01c396e2] {\n    z-index: 99;\n}\n", ""]);
+exports.push([module.i, "\n.preview-clickable[data-v-01c396e2]{\n    cursor: pointer;\n}\n.avatar-cropper-modal[data-v-01c396e2] {\n    z-index: 19999;\n}\n", ""]);
 
 // exports
 
@@ -48305,12 +48347,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { ref: "avatar-cropper", staticClass: "avatar-cropper" }, [
-    _c("img", {
-      staticClass: "img-fluid img-thumbnail avatar-cropper-preview",
-      class: _vm.previewClass,
-      attrs: { src: _vm.previewSource, width: "200" },
-      on: { click: _vm.avatarClick }
-    }),
+    _c(
+      "img",
+      _vm._g(
+        {
+          staticClass: "img-fluid img-thumbnail avatar-cropper-preview",
+          class: [
+            _vm.previewClass,
+            { "preview-clickable": _vm.previewClickable }
+          ],
+          attrs: { src: _vm.previewSource, width: "200" }
+        },
+        { click: _vm.previewClickable ? _vm.avatarClick : function() {} }
+      )
+    ),
     _vm._v(" "),
     _c("input", {
       ref: "file-upload",
@@ -51240,18 +51290,16 @@ var render = function() {
                   "div",
                   { staticClass: "text-center" },
                   [
-                    _c("img", {
-                      staticClass: "profile-user-img img-fluid img-circle",
-                      attrs: {
-                        src: "/storage/avatars/" + _vm.user.avatar,
-                        alt: "User profile picture"
-                      }
-                    }),
-                    _vm._v(" "),
                     _c("avatar-cropper", {
+                      ref: "avatar",
                       attrs: {
-                        "preview-class": "profile-user-img img-fluid img-circle"
-                      }
+                        "preview-class":
+                          "profile-user-img img-fluid img-circle",
+                        "preview-clickable": false,
+                        "default-preview-source":
+                          "/storage/avatars/" + _vm.user.avatar
+                      },
+                      on: { updateBlob: _vm.uploadAvatar }
                     })
                   ],
                   1
@@ -51265,7 +51313,8 @@ var render = function() {
                   "a",
                   {
                     staticClass: "btn btn-primary btn-block",
-                    attrs: { href: "#" }
+                    attrs: { href: "#" },
+                    on: { click: _vm.avatarClick }
                   },
                   [_c("b", [_vm._v("Upload Avatar")])]
                 )

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
@@ -65,6 +66,49 @@ class ProfileController extends Controller
 
         $data = Auth::user()->update([
             'password' => Hash::make($requestData['new_password'])
+        ]);
+
+        return response([
+            'data' => $data
+        ],200);
+    }
+
+    /**
+     * Upload Avatar
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function uploadAvatar(Request $request)
+    {
+        $requestData = $request->only([
+            'avatar',
+        ]);
+
+        $validator = Validator::make($requestData, [
+            'avatar' => 'nullable|image|dimensions:ratio=1|mimes:jpeg,jpg,png|nullable|max:2048',
+        ]);
+
+        if ($validator->fails()) return response(['message' => 'There is a problem with your request', 'errors' => $validator->errors()], 422);
+
+        $data = Auth::user();
+
+        if ($request->hasFile('avatar')) {
+            // Delete Previous File
+            if (!empty($data->checkavatar)){
+                Storage::delete('public/avatars/'.$data->avatar);
+            }
+
+            // Update the final filename to store and make it unique
+            $filename = uniqid(rand(100,999)).'_'.time().'.png';
+            // Store in Storage
+            $request->file('avatar')->storeAs('public/avatars',$filename);
+            // Store in Database
+            $requestData['avatar'] = $filename;
+        }
+
+        $data = $data->update([
+            'avatar' => $requestData['avatar']
         ]);
 
         return response([

@@ -1,7 +1,9 @@
 <template>
     <div ref="avatar-cropper" class="avatar-cropper">
-        <img :src="previewSource" width="200" class="img-fluid img-thumbnail avatar-cropper-preview" :class="previewClass"
-             @click="avatarClick">
+        <img :src="previewSource" width="200"
+             class="img-fluid img-thumbnail avatar-cropper-preview"
+             :class="[previewClass,{ 'preview-clickable':previewClickable }]"
+             v-on="{ click: previewClickable ? avatarClick : ()=>{} }">
         <input type="file" name="avatar" class="form-control sr-only" accept="image/jpeg,image/jpg,image/png"
                ref="file-upload" @change="fileChanged">
 
@@ -125,11 +127,10 @@
 </script>
 
 <style scoped>
-    .avatar-cropper-preview {
+    .preview-clickable{
         cursor: pointer;
     }
-
     .avatar-cropper-modal {
-        z-index: 99;
+        z-index: 19999;
     }
 </style>

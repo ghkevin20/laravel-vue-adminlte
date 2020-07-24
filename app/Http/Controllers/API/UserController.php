@@ -103,7 +103,7 @@ class UserController extends Controller
         $requestData = $request->all();
 
         $validator = Validator::make($requestData, [
-            'avatar' => 'nullable|image|dimensions:ratio=1|mimes:jpeg,jpg,png|nullable|max:1999',
+            'avatar' => 'nullable|image|dimensions:ratio=1|mimes:jpeg,jpg,png|nullable|max:2048',
             'name' => 'required|string|max:255',
             'gender' => 'required|string|in:Male,Female',
             'email' => 'required|email|max:255|unique:users,email,'.$id,

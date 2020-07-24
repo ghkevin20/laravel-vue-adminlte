@@ -30,5 +30,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/profile/update','API\ProfileController@update');
     Route::post('/profile/change-password','API\ProfileController@changePassword');
+    Route::post('/profile/upload-avatar','API\ProfileController@uploadAvatar');
 
 });
