@@ -18,16 +18,27 @@
                     </div>
                     <div class="form-group">
                         <label for="gender">Gender</label>
-                        <select class="form-control" id="gender" name="gender"
-                                v-model="fields.gender"
-                                :class="{ 'is-invalid': this.invalidFields.includes('gender') }"
-                        >
-                            <option value="">- Select Option -</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
+                        <v-select
+                            placeholder="- Select Gender -"
+                            :options="['Male', 'Female']"
+                            v-model="fields.gender"
+                            id="gender"
+                            :class="{ 'is-invalid': this.invalidFields.includes('gender') }"
+                        ></v-select>
                         <div class="invalid-feedback">{{ this.invalidMessages.gender }}</div>
                     </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="gender">Gender</label>-->
+<!--                        <select class="form-control" id="gender" name="gender"-->
+<!--                                v-model="fields.gender"-->
+<!--                                :class="{ 'is-invalid': this.invalidFields.includes('gender') }"-->
+<!--                        >-->
+<!--                            <option value="">- Select Option -</option>-->
+<!--                            <option value="Male">Male</option>-->
+<!--                            <option value="Female">Female</option>-->
+<!--                        </select>-->
+<!--                        <div class="invalid-feedback">{{ this.invalidMessages.gender }}</div>-->
+<!--                    </div>-->
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Email *"
@@ -50,6 +61,17 @@
                                placeholder="Confirm Password *" v-model="fields.password_confirmation"
                                :class="{ 'is-invalid': this.invalidFields.includes('password_confirmation') }">
                         <div class="invalid-feedback">{{ this.invalidMessages.password_confirmation }}</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="roles">Role/s</label>
+                        <v-select
+                            multiple
+                            :options="['Canada', 'United States']"
+                            v-model="fields.roles"
+                            id="roles"
+                            :class="{ 'is-invalid': this.invalidFields.includes('roles') }"
+                        ></v-select>
+                        <div class="invalid-feedback">{{ this.invalidMessages.roles }}</div>
                     </div>
                 </div>
             </div>
@@ -99,7 +121,8 @@
                     password_confirmation: ''
                 },
                 invalidFields: [],
-                invalidMessages: {}
+                invalidMessages: {},
+                roles: {code: 'CA', country: 'Canada'}
             }
         },
         methods: {
@@ -174,6 +197,9 @@
             },
             updateBlob(avatar) {
                 this.fields.avatar = avatar;
+            },
+            getRoles(){
+
             }
         },
         watch: {

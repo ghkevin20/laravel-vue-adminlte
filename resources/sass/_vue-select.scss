@@ -37,3 +37,15 @@ $vs-border-radius: $input-border-radius;
 .vs__selected-options {
     padding: 0!important;
 }
+
+.vs__selected{
+    margin: 4px 2px 4px 2px!important;
+}
+
+.vs--single .vs__selected {
+    padding: 0 0.5em!important;
+}
+
+.vs__clear{
+    padding: 0 0 6px 0!important;
+}

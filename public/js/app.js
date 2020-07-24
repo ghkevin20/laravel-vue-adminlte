@@ -4570,6 +4570,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4611,7 +4633,11 @@ __webpack_require__.r(__webpack_exports__);
         password_confirmation: ''
       },
       invalidFields: [],
-      invalidMessages: {}
+      invalidMessages: {},
+      roles: {
+        code: 'CA',
+        country: 'Canada'
+      }
     };
   },
   methods: {
@@ -4682,7 +4708,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateBlob: function updateBlob(avatar) {
       this.fields.avatar = avatar;
-    }
+    },
+    getRoles: function getRoles() {}
   },
   watch: {
     show: function show(val) {
@@ -13346,7 +13373,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Ensure the size of the image fit the container perfectly */\nimg[data-v-fae8c834] {\n    display: block;\n\n    /* This rule is very important, please don't ignore this */\n    max-width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Ensure the size of the image fit the container perfectly */\nimg[data-v-fae8c834] {\n    display: block;\n\n    /* This rule is very important, please don't ignore this */\n    max-width: 100%;\n}\n", ""]);
 
 // exports
 
@@ -51734,64 +51761,38 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "gender" } }, [_vm._v("Gender")]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.fields.gender,
-                          expression: "fields.gender"
-                        }
-                      ],
-                      staticClass: "form-control",
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", { attrs: { for: "gender" } }, [
+                      _vm._v("Gender")
+                    ]),
+                    _vm._v(" "),
+                    _c("v-select", {
                       class: {
                         "is-invalid": this.invalidFields.includes("gender")
                       },
-                      attrs: { id: "gender", name: "gender" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.fields,
-                            "gender",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
+                      attrs: {
+                        placeholder: "- Select Gender -",
+                        options: ["Male", "Female"],
+                        id: "gender"
+                      },
+                      model: {
+                        value: _vm.fields.gender,
+                        callback: function($$v) {
+                          _vm.$set(_vm.fields, "gender", $$v)
+                        },
+                        expression: "fields.gender"
                       }
-                    },
-                    [
-                      _c("option", { attrs: { value: "" } }, [
-                        _vm._v("- Select Option -")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Male" } }, [
-                        _vm._v("Male")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "Female" } }, [
-                        _vm._v("Female")
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "invalid-feedback" }, [
-                    _vm._v(_vm._s(this.invalidMessages.gender))
-                  ])
-                ]),
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "invalid-feedback" }, [
+                      _vm._v(_vm._s(this.invalidMessages.gender))
+                    ])
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
@@ -51917,7 +51918,40 @@ var render = function() {
                   _c("div", { staticClass: "invalid-feedback" }, [
                     _vm._v(_vm._s(this.invalidMessages.password_confirmation))
                   ])
-                ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", { attrs: { for: "roles" } }, [
+                      _vm._v("Role/s")
+                    ]),
+                    _vm._v(" "),
+                    _c("v-select", {
+                      class: {
+                        "is-invalid": this.invalidFields.includes("roles")
+                      },
+                      attrs: {
+                        multiple: "",
+                        options: ["Canada", "United States"],
+                        id: "roles"
+                      },
+                      model: {
+                        value: _vm.fields.roles,
+                        callback: function($$v) {
+                          _vm.$set(_vm.fields, "roles", $$v)
+                        },
+                        expression: "fields.roles"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "invalid-feedback" }, [
+                      _vm._v(_vm._s(this.invalidMessages.roles))
+                    ])
+                  ],
+                  1
+                )
               ])
             ]
           )
