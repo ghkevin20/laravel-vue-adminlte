@@ -17,20 +17,21 @@ class RoleAndPermissionSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         /**
-         * Default Permissions
+         * Permissions
          */
-        $p = [];
-
-        $p['Users'] = [
-            'Create User',
-            'Edit User',
-            'View User',
-            'Delete User',
-            'Restore User'
-        ];
+        $p = array(
+            'Users'=>[
+                'Browse User',
+                'Create User',
+                'Edit User',
+                'View User',
+                'Delete User',
+                'Restore User'
+            ]
+        );
 
         /**
-         * Permission
+         * Create Permissions
          */
         foreach ($p as $items){
             foreach ($items as $item){
