@@ -14,6 +14,8 @@
                                 <img class="profile-user-img img-fluid img-circle"
                                      :src="`/storage/avatars/${user.avatar}`"
                                      alt="User profile picture">
+
+                                <avatar-cropper preview-class="profile-user-img img-fluid img-circle"></avatar-cropper>
                             </div>
 
                             <h3 class="profile-username text-center">{{ user.name }}</h3>
@@ -69,11 +71,12 @@
     import {mapGetters} from "vuex";
     import DetailsForm from "./DetailsForm";
     import SecurityForm from "./SecurityForm";
+    import AvatarCropper from "../../components/helpers/AvatarCropper";
 
     export default {
         name: "Profile",
         components: {
-            ContentHeader, MainContent, DetailsForm, SecurityForm
+            ContentHeader, MainContent, DetailsForm, SecurityForm, AvatarCropper
         },
         data() {
             return {

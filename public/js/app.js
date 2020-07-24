@@ -1959,6 +1959,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AvatarCropper",
@@ -1966,6 +1967,11 @@ __webpack_require__.r(__webpack_exports__);
     defaultPreviewSource: {
       type: String,
       "default": '/storage/avatars/upload-image.png'
+    },
+    previewClass: '',
+    previewClickable: {
+      type: Boolean,
+      "default": true
     }
   },
   data: function data() {
@@ -3067,6 +3073,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -4300,6 +4308,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _DetailsForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DetailsForm */ "./resources/js/views/profile/DetailsForm.vue");
 /* harmony import */ var _SecurityForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SecurityForm */ "./resources/js/views/profile/SecurityForm.vue");
+/* harmony import */ var _components_helpers_AvatarCropper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/helpers/AvatarCropper */ "./resources/js/components/helpers/AvatarCropper.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4371,6 +4380,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+
 
 
 
@@ -4382,7 +4394,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ContentHeader: _layouts_ContentHeader__WEBPACK_IMPORTED_MODULE_0__["default"],
     MainContent: _layouts_MainContent__WEBPACK_IMPORTED_MODULE_1__["default"],
     DetailsForm: _DetailsForm__WEBPACK_IMPORTED_MODULE_3__["default"],
-    SecurityForm: _SecurityForm__WEBPACK_IMPORTED_MODULE_4__["default"]
+    SecurityForm: _SecurityForm__WEBPACK_IMPORTED_MODULE_4__["default"],
+    AvatarCropper: _components_helpers_AvatarCropper__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   data: function data() {
     return {
@@ -13216,7 +13229,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Ensure the size of the image fit the container perfectly */\nimg[data-v-fae8c834] {\n    display: block;\n\n    /* This rule is very important, please don't ignore this */\n    max-width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Ensure the size of the image fit the container perfectly */\nimg[data-v-fae8c834] {\n    display: block;\n\n    /* This rule is very important, please don't ignore this */\n    max-width: 100%;\n}\n", ""]);
 
 // exports
 
@@ -48294,6 +48307,7 @@ var render = function() {
   return _c("div", { ref: "avatar-cropper", staticClass: "avatar-cropper" }, [
     _c("img", {
       staticClass: "img-fluid img-thumbnail avatar-cropper-preview",
+      class: _vm.previewClass,
       attrs: { src: _vm.previewSource, width: "200" },
       on: { click: _vm.avatarClick }
     }),
@@ -49664,7 +49678,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("router-view")
+  return _c("transition", [_c("router-view")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -51222,15 +51236,26 @@ var render = function() {
           _c("div", { staticClass: "col-md-3" }, [
             _c("div", { staticClass: "card card-primary card-outline" }, [
               _c("div", { staticClass: "card-body box-profile" }, [
-                _c("div", { staticClass: "text-center" }, [
-                  _c("img", {
-                    staticClass: "profile-user-img img-fluid img-circle",
-                    attrs: {
-                      src: "/storage/avatars/" + _vm.user.avatar,
-                      alt: "User profile picture"
-                    }
-                  })
-                ]),
+                _c(
+                  "div",
+                  { staticClass: "text-center" },
+                  [
+                    _c("img", {
+                      staticClass: "profile-user-img img-fluid img-circle",
+                      attrs: {
+                        src: "/storage/avatars/" + _vm.user.avatar,
+                        alt: "User profile picture"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("avatar-cropper", {
+                      attrs: {
+                        "preview-class": "profile-user-img img-fluid img-circle"
+                      }
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c("h3", { staticClass: "profile-username text-center" }, [
                   _vm._v(_vm._s(_vm.user.name))

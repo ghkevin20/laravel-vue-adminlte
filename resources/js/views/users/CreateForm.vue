@@ -63,7 +63,6 @@
     import Modal from "../../components/helpers/Modal";
     import AvatarCropper from "../../components/helpers/AvatarCropper";
 
-
     export default {
         name: "CreateForm",
         props: {

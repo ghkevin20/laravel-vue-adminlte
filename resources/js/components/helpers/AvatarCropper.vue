@@ -1,11 +1,12 @@
 <template>
     <div ref="avatar-cropper" class="avatar-cropper">
-        <img :src="previewSource" width="200" class="img-fluid img-thumbnail avatar-cropper-preview"
+        <img :src="previewSource" width="200" class="img-fluid img-thumbnail avatar-cropper-preview" :class="previewClass"
              @click="avatarClick">
         <input type="file" name="avatar" class="form-control sr-only" accept="image/jpeg,image/jpg,image/png"
                ref="file-upload" @change="fileChanged">
 
-        <div class="modal fade avatar-cropper-modal" ref="avatar-cropper-modal" data-backdrop="static" data-keyboard="false">
+        <div class="modal fade avatar-cropper-modal" ref="avatar-cropper-modal" data-backdrop="static"
+             data-keyboard="false">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -35,10 +36,15 @@
     export default {
         name: "AvatarCropper",
         props: {
-            defaultPreviewSource:{
-               type: String,
-               default: '/storage/avatars/upload-image.png'
-           }
+            defaultPreviewSource: {
+                type: String,
+                default: '/storage/avatars/upload-image.png'
+            },
+            previewClass:'',
+            previewClickable: {
+                type: Boolean,
+                default: true,
+            }
         },
         data() {
             return {
@@ -89,9 +95,9 @@
 
                 $(this.$refs['avatar-cropper-modal']).modal('show');
             },
-            crop(){
+            crop() {
                 const vm = this;
-                if(this.cropper){
+                if (this.cropper) {
 
                     this.previewSource = this.cropper.getCroppedCanvas({
                         width: 200,
@@ -99,7 +105,7 @@
                     }).toDataURL();
 
                     this.cropper.getCroppedCanvas().toBlob(function (blob) {
-                        vm.$emit('updateBlob',blob);
+                        vm.$emit('updateBlob', blob);
                     });
 
                     this.close();
@@ -108,9 +114,9 @@
                 }
             }
         },
-        watch:{
-            defaultPreviewSource: function (newVal,oldVal) {
-                if(newVal !== oldVal){
+        watch: {
+            defaultPreviewSource: function (newVal, oldVal) {
+                if (newVal !== oldVal) {
                     this.previewSource = newVal
                 }
             }
