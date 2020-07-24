@@ -48,9 +48,11 @@ class AuthController extends Controller
                 'authenticated' => false,
             ], 200);
         }else{
+            $data = Auth::user();
+            $data->load('roles');
             return response([
                 'authenticated' => true,
-                'data' => Auth::user()
+                'data' => $data
             ], 200);
         }
     }
