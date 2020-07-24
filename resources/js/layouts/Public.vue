@@ -1,5 +1,7 @@
 <template>
-    <router-view></router-view>
+    <transition name="fade-in-up">
+        <router-view></router-view>
+    </transition>
 </template>
 
 <script>
@@ -25,5 +27,35 @@
     }
     .login-box-msg{
 
+    }
+</style>
+
+<style scoped>
+    @keyframes fadeInUp {
+        from {
+            transform: translate3d(0, 40px, 0);
+        }
+
+        to {
+            transform: translate3d(0, 0, 0);
+            opacity: 1
+        }
+    }
+
+    .fade-in-up-leave-to {
+        opacity: 0;
+        transition: opacity .6s;
+    }
+
+    .fade-in-up-enter {
+        opacity: 0;
+        transform: translate3d(0, 40px, 0);
+    }
+
+    .fade-in-up-enter-to {
+        opacity: 0;
+        animation-duration: .7s;
+        animation-fill-mode: both;
+        animation-name: fadeInUp;
     }
 </style>
