@@ -12,6 +12,21 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        /**
+         * Super Admin role always grant in all permissions
+         * Check User if there's a permission
+         */
+        $this->middleware('permission:Browse User',['only'=>['index']]);
+        $this->middleware('permission:Create User',['only'=>['store']]);
+        $this->middleware('permission:Edit User',['only'=>['show','update']]);
+        $this->middleware('permission:View User',['only'=>['show']]);
+        $this->middleware('permission:Delete User',['only'=>['destroy']]);
+        $this->middleware('permission:Restore User',['only'=>['restore']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
