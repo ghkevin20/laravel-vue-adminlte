@@ -2804,6 +2804,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MainHeader",
   props: {
@@ -49475,8 +49503,48 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+          _c("li", { staticClass: "nav-item dropdown" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "dropdown-menu dropdown-menu-lg dropdown-menu-right"
+              },
+              [
+                _c("span", { staticClass: "dropdown-header" }, [
+                  _vm._v(_vm._s())
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "dropdown-divider" }),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "dropdown-divider" }),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _c("div", { staticClass: "dropdown-divider" }),
+                _vm._v(" "),
+                _vm._m(4),
+                _vm._v(" "),
+                _c("div", { staticClass: "dropdown-divider" }),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "dropdown-item dropdown-footer",
+                    attrs: { href: "#" }
+                  },
+                  [_vm._v("See All Notifications")]
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
           _vm.controlSideBar
-            ? _c("li", { staticClass: "nav-item" }, [_vm._m(1)])
+            ? _c("li", { staticClass: "nav-item" }, [_vm._m(5)])
             : _vm._e()
         ])
       ]
@@ -49498,6 +49566,55 @@ var staticRenderFns = [
           },
           [_c("i", { staticClass: "fas fa-bars" })]
         )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: { "data-toggle": "dropdown", href: "#" }
+      },
+      [_c("i", { staticClass: "far fa-user-circle" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-user-circle mr-2" }),
+      _vm._v(" Profile\n                            "),
+      _c("span", { staticClass: "float-right text-muted text-sm" }, [
+        _vm._v("3 mins")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-users mr-2" }),
+      _vm._v(" 8 friend requests\n                            "),
+      _c("span", { staticClass: "float-right text-muted text-sm" }, [
+        _vm._v("12 hours")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-file mr-2" }),
+      _vm._v(" 3 new reports\n                            "),
+      _c("span", { staticClass: "float-right text-muted text-sm" }, [
+        _vm._v("2 days")
       ])
     ])
   },
