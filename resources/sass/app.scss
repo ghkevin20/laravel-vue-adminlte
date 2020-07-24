@@ -8,10 +8,15 @@
 //@import '~bootstrap/scss/bootstrap';
 
 // AdminLTE
-@import "~admin-lte/dist/css/adminlte.min.css";
+@import "~admin-lte/build/scss/AdminLTE";
 
 // Fontawesome 5 free
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 // Cropper js
 @import "~cropperjs/dist/cropper.min.css";
+
+// Vue Select
+@import "vue-select";
+@import "~vue-select/src/scss/vue-select.scss";
+

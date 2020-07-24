@@ -8,6 +8,7 @@
             <div>
                 Logged in as
             </div>
+
         </main-content>
     </div>
 </template>
@@ -32,6 +33,7 @@
     }
 </script>
 
-<style scoped>
+<style >
+
 
 </style>
