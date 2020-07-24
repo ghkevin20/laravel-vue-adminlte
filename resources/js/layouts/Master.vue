@@ -10,7 +10,9 @@
         ></main-side-bar>
 
         <content-wrapper>
-            <router-view></router-view>
+            <transition name="fade-in-right">
+                <router-view></router-view>
+            </transition>
         </content-wrapper>
 
         <main-footer :content-left-strong="`${appNameFirst} ${appNameLast} 2020`"></main-footer>
@@ -55,5 +57,30 @@
 </script>
 
 <style scoped>
+    @keyframes fadeInRight {
+        from {
+            transform: translate3d(40px, 0, 0);
+        }
 
+        to {
+            transform: translate3d(0, 0, 0);
+            opacity: 1
+        }
+    }
+
+    .fade-in-right-leave-to {
+        opacity: 0;
+    }
+
+    .fade-in-right-enter {
+        opacity: 0;
+        transform: translate3d(40px, 0, 0);
+    }
+
+    .fade-in-right-enter-to {
+        opacity: 0;
+        animation-duration: .7s;
+        animation-fill-mode: both;
+        animation-name: fadeInRight;
+    }
 </style>
