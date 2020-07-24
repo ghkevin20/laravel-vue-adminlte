@@ -2805,7 +2805,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "MainHeader"
+  name: "MainHeader",
+  props: {
+    controlSideBar: {
+      type: Boolean,
+      "default": false
+    }
+  }
 });
 
 /***/ }),
@@ -49458,58 +49464,60 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c(
+      "nav",
+      {
+        staticClass:
+          "main-header navbar navbar-expand navbar-white navbar-light"
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+          _vm.controlSideBar
+            ? _c("li", { staticClass: "nav-item" }, [_vm._m(1)])
+            : _vm._e()
+        ])
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "nav",
-        {
-          staticClass:
-            "main-header navbar navbar-expand navbar-white navbar-light"
-        },
-        [
-          _c("ul", { staticClass: "navbar-nav" }, [
-            _c("li", { staticClass: "nav-item" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link",
-                  attrs: {
-                    "data-widget": "pushmenu",
-                    href: "#",
-                    role: "button"
-                  }
-                },
-                [_c("i", { staticClass: "fas fa-bars" })]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-            _c("li", { staticClass: "nav-item" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link",
-                  attrs: {
-                    "data-widget": "control-sidebar",
-                    "data-slide": "true",
-                    href: "#",
-                    role: "button"
-                  }
-                },
-                [_c("i", { staticClass: "fas fa-th-large" })]
-              )
-            ])
-          ])
-        ]
-      )
+    return _c("ul", { staticClass: "navbar-nav" }, [
+      _c("li", { staticClass: "nav-item" }, [
+        _c(
+          "a",
+          {
+            staticClass: "nav-link",
+            attrs: { "data-widget": "pushmenu", href: "#", role: "button" }
+          },
+          [_c("i", { staticClass: "fas fa-bars" })]
+        )
+      ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "nav-link",
+        attrs: {
+          "data-widget": "control-sidebar",
+          "data-slide": "true",
+          href: "#",
+          role: "button"
+        }
+      },
+      [_c("i", { staticClass: "fas fa-th-large" })]
+    )
   }
 ]
 render._withStripped = true
