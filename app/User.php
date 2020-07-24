@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Notifications\PasswordReset;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasRoles,SoftDeletes, Notifiable;
+    use HasRoles, SoftDeletes, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -46,29 +45,29 @@ class User extends Authenticatable
     /**
      * Get the user's avatar.
      *
-     * @param  string  $value
+     * @param string $value
      * @return string
      */
     public function getAvatarAttribute($value)
     {
-        return $value?$value:'avatar-'.strtolower($this->gender).'.png';
+        return $value ? $value : 'avatar-' . strtolower($this->gender) . '.png';
     }
 
     /**
      * Check Actual Value of User's Avatar
      *
-     * @param  string  $value
+     * @param string $value
      * @return string
      */
     public function getCheckAvatarAttribute()
     {
-        return ($this->avatar == "avatar-".strtolower($this->gender).".png")?"":$this->avatar;
+        return ($this->avatar == "avatar-" . strtolower($this->gender) . ".png") ? "" : $this->avatar;
     }
 
     /**
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param string $token
      * @return void
      */
     public function sendPasswordResetNotification($token)
