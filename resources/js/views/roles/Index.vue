@@ -7,40 +7,35 @@
         <main-content>
             <data-table
                 title="List"
-                :source="users.source"
-                :soft-delete="true"
-                :columns="users.table.columns"
-                :default-order="users.table.defaultOrder"
-                :refresh="users.table.refresh"
+                :source="roles.source"
+                :soft-delete="false"
+                :columns="roles.table.columns"
+                :default-order="roles.table.defaultOrder"
+                :refresh="roles.table.refresh"
                 :actions="['create','view','edit','delete']"
-                :trash-actions="['restore']"
-                :controls="['search','filter']"
+                :controls="['search']"
                 @actionCreate="actionCreate"
                 @actionView="actionView"
                 @actionEdit="actionEdit"
-            >
-                <template v-slot:column_avatar="{ value }">
-                    <img :src="`/storage/avatars/${value}`" alt="Avatar" height="64" width="64">
-                </template>
-            </data-table>
+            ></data-table>
             <view-form
-                :data="users.view.data"
-                :show="users.view.show"
+                :data="roles.view.data"
+                :show="roles.view.show"
                 @toggleShow="toggleView"
             ></view-form>
             <create-form
-                :url="users.source"
-                :show="users.create.show"
+                :url="roles.source"
+                :show="roles.create.show"
                 :clear-after-submit="true"
                 @toggleShow="toggleCreate"
-                @submit="users.table.refresh++"
+                @submit="roles.table.refresh++"
             ></create-form>
             <edit-form
-                :url="users.source+'/'+users.edit.id"
-                :data="users.edit.data"
-                :show="users.edit.show"
+                :url="roles.source+'/'+roles.edit.id"
+                :data="roles.edit.data"
+                :show="roles.edit.show"
                 @toggleShow="toggleEdit"
-                @submit="users.table.refresh++"
+                @submit="roles.table.refresh++"
             ></edit-form>
         </main-content>
     </div>
@@ -57,7 +52,7 @@
 
 
     export default {
-        name: "Users",
+        name: "Roles",
         components: {
             ContentHeader, MainContent, DataTable, CreateForm, ViewForm, EditForm
         },
@@ -66,22 +61,19 @@
                 title: this.$options.name,
                 breadCrumbs: [
                     {item: 'Home', to: '/home'},
-                    {item: 'Users', active: true},
+                    {item: 'Roles', active: true},
                 ],
-                users: {
-                    source: '/api/users',
+                roles: {
+                    source: '/api/roles',
                     table: {
                         refresh: 0,
                         columns: [
                             {'name': 'id', 'header': 'ID'},
-                            {'name': 'avatar', 'header': 'Avatar', 'orderable': false},
                             {'name': 'name', 'header': 'Name'},
-                            {'name': 'gender', 'header': 'Gender'},
-                            {'name': 'email', 'header': 'Email'},
                             {'name': 'created_at', 'header': 'Created At'},
                             {'name': 'updated_at', 'header': 'Updated At'},
                         ],
-                        defaultOrder: [5, 'desc']
+                        defaultOrder: [2, 'desc']
                     },
                     create: {
                         show: false
@@ -101,25 +93,25 @@
         },
         methods: {
             toggleCreate(isShow) {
-                this.users.create.show = isShow
+                this.roles.create.show = isShow
             },
             toggleView(isShow) {
-                this.users.view.show = isShow
+                this.roles.view.show = isShow
             },
             toggleEdit(isShow) {
-                this.users.edit.show = isShow
+                this.roles.edit.show = isShow
             },
             actionCreate() {
-                this.users.create.show = true;
+                this.roles.create.show = true;
             },
             actionView(id) {
                 const vm = this;
-                const url = this.users.source + '/' + id;
+                const url = this.roles.source + '/' + id;
                 axios.get(url)
                     .then(function (response) {
                         if (response.status === 200) {
-                            vm.users.view.data = response.data.data;
-                            vm.users.view.show = true;
+                            vm.roles.view.data = response.data.data;
+                            vm.roles.view.show = true;
                         }
                     })
                     .catch(function (response) {
@@ -129,13 +121,13 @@
             },
             actionEdit(id) {
                 const vm = this;
-                const url = this.users.source + '/' + id;
-                vm.users.edit.id = id;
+                const url = this.roles.source + '/' + id;
+                vm.roles.edit.id = id;
                 axios.get(url)
                     .then(function (response) {
                         if (response.status === 200) {
-                            vm.users.edit.data = response.data.data;
-                            vm.users.edit.show = true;
+                            vm.roles.edit.data = response.data.data;
+                            vm.roles.edit.show = true;
                         }
                     })
                     .catch(function (response) {

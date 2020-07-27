@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::apiResource('/roles', 'API\RoleController');
+
+
 Route::post('/login','API\AuthController@login');
 Route::post('/register','API\AuthController@register');
 Route::post('/logout','API\AuthController@logout');
@@ -23,11 +27,20 @@ Route::post('/password/reset','API\ResetPasswordController@reset');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
+    /**
+     * Roles
+     */
+//    Route::apiResource('/roles', 'API\RoleController');
+
+    /**
+     * Users
+     */
     Route::patch('/users/{user}/restore', 'API\UserController@restore');
     Route::apiResource('/users', 'API\UserController');
 
-    Route::apiResource('/categories', 'API\CategoryController');
-
+    /**
+     * Profile
+     */
     Route::post('/profile/update','API\ProfileController@update');
     Route::post('/profile/change-password','API\ProfileController@changePassword');
     Route::post('/profile/upload-avatar','API\ProfileController@uploadAvatar');

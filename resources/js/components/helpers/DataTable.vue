@@ -81,7 +81,7 @@
                                 </slot>
                             </td>
                             <td v-if="actions.length">
-                                <span v-if="row.deleted_at !== null">
+                                <span v-if="row.deleted_at != null">
                                      <button type="button" class="btn btn-sm btn-warning"
                                              v-if="trashActions.includes('restore')" @click="restore(row.id)">
                                          <span class="fas fa-trash-restore-alt"></span>

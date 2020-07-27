@@ -61,7 +61,7 @@ const routes = [
             {
                 path: 'roles',
                 name: 'Roles',
-                component: require('./views/users/roles').default,
+                component: require('./views/roles').default,
             },
         ]
     }, // authentication required

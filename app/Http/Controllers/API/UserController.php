@@ -16,7 +16,7 @@ class UserController extends Controller
     public function __construct()
     {
         /**
-         * Super Admin role always grant in all permissions
+         * Super Admin role always granted in all permissions
          * Check User if there's a permission
          */
         $this->middleware('permission:Browse User',['only'=>['index']]);
@@ -40,13 +40,13 @@ class UserController extends Controller
             'users.name',
             'users.gender',
             'users.email',
-            'users.created_at',
+            'DATE_FORMAT(users.created_at, "%Y-%m-%d %H:%i") AS created_at',
             'users.updated_at',
             'users.deleted_at',
         ];
 
         $query = User::query()
-            ->select($columns);
+            ->selectRaw(implode(',',$columns));
 
         return response(Datatable::make($query,$columns));
     }
@@ -163,10 +163,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
+        $data = User::findOrFail($id);
+        $data->delete();
         return response([
-            'data' => $user
+            'data' => $data
         ],200);
     }
 
@@ -183,12 +183,5 @@ class UserController extends Controller
         return response([
             'data' => $user
         ],200);
-    }
-
-    public function getData(){
-        $data = User::class;
-        return response([
-            'model' => $data::searchPaginateAndOrder(),
-        ]);
     }
 }

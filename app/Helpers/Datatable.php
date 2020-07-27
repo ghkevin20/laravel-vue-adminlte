@@ -55,7 +55,7 @@ class Datatable
             &&
             ($request->has('order') && !is_null($request->get('order')))
         ) {
-            $query->orderBy($arrangedColumns[$request->get('sort')], strtolower($request->get('order')) === 'desc' ? 'desc' : 'asc');
+            $query->orderBy($request->get('sort'), strtolower($request->get('order')) === 'desc' ? 'desc' : 'asc');
         }
 
 
