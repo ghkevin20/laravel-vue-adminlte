@@ -53447,7 +53447,9 @@ var render = function() {
             [
               _c("div", { staticClass: "col-12" }, [
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+                  _c("label", { attrs: { for: "update_name" } }, [
+                    _vm._v("Name")
+                  ]),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -53464,7 +53466,7 @@ var render = function() {
                     },
                     attrs: {
                       type: "text",
-                      id: "name",
+                      id: "update_name",
                       name: "name",
                       placeholder: "Name *"
                     },
@@ -53488,7 +53490,9 @@ var render = function() {
                   "div",
                   { staticClass: "form-group" },
                   [
-                    _c("label", { attrs: { for: "roles" } }, [_vm._v("Roles")]),
+                    _c("label", { attrs: { for: "update_roles" } }, [
+                      _vm._v("Roles")
+                    ]),
                     _vm._v(" "),
                     _c("v-select", {
                       class: {
@@ -53502,7 +53506,7 @@ var render = function() {
                           return name.id
                         },
                         label: "name",
-                        id: "roles"
+                        id: "update_roles"
                       },
                       model: {
                         value: _vm.fields.roles,
@@ -54377,7 +54381,9 @@ var render = function() {
             [
               _c("div", { staticClass: "col-12" }, [
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+                  _c("label", { attrs: { for: "update_name" } }, [
+                    _vm._v("Name")
+                  ]),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -54394,7 +54400,7 @@ var render = function() {
                     },
                     attrs: {
                       type: "text",
-                      id: "name",
+                      id: "update_name",
                       name: "name",
                       placeholder: "Name *"
                     },
@@ -54418,7 +54424,7 @@ var render = function() {
                   "div",
                   { staticClass: "form-group" },
                   [
-                    _c("label", { attrs: { for: "permissions" } }, [
+                    _c("label", { attrs: { for: "update_permissions" } }, [
                       _vm._v("Permissions")
                     ]),
                     _vm._v(" "),
@@ -54434,7 +54440,7 @@ var render = function() {
                           return name.id
                         },
                         label: "name",
-                        id: "permissions"
+                        id: "update_permissions"
                       },
                       model: {
                         value: _vm.fields.permissions,

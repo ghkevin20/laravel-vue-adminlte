@@ -4,14 +4,14 @@
             <div slot="modal-body" class="row">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Name *"
+                        <label for="update_name">Name</label>
+                        <input type="text" class="form-control" id="update_name" name="name" placeholder="Name *"
                                v-model="fields.name"
                                :class="{ 'is-invalid': this.invalidFields.includes('name') }">
                         <div class="invalid-feedback">{{ this.invalidMessages.name }}</div>
                     </div>
                     <div class="form-group">
-                        <label for="permissions">Permissions</label>
+                        <label for="update_permissions">Permissions</label>
                         <v-select
                             multiple
                             placeholder="- Attach Permissions -"
@@ -19,7 +19,7 @@
                             :reduce="name => name.id"
                             label="name"
                             v-model="fields.permissions"
-                            id="permissions"
+                            id="update_permissions"
                             :class="{ 'is-invalid': this.invalidFields.includes('permissions') }"
                         ></v-select>
                         <div class="invalid-feedback">{{ this.invalidMessages.permissions }}</div>
