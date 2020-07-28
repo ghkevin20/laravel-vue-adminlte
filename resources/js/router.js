@@ -54,11 +54,6 @@ const routes = [
                 component: require('./views/users').default,
             },
             {
-                path: '/categories',
-                name: 'Categories',
-                component: require('./views/categories').default,
-            },
-            {
                 path: '/roles',
                 name: 'Roles',
                 component: require('./views/roles').default,

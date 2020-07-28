@@ -44,14 +44,6 @@
                                 </p>
                             </router-link>
                         </li>
-                        <li class="nav-item">
-                            <router-link to="/categories" class="nav-link">
-                                <i class="nav-icon fas fa-burn"></i>
-                                <p>
-                                    Categories
-                                </p>
-                            </router-link>
-                        </li>
                         <li class="nav-item has-treeview">
                             <a href="javascript:void(0);" class="nav-link">
                                 <i class="nav-icon fas fa-user-lock"></i>
