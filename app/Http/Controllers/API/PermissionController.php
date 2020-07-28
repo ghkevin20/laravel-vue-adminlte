@@ -62,11 +62,13 @@ class PermissionController extends Controller
 
         $validator = Validator::make($requestData, [
             'name' => 'required|string|max:255|unique:permissions,name',
+            'roles.*' => 'required|exists:roles,id',
         ]);
 
         if ($validator->fails()) return response(['message' => 'There is a problem with your request', 'errors' => $validator->errors()], 422);
 
         $data = Permission::create($requestData);
+        $data->roles()->sync($request->roles);
 
         return response([
             'data' => $data
@@ -105,11 +107,13 @@ class PermissionController extends Controller
 
         $validator = Validator::make($requestData, [
             'name' => 'required|string|max:255|unique:permissions,name,' . $id,
+            'roles.*' => 'required|exists:roles,id',
         ]);
 
         if ($validator->fails()) return response(['message' => 'There is a problem with your request', 'errors' => $validator->errors()], 422);
 
         $data->update($requestData);
+        $data->roles()->sync($request->roles);
 
         return response([
             'data' => $data

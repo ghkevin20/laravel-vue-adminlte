@@ -4190,7 +4190,13 @@ __webpack_require__.r(__webpack_exports__);
       };
       var formData = new FormData();
       formData.append('name', this.fields.name);
-      formData.append('roles', this.fields.roles);
+
+      for (var prop in this.fields.roles) {
+        if (this.fields.roles.hasOwnProperty(prop)) {
+          formData.append('roles[]', this.fields.roles[prop]);
+        }
+      }
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, config).then(function (response) {
         if (response.status === 200) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
@@ -4365,7 +4371,13 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append('_method', 'PUT');
       formData.append('name', this.fields.name);
-      formData.append('roles', this.fields.roles);
+
+      for (var prop in this.fields.roles) {
+        if (this.fields.roles.hasOwnProperty(prop)) {
+          formData.append('roles[]', this.fields.roles[prop]);
+        }
+      }
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, config).then(function (response) {
         if (response.status === 200) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({

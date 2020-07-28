@@ -90,7 +90,12 @@
 
                 let formData = new FormData();
                 formData.append('name', this.fields.name);
-                formData.append('roles', this.fields.roles);
+
+                for(const prop in this.fields.roles){
+                    if(this.fields.roles.hasOwnProperty(prop)){
+                        formData.append('roles[]', this.fields.roles[prop]);
+                    }
+                }
 
                 axios.post(this.url, formData, config)
                     .then(function (response) {
