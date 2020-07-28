@@ -16,19 +16,19 @@ const routes = [
                 component: require('./views/Home').default,
             },
             {
-                path: 'login',
+                path: '/login',
                 component: require('./views/auth/Login').default
             },
             {
-                path: 'register',
+                path: '/register',
                 component: require('./views/auth/Register').default
             },
             {
-                path: 'forgot-password',
+                path: '/forgot-password',
                 component: require('./views/auth/ForgotPassword').default
             },
             {
-                path: 'recover-password/:token',
+                path: '/recover-password/:token',
                 component: require('./views/auth/RecoverPassword').default
             },
         ]
@@ -39,29 +39,34 @@ const routes = [
         meta: {validate: ['auth']},
         children: [
             {
-                path: 'home',
+                path: '/home',
                 name: 'Home',
                 component: require('./views/AdminHome').default,
             },
             {
-                path: 'profile',
+                path: '/profile',
                 name: 'Profile',
                 component: require('./views/profile').default,
             },
             {
-                path: 'users',
+                path: '/users',
                 name: 'Users',
                 component: require('./views/users').default,
             },
             {
-                path: 'categories',
+                path: '/categories',
                 name: 'Categories',
                 component: require('./views/categories').default,
             },
             {
-                path: 'roles',
+                path: '/roles',
                 name: 'Roles',
                 component: require('./views/roles').default,
+            },
+            {
+                path: '/permissions',
+                name: 'Permissions',
+                component: require('./views/permissions').default,
             },
         ]
     }, // authentication required
