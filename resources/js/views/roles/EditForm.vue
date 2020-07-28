@@ -15,7 +15,7 @@
                         <v-select
                             multiple
                             placeholder="- Attach Permissions -"
-                            :options="[{id:1,name:'Browse User'},{id:2,name:'Create User'},{id:3,name:'Edit User'}]"
+                            :options="options.permissions"
                             :reduce="name => name.id"
                             label="name"
                             v-model="fields.permissions"
@@ -34,6 +34,7 @@
     import axios from 'axios';
     import Swal from 'sweetalert2';
     import Modal from "../../components/helpers/Modal";
+    import qs from "qs";
 
     export default {
         name: "EditForm",
@@ -58,6 +59,9 @@
                 fields: this.data,
                 invalidFields: [],
                 invalidMessages: {},
+                options: {
+                    permissions: []
+                }
             }
         },
         methods: {
@@ -108,7 +112,7 @@
                                 const errors = error.response.data.errors;
                                 let invalidFields = [];
                                 let invalidMessages = {};
-                                Object.keys(errors).forEach(function (key){
+                                Object.keys(errors).forEach(function (key) {
                                     invalidFields.push(key);
                                     invalidMessages[key] = errors[key][0];
                                 });
@@ -127,13 +131,39 @@
                     });
 
             }
+            ,
+            getPermissions() {
+                const vm = this;
+                var parameters = {
+                    scope: 'active',
+                    fields: {
+                        permissions: 'id,name'
+                    }
+                }
+
+                axios.get('/api/permissions', {
+                    params: parameters
+                    , paramsSerializer: params => {
+                        return qs.stringify(params)
+                    }
+                })
+                    .then(function (response) {
+                        vm.options.permissions = response.data;
+                    })
+                    .catch(function (response) {
+                        console.log(response);
+                    });
+            }
+        },
+        mounted() {
+            this.getPermissions();
         },
         watch: {
             show: function (val) {
                 this.modalShow = val;
             },
             data: {
-                handler(val){
+                handler(val) {
                     this.fields = Object.assign({}, this.data);
                 },
                 deep: true

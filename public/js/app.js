@@ -5267,6 +5267,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_helpers_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/helpers/Modal */ "./resources/js/components/helpers/Modal.vue");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -5299,6 +5301,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -5324,7 +5327,10 @@ __webpack_require__.r(__webpack_exports__);
       modalShow: this.show,
       fields: this.data,
       invalidFields: [],
-      invalidMessages: {}
+      invalidMessages: {},
+      options: {
+        permissions: []
+      }
     };
   },
   methods: {
@@ -5388,7 +5394,29 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    },
+    getPermissions: function getPermissions() {
+      var vm = this;
+      var parameters = {
+        scope: 'active',
+        fields: {
+          permissions: 'id,name'
+        }
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/permissions', {
+        params: parameters,
+        paramsSerializer: function paramsSerializer(params) {
+          return qs__WEBPACK_IMPORTED_MODULE_3___default.a.stringify(params);
+        }
+      }).then(function (response) {
+        vm.options.permissions = response.data;
+      })["catch"](function (response) {
+        console.log(response);
+      });
     }
+  },
+  mounted: function mounted() {
+    this.getPermissions();
   },
   watch: {
     show: function show(val) {
@@ -54351,11 +54379,7 @@ var render = function() {
                       attrs: {
                         multiple: "",
                         placeholder: "- Attach Permissions -",
-                        options: [
-                          { id: 1, name: "Browse User" },
-                          { id: 2, name: "Create User" },
-                          { id: 3, name: "Edit User" }
-                        ],
+                        options: _vm.options.permissions,
                         reduce: function(name) {
                           return name.id
                         },
