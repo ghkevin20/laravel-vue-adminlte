@@ -16,7 +16,7 @@
                             multiple
                             placeholder="- Attach Permissions -"
                             :options="['Permission 1', 'Permission 2', 'Permission 3', 'Permission 4', 'Permission 5', 'Permission 6', 'Permission 7']"
-                            v-model="fields.gender"
+                            v-model="fields.permissions"
                             id="permissions"
                             :class="{ 'is-invalid': this.invalidFields.includes('permissions') }"
                         ></v-select>

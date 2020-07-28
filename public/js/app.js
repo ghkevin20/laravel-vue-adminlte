@@ -54337,11 +54337,11 @@ var render = function() {
                         id: "permissions"
                       },
                       model: {
-                        value: _vm.fields.gender,
+                        value: _vm.fields.permissions,
                         callback: function($$v) {
-                          _vm.$set(_vm.fields, "gender", $$v)
+                          _vm.$set(_vm.fields, "permissions", $$v)
                         },
-                        expression: "fields.gender"
+                        expression: "fields.permissions"
                       }
                     }),
                     _vm._v(" "),
