@@ -74,7 +74,7 @@ class RoleController extends Controller
         $data->permissions()->sync($request->permissions);
 
         return response([
-            'data' => $request->all()
+            'data' => $data
         ], 200);
     }
 
@@ -110,11 +110,13 @@ class RoleController extends Controller
 
         $validator = Validator::make($requestData, [
             'name' => 'required|string|max:255|unique:roles,name,' . $id,
+            'permissions.*' => 'required|exists:permissions,id',
         ]);
 
         if ($validator->fails()) return response(['message' => 'There is a problem with your request', 'errors' => $validator->errors()], 422);
 
         $data->update($requestData);
+        $data->permissions()->sync($request->permissions);
 
         return response([
             'data' => $data

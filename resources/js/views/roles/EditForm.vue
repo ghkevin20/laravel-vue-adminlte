@@ -86,7 +86,11 @@
                 let formData = new FormData();
                 formData.append('_method', 'PUT');
                 formData.append('name', this.fields.name);
-                formData.append('permissions', this.fields.permissions);
+                for(const prop in this.fields.permissions){
+                    if(this.fields.permissions.hasOwnProperty(prop)){
+                        formData.append('permissions[]', this.fields.permissions[prop]);
+                    }
+                }
 
                 axios.post(this.url, formData, config)
                     .then(function (response) {
