@@ -4329,7 +4329,7 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append('_method', 'PUT');
       formData.append('name', this.fields.name);
-      formData.append('permissions', this.fields.permissions);
+      formData.append('roles', this.fields.roles);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, config).then(function (response) {
         if (response.status === 200) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
@@ -53376,39 +53376,37 @@ var render = function() {
                   "div",
                   { staticClass: "form-group" },
                   [
-                    _c("label", { attrs: { for: "permissions" } }, [
-                      _vm._v("Permissions")
-                    ]),
+                    _c("label", { attrs: { for: "roles" } }, [_vm._v("Roles")]),
                     _vm._v(" "),
                     _c("v-select", {
                       class: {
-                        "is-invalid": this.invalidFields.includes("gender")
+                        "is-invalid": this.invalidFields.includes("roles")
                       },
                       attrs: {
                         multiple: "",
-                        placeholder: "- Attach Permissions -",
+                        placeholder: "- Attach Roles -",
                         options: [
-                          "Permission 1",
-                          "Permission 2",
-                          "Permission 3",
-                          "Permission 4",
-                          "Permission 5",
-                          "Permission 6",
-                          "Permission 7"
+                          "Role 1",
+                          "Role 2",
+                          "Role 3",
+                          "Role 4",
+                          "Role 5",
+                          "Role 6",
+                          "Role 7"
                         ],
                         id: "permissions"
                       },
                       model: {
-                        value: _vm.fields.gender,
+                        value: _vm.fields.roles,
                         callback: function($$v) {
-                          _vm.$set(_vm.fields, "gender", $$v)
+                          _vm.$set(_vm.fields, "roles", $$v)
                         },
-                        expression: "fields.gender"
+                        expression: "fields.roles"
                       }
                     }),
                     _vm._v(" "),
                     _c("div", { staticClass: "invalid-feedback" }, [
-                      _vm._v(_vm._s(this.invalidMessages.gender))
+                      _vm._v(_vm._s(this.invalidMessages.roles))
                     ])
                   ],
                   1

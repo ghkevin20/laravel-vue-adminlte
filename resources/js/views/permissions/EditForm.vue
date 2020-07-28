@@ -11,16 +11,16 @@
                         <div class="invalid-feedback">{{ this.invalidMessages.name }}</div>
                     </div>
                     <div class="form-group">
-                        <label for="permissions">Permissions</label>
+                        <label for="roles">Roles</label>
                         <v-select
                             multiple
-                            placeholder="- Attach Permissions -"
-                            :options="['Permission 1', 'Permission 2', 'Permission 3', 'Permission 4', 'Permission 5', 'Permission 6', 'Permission 7']"
-                            v-model="fields.gender"
+                            placeholder="- Attach Roles -"
+                            :options="['Role 1', 'Role 2', 'Role 3', 'Role 4', 'Role 5', 'Role 6', 'Role 7']"
+                            v-model="fields.roles"
                             id="permissions"
-                            :class="{ 'is-invalid': this.invalidFields.includes('gender') }"
+                            :class="{ 'is-invalid': this.invalidFields.includes('roles') }"
                         ></v-select>
-                        <div class="invalid-feedback">{{ this.invalidMessages.gender }}</div>
+                        <div class="invalid-feedback">{{ this.invalidMessages.roles }}</div>
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                 let formData = new FormData();
                 formData.append('_method', 'PUT');
                 formData.append('name', this.fields.name);
-                formData.append('permissions', this.fields.permissions);
+                formData.append('roles', this.fields.roles);
 
                 axios.post(this.url, formData, config)
                     .then(function (response) {
