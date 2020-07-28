@@ -86,9 +86,13 @@
                 let formData = new FormData();
                 formData.append('_method', 'PUT');
                 formData.append('name', this.fields.name);
-                for(const prop in this.fields.permissions){
-                    if(this.fields.permissions.hasOwnProperty(prop)){
-                        formData.append('permissions[]', this.fields.permissions[prop]);
+                for (const prop in this.fields.permissions) {
+                    if (this.fields.permissions.hasOwnProperty(prop)) {
+                        if (this.fields.permissions[prop] instanceof Object) {
+                            formData.append('permissions[]', this.fields.permissions[prop].id);
+                        } else {
+                            formData.append('permissions[]', this.fields.permissions[prop]);
+                        }
                     }
                 }
 

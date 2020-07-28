@@ -89,7 +89,11 @@
 
                 for(const prop in this.fields.roles){
                     if(this.fields.roles.hasOwnProperty(prop)){
-                        formData.append('roles[]', this.fields.roles[prop]);
+                        if(this.fields.roles[prop] instanceof Object){
+                            formData.append('roles[]', this.fields.roles[prop].id);
+                        }else{
+                            formData.append('roles[]', this.fields.roles[prop]);
+                        }
                     }
                 }
 

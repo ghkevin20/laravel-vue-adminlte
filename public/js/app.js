@@ -4298,7 +4298,11 @@ __webpack_require__.r(__webpack_exports__);
 
       for (var prop in this.fields.roles) {
         if (this.fields.roles.hasOwnProperty(prop)) {
-          formData.append('roles[]', this.fields.roles[prop]);
+          if (this.fields.roles[prop] instanceof Object) {
+            formData.append('roles[]', this.fields.roles[prop].id);
+          } else {
+            formData.append('roles[]', this.fields.roles[prop]);
+          }
         }
       }
 
@@ -5358,7 +5362,11 @@ __webpack_require__.r(__webpack_exports__);
 
       for (var prop in this.fields.permissions) {
         if (this.fields.permissions.hasOwnProperty(prop)) {
-          formData.append('permissions[]', this.fields.permissions[prop]);
+          if (this.fields.permissions[prop] instanceof Object) {
+            formData.append('permissions[]', this.fields.permissions[prop].id);
+          } else {
+            formData.append('permissions[]', this.fields.permissions[prop]);
+          }
         }
       }
 
@@ -6087,7 +6095,11 @@ __webpack_require__.r(__webpack_exports__);
 
       for (var prop in this.fields.roles) {
         if (this.fields.roles.hasOwnProperty(prop)) {
-          formData.append('roles[]', this.fields.roles[prop]);
+          if (this.fields.roles[prop] instanceof Object) {
+            formData.append('roles[]', this.fields.roles[prop].id);
+          } else {
+            formData.append('roles[]', this.fields.roles[prop]);
+          }
         }
       }
 
