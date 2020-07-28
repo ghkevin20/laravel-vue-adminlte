@@ -41,9 +41,13 @@ class RoleController extends Controller
             ->allowedFilters(AllowedFilter::custom('search', new SearchFields, 'id,name,created_at,updated_at'))
             ->allowedFields('id', 'name','created_at','updated_at')
             ->allowedSorts('id', 'name', 'created_at','updated_at')
-            ->allowedAppends(['permissions_list'])
-            ->paginate($request->has('per_page')?$request->per_page:10);
+            ->allowedAppends(['permissions_list']);
 
+         if($request->has('per_page')){
+             $data = $data->paginate($request->per_page); // Get paginator
+         }else{
+             $data = $data->get();
+         }
         return response($data);
     }
 

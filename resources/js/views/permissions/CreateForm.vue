@@ -15,7 +15,9 @@
                         <v-select
                             multiple
                             placeholder="- Attach Roles -"
-                            :options="['Role 1', 'Role 2', 'Role 3', 'Role 4', 'Role 5', 'Role 6', 'Role 7']"
+                            :options="options.roles"
+                            :reduce="name => name.id"
+                            label="name"
                             v-model="fields.roles"
                             id="roles"
                             :class="{ 'is-invalid': this.invalidFields.includes('roles') }"
@@ -32,6 +34,7 @@
     import axios from 'axios';
     import Swal from 'sweetalert2';
     import Modal from "../../components/helpers/Modal";
+    import qs from "qs";
 
     export default {
         name: "CreateForm",
@@ -58,6 +61,9 @@
                 },
                 invalidFields: [],
                 invalidMessages: {},
+                options: {
+                    roles:[]
+                }
             }
         },
         methods: {
@@ -128,10 +134,33 @@
                         }
                     });
 
+            },
+            getRoles(){
+                const vm = this;
+                var parameters = {
+                    scope: 'active',
+                    fields: {
+                        roles: 'id,name'
+                    }
+                }
+
+                axios.get('/api/roles', {
+                    params: parameters
+                    , paramsSerializer: params => {
+                        return qs.stringify(params)
+                    }
+                })
+                    .then(function (response) {
+                        vm.options.roles = response.data;
+                    })
+                    .catch(function (response) {
+                        console.log(response);
+                    });
             }
         },
         mounted() {
             this.setDefaultFields();
+            this.getRoles();
         },
         watch: {
             show: function (val) {

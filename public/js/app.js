@@ -4098,6 +4098,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_helpers_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/helpers/Modal */ "./resources/js/components/helpers/Modal.vue");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -4128,6 +4130,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 
@@ -4155,7 +4160,10 @@ __webpack_require__.r(__webpack_exports__);
         roles: []
       },
       invalidFields: [],
-      invalidMessages: {}
+      invalidMessages: {},
+      options: {
+        roles: []
+      }
     };
   },
   methods: {
@@ -4221,10 +4229,30 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    },
+    getRoles: function getRoles() {
+      var vm = this;
+      var parameters = {
+        scope: 'active',
+        fields: {
+          roles: 'id,name'
+        }
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/roles', {
+        params: parameters,
+        paramsSerializer: function paramsSerializer(params) {
+          return qs__WEBPACK_IMPORTED_MODULE_3___default.a.stringify(params);
+        }
+      }).then(function (response) {
+        vm.options.roles = response.data;
+      })["catch"](function (response) {
+        console.log(response);
+      });
     }
   },
   mounted: function mounted() {
     this.setDefaultFields();
+    this.getRoles();
   },
   watch: {
     show: function show(val) {
@@ -4249,6 +4277,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_helpers_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/helpers/Modal */ "./resources/js/components/helpers/Modal.vue");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -4279,6 +4309,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 
@@ -4304,7 +4337,10 @@ __webpack_require__.r(__webpack_exports__);
       modalShow: this.show,
       fields: this.data,
       invalidFields: [],
-      invalidMessages: {}
+      invalidMessages: {},
+      options: {
+        roles: []
+      }
     };
   },
   methods: {
@@ -4368,7 +4404,29 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    },
+    getRoles: function getRoles() {
+      var vm = this;
+      var parameters = {
+        scope: 'active',
+        fields: {
+          roles: 'id,name'
+        }
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/roles', {
+        params: parameters,
+        paramsSerializer: function paramsSerializer(params) {
+          return qs__WEBPACK_IMPORTED_MODULE_3___default.a.stringify(params);
+        }
+      }).then(function (response) {
+        vm.options.roles = response.data;
+      })["catch"](function (response) {
+        console.log(response);
+      });
     }
+  },
+  mounted: function mounted() {
+    this.getRoles();
   },
   watch: {
     show: function show(val) {
@@ -53306,15 +53364,11 @@ var render = function() {
                       attrs: {
                         multiple: "",
                         placeholder: "- Attach Roles -",
-                        options: [
-                          "Role 1",
-                          "Role 2",
-                          "Role 3",
-                          "Role 4",
-                          "Role 5",
-                          "Role 6",
-                          "Role 7"
-                        ],
+                        options: _vm.options.roles,
+                        reduce: function(name) {
+                          return name.id
+                        },
+                        label: "name",
                         id: "roles"
                       },
                       model: {
@@ -53443,16 +53497,12 @@ var render = function() {
                       attrs: {
                         multiple: "",
                         placeholder: "- Attach Roles -",
-                        options: [
-                          "Role 1",
-                          "Role 2",
-                          "Role 3",
-                          "Role 4",
-                          "Role 5",
-                          "Role 6",
-                          "Role 7"
-                        ],
-                        id: "permissions"
+                        options: _vm.options.roles,
+                        reduce: function(name) {
+                          return name.id
+                        },
+                        label: "name",
+                        id: "roles"
                       },
                       model: {
                         value: _vm.fields.roles,
