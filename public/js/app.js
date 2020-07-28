@@ -3125,6 +3125,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -14730,6 +14790,17 @@ function toComment(sourceMap) {
 	return '/*# ' + data + ' */';
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/ionicons/dist/index.mjs":
+/*!**********************************************!*\
+  !*** ./node_modules/ionicons/dist/index.mjs ***!
+  \**********************************************/
+/*! exports provided: addIcons */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'C:\\laragon\\www\\laraveladmin\\node_modules\\ionicons\\dist\\index.mjs'");
 
 /***/ }),
 
@@ -52229,7 +52300,122 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("main-content", [
-        _c("div", [_vm._v("\n            Logged in as\n        ")])
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-lg-3 col-6" }, [
+            _c(
+              "div",
+              { staticClass: "small-box bg-info" },
+              [
+                _c("div", { staticClass: "inner" }, [
+                  _c("h3", [_vm._v("150")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("New Users")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "icon" }, [
+                  _c("i", { staticClass: "fas fa-user-plus" })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  { staticClass: "small-box-footer", attrs: { to: "/users" } },
+                  [
+                    _vm._v("More info "),
+                    _c("i", { staticClass: "fas fa-arrow-circle-right" })
+                  ]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-3 col-6" }, [
+            _c(
+              "div",
+              { staticClass: "small-box bg-success" },
+              [
+                _c("div", { staticClass: "inner" }, [
+                  _c("h3", [_vm._v("53")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("Active Users")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "icon" }, [
+                  _c("i", { staticClass: "fas fa-users" })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  { staticClass: "small-box-footer", attrs: { to: "/users" } },
+                  [
+                    _vm._v("More info "),
+                    _c("i", { staticClass: "fas fa-arrow-circle-right" })
+                  ]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-3 col-6" }, [
+            _c(
+              "div",
+              { staticClass: "small-box bg-warning" },
+              [
+                _c("div", { staticClass: "inner" }, [
+                  _c("h3", [_vm._v("44")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("Roles")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "icon" }, [
+                  _c("i", { staticClass: "fas fa-user-lock" })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  { staticClass: "small-box-footer", attrs: { to: "/roles" } },
+                  [
+                    _vm._v("More info "),
+                    _c("i", { staticClass: "fas fa-arrow-circle-right" })
+                  ]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-3 col-6" }, [
+            _c(
+              "div",
+              { staticClass: "small-box bg-danger" },
+              [
+                _c("div", { staticClass: "inner" }, [
+                  _c("h3", [_vm._v("65")]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("Permissions")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "icon" }, [
+                  _c("i", { staticClass: "fas fa-key" })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "small-box-footer",
+                    attrs: { to: "/permissions" }
+                  },
+                  [
+                    _vm._v("More info "),
+                    _c("i", { staticClass: "fas fa-arrow-circle-right" })
+                  ]
+                )
+              ],
+              1
+            )
+          ])
+        ])
       ])
     ],
     1
@@ -72174,7 +72360,9 @@ try {
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 
-  __webpack_require__(/*! admin-lte */ "./node_modules/admin-lte/dist/js/adminlte.min.js"); // window.AdminLTE = require('admin-lte/build/js/AdminLTE')
+  __webpack_require__(/*! admin-lte */ "./node_modules/admin-lte/dist/js/adminlte.min.js");
+
+  __webpack_require__(/*! ionicons */ "./node_modules/ionicons/dist/index.mjs"); // window.AdminLTE = require('admin-lte/build/js/AdminLTE')
 
 } catch (e) {}
 /**
