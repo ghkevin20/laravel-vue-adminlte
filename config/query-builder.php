@@ -14,6 +14,8 @@ return [
     'parameters' => [
         'include' => 'include',
 
+        'search' => 'search',
+
         'filter' => 'filter',
 
         'sort' => 'sort',

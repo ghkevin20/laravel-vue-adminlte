@@ -183,7 +183,8 @@
 </template>
 
 <script>
-    import Swal from 'sweetalert2'
+    import Swal from 'sweetalert2';
+    import qs from 'qs';
 
     export default {
         name: "DataTable",
@@ -246,7 +247,6 @@
                     per_page: 10,
                     search: '',
                     scope: 'active',
-                    filter: {}
                 }
             }
         },
@@ -259,15 +259,17 @@
 
                 var url = vm.source;
 
-                var params = {
+                var parameters = {
                     per_page: vm.query.per_page,
                     page: vm.query.page,
-                    search: vm.query.search,
                     scope: vm.query.scope,
+                    filter: {
+                        search : vm.query.search
+                    }
                 }
 
                 if (vm.query.sort !== "") {
-                    params.sort = ((vm.query.order === 'desc') ? '-' : '') + vm.query.sort
+                    parameters.sort = ((vm.query.order === 'desc') ? '-' : '') + vm.query.sort
                 }
 
                 let includes = [];
@@ -277,28 +279,18 @@
                         if (vm.columns[prop].included) {
                             includes.push(vm.columns[prop].name);
                         }
-
-                        if (vm.columns[prop].searchable !== false) {
-                            vm.query.filter[vm.columns[prop].name] = vm.query.search;
-                        }
                     }
                 }
 
                 if (includes.length) {
-                    params.append = includes.join();
+                    parameters.append = includes.join();
                 }
 
-                params.filter = [];
-                params.filter['name'] = 'Ad';
-
-                // for (const prop in vm.query.filter) {
-                //     if (vm.query.filter.hasOwnProperty(prop)) {
-                //         params.filter[prop] = vm.query.filter[prop];
-                //     }
-                // }
-
                 axios.get(url, {
-                    params: params
+                    params: parameters
+                    ,paramsSerializer: params => {
+                        return qs.stringify(params)
+                    }
                 })
                     .then(function (response) {
                         console.log(response)

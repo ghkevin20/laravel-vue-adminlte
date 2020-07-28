@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\SearchFields;
 use App\Http\Controllers\Controller;
 use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 // Importing laravel-permission models
@@ -36,13 +38,14 @@ class RoleController extends Controller
         $request = app()->make('request');
 
         $data = QueryBuilder::for(Role::class)
-            ->allowedFilters('id', 'name','created_at','updated_at')
+//            ->allowedFilters('id', 'name','created_at','updated_at')
+            ->allowedFilters(AllowedFilter::custom('search', new SearchFields, 'id,name,created_at,updated_at'))
             ->allowedFields('id', 'name','created_at','updated_at')
             ->allowedSorts('id', 'name', 'created_at','updated_at')
             ->allowedAppends(['permissions_list'])
             ->paginate($request->has('per_page')?$request->per_page:10);
 
-        return response([$data,$request->all()]);
+        return response($data);
     }
 
     /**
