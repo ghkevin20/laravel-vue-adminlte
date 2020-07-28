@@ -78,10 +78,17 @@
                             {name: 'name', header: 'Name'},
                             {name: 'gender', header: 'Gender'},
                             {name: 'email', header: 'Email'},
+                            {
+                                name: 'roles_list',
+                                header: 'Roles',
+                                sortable: false,
+                                searchable: false,
+                                included: true
+                            },
                             {name: 'created_at', header: 'Created At'},
                             {name: 'updated_at', header: 'Updated At'},
                         ],
-                        defaultOrder: [5, 'desc']
+                        defaultOrder: [6, 'desc']
                     },
                     create: {
                         show: false

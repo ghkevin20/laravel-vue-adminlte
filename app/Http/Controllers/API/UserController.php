@@ -49,7 +49,7 @@ class UserController extends Controller
             )
             ->allowedFields('id','avatar', 'name','gender','email','created_at','updated_at','deleted_at')
             ->allowedSorts('id','avatar', 'name','gender','email', 'created_at','updated_at')
-            ->allowedAppends(['permissions_list'])
+            ->allowedAppends(['roles_list'])
             ->paginate($request->has('per_page')?$request->per_page:10);
 
         return response($data);
@@ -63,7 +63,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $requestData = $request->all();
+        $requestData = $request->only([
+            'avatar',
+            'name',
+            'gender',
+            'email',
+            'password',
+            'password_confirmation'
+        ]);
 
         $validator = Validator::make($requestData, [
             'avatar' => 'image|dimensions:ratio=1|mimes:jpeg,jpg,png|nullable|max:2048',
@@ -88,6 +95,7 @@ class UserController extends Controller
         $requestData['password'] = Hash::make($requestData['password']);
 
         $data = User::create($requestData);
+        $data->roles()->sync($request->roles);
 
         return response([
             'data' => $data
@@ -102,7 +110,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $data = User::findOrFail($id);
+        $data = User::with('roles')->findOrFail($id);
 
         return response([
             'data' => $data
@@ -119,7 +127,14 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $data = User::findOrFail($id);
-        $requestData = $request->all();
+        $requestData = $request->only([
+            'avatar',
+            'name',
+            'gender',
+            'email',
+            'password',
+            'password_confirmation'
+        ]);
 
         $validator = Validator::make($requestData, [
             'avatar' => 'nullable|image|dimensions:ratio=1|mimes:jpeg,jpg,png|nullable|max:2048',
@@ -153,6 +168,7 @@ class UserController extends Controller
         }
 
         $data->update($requestData);
+        $data->roles()->sync($request->roles);
 
         return response([
             'data' => $data

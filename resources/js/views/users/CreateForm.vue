@@ -66,7 +66,10 @@
                         <label for="roles">Role/s</label>
                         <v-select
                             multiple
-                            :options="['Canada', 'United States']"
+                            placeholder="- Attach Roles -"
+                            :options="options.roles"
+                            :reduce="name => name.id"
+                            label="name"
                             v-model="fields.roles"
                             id="roles"
                             :class="{ 'is-invalid': this.invalidFields.includes('roles') }"
@@ -84,6 +87,7 @@
     import Swal from 'sweetalert2';
     import Modal from "../../components/helpers/Modal";
     import AvatarCropper from "../../components/helpers/AvatarCropper";
+    import qs from "qs";
 
     export default {
         name: "CreateForm",
@@ -104,25 +108,20 @@
         data() {
             return {
                 modalShow: this.show,
-                defaultFields: {
-                    avatar: null,
-                    name: '',
-                    gender: '',
-                    email: '',
-                    password: '',
-                    password_confirmation: ''
-                },
                 fields: {
                     avatar: null,
                     name: '',
                     gender: '',
                     email: '',
                     password: '',
-                    password_confirmation: ''
+                    password_confirmation: '',
+                    roles: []
                 },
                 invalidFields: [],
                 invalidMessages: {},
-                roles: {code: 'CA', country: 'Canada'}
+                options: {
+                    roles:[]
+                }
             }
         },
         methods: {
@@ -133,6 +132,9 @@
             clearValidation() {
                 this.invalidFields = [];
                 this.invalidMessages = {};
+            },
+            setDefaultFields() {
+                this.defaultFields = Object.assign({}, this.fields)
             },
             clearFields() {
                 this.fields = Object.assign({}, this.defaultFields);
@@ -145,12 +147,18 @@
                 }
 
                 let formData = new FormData();
-
-                for (const field in this.fields) {
-                    if (this.fields[field]) {
-                        formData.append(field, this.fields[field]);
+                formData.append('avatar', this.fields.avatar);
+                formData.append('name', this.fields.name);
+                formData.append('gender', this.fields.gender);
+                formData.append('email', this.fields.email);
+                formData.append('password', this.fields.password);
+                formData.append('password_confirmation', this.fields.password_confirmation);
+                for(const prop in this.fields.roles){
+                    if(this.fields.roles.hasOwnProperty(prop)){
+                        formData.append('roles[]', this.fields.roles[prop]);
                     }
                 }
+
 
                 axios.post(this.url, formData, config)
                     .then(function (response) {
@@ -199,8 +207,31 @@
                 this.fields.avatar = avatar;
             },
             getRoles(){
+                const vm = this;
+                var parameters = {
+                    scope: 'active',
+                    fields: {
+                        roles: 'id,name'
+                    }
+                }
 
+                axios.get('/api/roles', {
+                    params: parameters
+                    , paramsSerializer: params => {
+                        return qs.stringify(params)
+                    }
+                })
+                    .then(function (response) {
+                        vm.options.roles = response.data;
+                    })
+                    .catch(function (response) {
+                        console.log(response);
+                    });
             }
+        },
+        mounted() {
+            this.setDefaultFields();
+            this.getRoles();
         },
         watch: {
             show: function (val) {

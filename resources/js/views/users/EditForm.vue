@@ -3,10 +3,12 @@
         <modal title="Edit" :show="modalShow" @toggleShow="toggleShow" :submit="true">
             <div slot="modal-body" class="row">
                 <div class="col-12">
-                    <div class="form-group d-flex justify-content-center align-items-center" >
-                        <avatar-cropper :default-preview-source="`/storage/avatars/${this.data.avatar}`" @updateBlob="updateBlob"></avatar-cropper>
+                    <div class="form-group d-flex justify-content-center align-items-center">
+                        <avatar-cropper :default-preview-source="`/storage/avatars/${this.data.avatar}`"
+                                        @updateBlob="updateBlob"></avatar-cropper>
                     </div>
-                    <div class="d-none form-control" :class="{ 'is-invalid': this.invalidFields.includes('avatar') }"></div>
+                    <div class="d-none form-control"
+                         :class="{ 'is-invalid': this.invalidFields.includes('avatar') }"></div>
                     <div class="d-inline invalid-feedback">{{ this.invalidMessages.avatar }}</div>
                     <div class="form-group">
                         <label for="update_name">Name</label>
@@ -36,7 +38,8 @@
                     </div>
                     <div class="form-group">
                         <label for="update_password">Password</label>
-                        <input type="password" class="form-control" id="update_password" name="password" autocomplete="off"
+                        <input type="password" class="form-control" id="update_password" name="password"
+                               autocomplete="off"
                                placeholder="Password *"
                                v-model="fields.password"
                                :class="{ 'is-invalid': this.invalidFields.includes('password') }">
@@ -50,6 +53,20 @@
                                :class="{ 'is-invalid': this.invalidFields.includes('password_confirmation') }">
                         <div class="invalid-feedback">{{ this.invalidMessages.password_confirmation }}</div>
                     </div>
+                    <div class="form-group">
+                        <label for="roles">Role/s</label>
+                        <v-select
+                            multiple
+                            placeholder="- Attach Roles -"
+                            :options="options.roles"
+                            :reduce="name => name.id"
+                            label="name"
+                            v-model="fields.roles"
+                            id="roles"
+                            :class="{ 'is-invalid': this.invalidFields.includes('roles') }"
+                        ></v-select>
+                        <div class="invalid-feedback">{{ this.invalidMessages.roles }}</div>
+                    </div>
                 </div>
             </div>
         </modal>
@@ -61,6 +78,7 @@
     import Swal from 'sweetalert2';
     import Modal from "../../components/helpers/Modal";
     import AvatarCropper from "../../components/helpers/AvatarCropper";
+    import qs from "qs";
 
     export default {
         name: "EditForm",
@@ -82,10 +100,12 @@
         data() {
             return {
                 modalShow: this.show,
-                defaultFields: {},
                 fields: this.data,
                 invalidFields: [],
                 invalidMessages: {},
+                options: {
+                    roles: []
+                }
             }
         },
         methods: {
@@ -109,18 +129,17 @@
 
                 let formData = new FormData();
                 formData.append('_method', 'PUT');
-
-                for (const field in this.fields) {
-                    if(this.fields[field]){
-
-
-                        if(field === 'avatar'){
-                            if(field  instanceof Blob){
-                                formData.append(field, this.fields[field]);
-                            }
-                        }else{
-                            formData.append(field, this.fields[field]);
-                        }
+                if (this.fields.avatar instanceof Blob) {
+                    formData.append('avatar', this.fields.avatar);
+                }
+                formData.append('name', this.fields.name);
+                formData.append('gender', this.fields.gender);
+                formData.append('email', this.fields.email);
+                formData.append('password', this.fields.password);
+                formData.append('password_confirmation', this.fields.password_confirmation);
+                for (const prop in this.fields.roles) {
+                    if (this.fields.roles.hasOwnProperty(prop)) {
+                        formData.append('roles[]', this.fields.roles[prop]);
                     }
                 }
 
@@ -148,7 +167,7 @@
                                 const errors = error.response.data.errors;
                                 let invalidFields = [];
                                 let invalidMessages = {};
-                                Object.keys(errors).forEach(function (key){
+                                Object.keys(errors).forEach(function (key) {
                                     invalidFields.push(key);
                                     invalidMessages[key] = errors[key][0];
                                 });
@@ -167,16 +186,41 @@
                     });
 
             },
-            updateBlob(avatar){
+            getRoles() {
+                const vm = this;
+                var parameters = {
+                    scope: 'active',
+                    fields: {
+                        roles: 'id,name'
+                    }
+                }
+
+                axios.get('/api/roles', {
+                    params: parameters
+                    , paramsSerializer: params => {
+                        return qs.stringify(params)
+                    }
+                })
+                    .then(function (response) {
+                        vm.options.roles = response.data;
+                    })
+                    .catch(function (response) {
+                        console.log(response);
+                    });
+            },
+            updateBlob(avatar) {
                 this.fields.avatar = avatar;
             }
+        },
+        mounted() {
+            this.getRoles();
         },
         watch: {
             show: function (val) {
                 this.modalShow = val;
             },
             data: {
-                handler(val){
+                handler(val) {
                     this.fields = Object.assign({}, this.data);
                 },
                 deep: true

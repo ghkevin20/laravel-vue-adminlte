@@ -5765,6 +5765,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_helpers_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/helpers/Modal */ "./resources/js/components/helpers/Modal.vue");
 /* harmony import */ var _components_helpers_AvatarCropper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/helpers/AvatarCropper */ "./resources/js/components/helpers/AvatarCropper.vue");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -5846,6 +5848,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -5870,27 +5876,19 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       modalShow: this.show,
-      defaultFields: {
-        avatar: null,
-        name: '',
-        gender: '',
-        email: '',
-        password: '',
-        password_confirmation: ''
-      },
       fields: {
         avatar: null,
         name: '',
         gender: '',
         email: '',
         password: '',
-        password_confirmation: ''
+        password_confirmation: '',
+        roles: []
       },
       invalidFields: [],
       invalidMessages: {},
-      roles: {
-        code: 'CA',
-        country: 'Canada'
+      options: {
+        roles: []
       }
     };
   },
@@ -5903,6 +5901,9 @@ __webpack_require__.r(__webpack_exports__);
       this.invalidFields = [];
       this.invalidMessages = {};
     },
+    setDefaultFields: function setDefaultFields() {
+      this.defaultFields = Object.assign({}, this.fields);
+    },
     clearFields: function clearFields() {
       this.fields = Object.assign({}, this.defaultFields);
     },
@@ -5914,10 +5915,16 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       var formData = new FormData();
+      formData.append('avatar', this.fields.avatar);
+      formData.append('name', this.fields.name);
+      formData.append('gender', this.fields.gender);
+      formData.append('email', this.fields.email);
+      formData.append('password', this.fields.password);
+      formData.append('password_confirmation', this.fields.password_confirmation);
 
-      for (var field in this.fields) {
-        if (this.fields[field]) {
-          formData.append(field, this.fields[field]);
+      for (var prop in this.fields.roles) {
+        if (this.fields.roles.hasOwnProperty(prop)) {
+          formData.append('roles[]', this.fields.roles[prop]);
         }
       }
 
@@ -5963,7 +5970,29 @@ __webpack_require__.r(__webpack_exports__);
     updateBlob: function updateBlob(avatar) {
       this.fields.avatar = avatar;
     },
-    getRoles: function getRoles() {}
+    getRoles: function getRoles() {
+      var vm = this;
+      var parameters = {
+        scope: 'active',
+        fields: {
+          roles: 'id,name'
+        }
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/roles', {
+        params: parameters,
+        paramsSerializer: function paramsSerializer(params) {
+          return qs__WEBPACK_IMPORTED_MODULE_4___default.a.stringify(params);
+        }
+      }).then(function (response) {
+        vm.options.roles = response.data;
+      })["catch"](function (response) {
+        console.log(response);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.setDefaultFields();
+    this.getRoles();
   },
   watch: {
     show: function show(val) {
@@ -5989,6 +6018,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_helpers_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/helpers/Modal */ "./resources/js/components/helpers/Modal.vue");
 /* harmony import */ var _components_helpers_AvatarCropper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/helpers/AvatarCropper */ "./resources/js/components/helpers/AvatarCropper.vue");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -6047,6 +6078,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -6072,10 +6121,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       modalShow: this.show,
-      defaultFields: {},
       fields: this.data,
       invalidFields: [],
-      invalidMessages: {}
+      invalidMessages: {},
+      options: {
+        roles: []
+      }
     };
   },
   methods: {
@@ -6100,15 +6151,19 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append('_method', 'PUT');
 
-      for (var field in this.fields) {
-        if (this.fields[field]) {
-          if (field === 'avatar') {
-            if (field instanceof Blob) {
-              formData.append(field, this.fields[field]);
-            }
-          } else {
-            formData.append(field, this.fields[field]);
-          }
+      if (this.fields.avatar instanceof Blob) {
+        formData.append('avatar', this.fields.avatar);
+      }
+
+      formData.append('name', this.fields.name);
+      formData.append('gender', this.fields.gender);
+      formData.append('email', this.fields.email);
+      formData.append('password', this.fields.password);
+      formData.append('password_confirmation', this.fields.password_confirmation);
+
+      for (var prop in this.fields.roles) {
+        if (this.fields.roles.hasOwnProperty(prop)) {
+          formData.append('roles[]', this.fields.roles[prop]);
         }
       }
 
@@ -6151,9 +6206,31 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    getRoles: function getRoles() {
+      var vm = this;
+      var parameters = {
+        scope: 'active',
+        fields: {
+          roles: 'id,name'
+        }
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/roles', {
+        params: parameters,
+        paramsSerializer: function paramsSerializer(params) {
+          return qs__WEBPACK_IMPORTED_MODULE_4___default.a.stringify(params);
+        }
+      }).then(function (response) {
+        vm.options.roles = response.data;
+      })["catch"](function (response) {
+        console.log(response);
+      });
+    },
     updateBlob: function updateBlob(avatar) {
       this.fields.avatar = avatar;
     }
+  },
+  mounted: function mounted() {
+    this.getRoles();
   },
   watch: {
     show: function show(val) {
@@ -6350,13 +6427,19 @@ __webpack_require__.r(__webpack_exports__);
             name: 'email',
             header: 'Email'
           }, {
+            name: 'roles_list',
+            header: 'Roles',
+            sortable: false,
+            searchable: false,
+            included: true
+          }, {
             name: 'created_at',
             header: 'Created At'
           }, {
             name: 'updated_at',
             header: 'Updated At'
           }],
-          defaultOrder: [5, 'desc']
+          defaultOrder: [6, 'desc']
         },
         create: {
           show: false
@@ -14599,7 +14682,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Ensure the size of the image fit the container perfectly */\nimg[data-v-fae8c834] {\n    display: block;\n\n    /* This rule is very important, please don't ignore this */\n    max-width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Ensure the size of the image fit the container perfectly */\nimg[data-v-fae8c834] {\n    display: block;\n\n    /* This rule is very important, please don't ignore this */\n    max-width: 100%;\n}\n", ""]);
 
 // exports
 
@@ -54931,7 +55014,12 @@ var render = function() {
                       },
                       attrs: {
                         multiple: "",
-                        options: ["Canada", "United States"],
+                        placeholder: "- Attach Roles -",
+                        options: _vm.options.roles,
+                        reduce: function(name) {
+                          return name.id
+                        },
+                        label: "name",
                         id: "roles"
                       },
                       model: {
@@ -55265,7 +55353,45 @@ var render = function() {
                   _c("div", { staticClass: "invalid-feedback" }, [
                     _vm._v(_vm._s(this.invalidMessages.password_confirmation))
                   ])
-                ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", { attrs: { for: "roles" } }, [
+                      _vm._v("Role/s")
+                    ]),
+                    _vm._v(" "),
+                    _c("v-select", {
+                      class: {
+                        "is-invalid": this.invalidFields.includes("roles")
+                      },
+                      attrs: {
+                        multiple: "",
+                        placeholder: "- Attach Roles -",
+                        options: _vm.options.roles,
+                        reduce: function(name) {
+                          return name.id
+                        },
+                        label: "name",
+                        id: "roles"
+                      },
+                      model: {
+                        value: _vm.fields.roles,
+                        callback: function($$v) {
+                          _vm.$set(_vm.fields, "roles", $$v)
+                        },
+                        expression: "fields.roles"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "invalid-feedback" }, [
+                      _vm._v(_vm._s(this.invalidMessages.roles))
+                    ])
+                  ],
+                  1
+                )
               ])
             ]
           )
