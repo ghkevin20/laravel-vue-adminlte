@@ -30,6 +30,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('/roles', 'API\RoleController');
 
     /**
+     * Permissions
+     */
+    Route::apiResource('/permissions', 'API\PermissionController');
+
+    /**
      * Users
      */
     Route::patch('/users/{user}/restore', 'API\UserController@restore');
