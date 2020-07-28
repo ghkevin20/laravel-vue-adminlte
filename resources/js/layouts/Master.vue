@@ -1,12 +1,18 @@
 <template>
     <div class="wrapper">
 
-        <main-header></main-header>
+        <main-header
+            :user="user"
+            :app-name-first="appNameFirst"
+            :app-name-last="appNameLast"
+            @logout="logout"
+        ></main-header>
 
         <main-side-bar
             :user="user"
             :app-name-first="appNameFirst"
             :app-name-last="appNameLast"
+            @logout="logout"
         ></main-side-bar>
 
         <content-wrapper>
@@ -45,6 +51,21 @@
         mounted() {
             document.querySelector('body').classList.remove('hold-transition')
             $('ul[data-widget="treeview"]').Treeview('init');
+        },
+        methods:{
+            logout() {
+                axios.post('/api/logout').then(response => {
+                    if (response.status === 200){
+                        this.$store.dispatch('disprove');
+                        this.$store.dispatch('unsetUser');
+                        this.$router.push("/login")
+                    }else{
+                        console.log(response)
+                    }
+                }).catch(error => {
+                    console.log(error)
+                });
+            }
         },
         computed:{
             ...mapGetters([

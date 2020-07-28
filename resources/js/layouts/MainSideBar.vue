@@ -84,7 +84,7 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <a href="javascript: void(0)" @click="logout" class="nav-link">
+                            <a href="javascript: void(0)" @click="$emit('logout')" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>
                                     Logout
@@ -117,19 +117,6 @@
             },
         },
         methods: {
-            logout() {
-                axios.post('api/logout').then(response => {
-                    if (response.status === 200){
-                        this.$store.dispatch('disprove');
-                        this.$store.dispatch('unsetUser');
-                        this.$router.push("/login")
-                    }else{
-                        console.log(response)
-                    }
-                }).catch(error => {
-                    console.log(error)
-                });
-            },
             closeAllTreeView() {
                 let openTreeViews = document.querySelectorAll('.has-treeview.menu-open');
                 openTreeViews.forEach(function (item, index) {

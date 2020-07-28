@@ -2781,106 +2781,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MainHeader",
   props: {
+    appNameFirst: {
+      type: String,
+      required: true
+    },
+    appNameLast: '',
+    user: {
+      type: Object,
+      required: true
+    },
     controlSideBar: {
       type: Boolean,
       "default": false
@@ -3017,23 +2929,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    logout: function logout() {
-      var _this2 = this;
-
-      axios.post('api/logout').then(function (response) {
-        if (response.status === 200) {
-          _this2.$store.dispatch('disprove');
-
-          _this2.$store.dispatch('unsetUser');
-
-          _this2.$router.push("/login");
-        } else {
-          console.log(response);
-        }
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
     closeAllTreeView: function closeAllTreeView() {
       var openTreeViews = document.querySelectorAll('.has-treeview.menu-open');
       openTreeViews.forEach(function (item, index) {
@@ -3115,6 +3010,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3142,6 +3043,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     document.querySelector('body').classList.remove('hold-transition');
     $('ul[data-widget="treeview"]').Treeview('init');
+  },
+  methods: {
+    logout: function logout() {
+      var _this = this;
+
+      axios.post('/api/logout').then(function (response) {
+        if (response.status === 200) {
+          _this.$store.dispatch('disprove');
+
+          _this.$store.dispatch('unsetUser');
+
+          _this.$router.push("/login");
+        } else {
+          console.log(response);
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['appNameFirst', 'appNameLast', 'user']))
 });
@@ -51814,37 +51734,55 @@ var render = function() {
               },
               [
                 _c("span", { staticClass: "dropdown-header" }, [
-                  _vm._v(_vm._s())
+                  _c("div", [_vm._v("Hi " + _vm._s(_vm.user.name) + "!")]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    _vm._l(_vm.user.roles, function(role) {
+                      return _c(
+                        "span",
+                        { staticClass: "badge badge-sm badge-primary" },
+                        [_vm._v(_vm._s(role.name))]
+                      )
+                    }),
+                    0
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "dropdown-divider" }),
                 _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _vm._m(3),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
-                _vm._v(" "),
-                _vm._m(4),
-                _vm._v(" "),
-                _c("div", { staticClass: "dropdown-divider" }),
+                _c(
+                  "router-link",
+                  { staticClass: "dropdown-item", attrs: { to: "/profile" } },
+                  [
+                    _c("i", { staticClass: "fas fa-user-circle mr-2" }),
+                    _vm._v(" Profile\n                    ")
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "a",
                   {
-                    staticClass: "dropdown-item dropdown-footer",
-                    attrs: { href: "#" }
+                    staticClass: "dropdown-item",
+                    attrs: { href: "javascript:void(0);", to: "/profile" },
+                    on: {
+                      click: function($event) {
+                        return _vm.$emit("logout")
+                      }
+                    }
                   },
-                  [_vm._v("See All Notifications")]
+                  [
+                    _c("i", { staticClass: "fas fa-sign-out-alt mr-2" }),
+                    _vm._v(" Logout\n                    ")
+                  ]
                 )
-              ]
+              ],
+              1
             )
           ]),
           _vm._v(" "),
           _vm.controlSideBar
-            ? _c("li", { staticClass: "nav-item" }, [_vm._m(5)])
+            ? _c("li", { staticClass: "nav-item" }, [_vm._m(2)])
             : _vm._e()
         ])
       ]
@@ -51881,42 +51819,6 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "far fa-user-circle" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-user-circle mr-2" }),
-      _vm._v(" Profile\n                            "),
-      _c("span", { staticClass: "float-right text-muted text-sm" }, [
-        _vm._v("3 mins")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-users mr-2" }),
-      _vm._v(" 8 friend requests\n                            "),
-      _c("span", { staticClass: "float-right text-muted text-sm" }, [
-        _vm._v("12 hours")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-file mr-2" }),
-      _vm._v(" 3 new reports\n                            "),
-      _c("span", { staticClass: "float-right text-muted text-sm" }, [
-        _vm._v("2 days")
-      ])
-    ])
   },
   function() {
     var _vm = this
@@ -52142,7 +52044,11 @@ var render = function() {
                     {
                       staticClass: "nav-link",
                       attrs: { href: "javascript: void(0)" },
-                      on: { click: _vm.logout }
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("logout")
+                        }
+                      }
                     },
                     [
                       _c("i", { staticClass: "nav-icon fas fa-sign-out-alt" }),
@@ -52209,14 +52115,22 @@ var render = function() {
     "div",
     { staticClass: "wrapper" },
     [
-      _c("main-header"),
+      _c("main-header", {
+        attrs: {
+          user: _vm.user,
+          "app-name-first": _vm.appNameFirst,
+          "app-name-last": _vm.appNameLast
+        },
+        on: { logout: _vm.logout }
+      }),
       _vm._v(" "),
       _c("main-side-bar", {
         attrs: {
           user: _vm.user,
           "app-name-first": _vm.appNameFirst,
           "app-name-last": _vm.appNameLast
-        }
+        },
+        on: { logout: _vm.logout }
       }),
       _vm._v(" "),
       _c(
