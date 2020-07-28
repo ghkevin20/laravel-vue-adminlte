@@ -4870,9 +4870,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ViewForm",
@@ -53416,35 +53413,24 @@ var render = function() {
         [
           _vm.data
             ? _c("div", { attrs: { slot: "modal-body" }, slot: "modal-body" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "d-flex justify-content-center align-items-center"
-                  },
-                  [
-                    _c("img", {
-                      attrs: {
-                        src: "/storage/avatars/" + _vm.data.avatar,
-                        alt: "Avatar",
-                        width: "230"
-                      }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
                 _c("dl", [
                   _c("dt", [_vm._v("Name")]),
                   _vm._v(" "),
                   _c("dd", [_vm._v(_vm._s(_vm.data.name))]),
                   _vm._v(" "),
-                  _c("dt", [_vm._v("Gender")]),
+                  _c("dt", [_vm._v("Permissions")]),
                   _vm._v(" "),
-                  _c("dd", [_vm._v(_vm._s(_vm.data.gender))]),
-                  _vm._v(" "),
-                  _c("dt", [_vm._v("Email")]),
-                  _vm._v(" "),
-                  _c("dd", [_vm._v(_vm._s(_vm.data.email))]),
+                  _c(
+                    "dd",
+                    _vm._l(_vm.data.permissions, function(permission) {
+                      return _c(
+                        "span",
+                        { staticClass: "badge badge-primary mr-1" },
+                        [_vm._v(_vm._s(permission.name))]
+                      )
+                    }),
+                    0
+                  ),
                   _vm._v(" "),
                   _c("dt", [_vm._v("Created At")]),
                   _vm._v(" "),

@@ -20,12 +20,12 @@ class RoleController extends Controller
          * Super Admin role always granted in all permissions
          * Check User if there's a permission
          */
-//        $this->middleware('permission:Browse Role',['only'=>['index']]);
-//        $this->middleware('permission:Create Role',['only'=>['store']]);
-//        $this->middleware('permission:Edit Role',['only'=>['show','update']]);
-//        $this->middleware('permission:View Role',['only'=>['show']]);
-//        $this->middleware('permission:Delete Role',['only'=>['destroy']]);
-//        $this->middleware('permission:Restore Role',['only'=>['restore']]);
+        $this->middleware('permission:Browse Role',['only'=>['index']]);
+        $this->middleware('permission:Create Role',['only'=>['store']]);
+        $this->middleware('permission:Edit Role',['only'=>['show','update']]);
+        $this->middleware('permission:View Role',['only'=>['show']]);
+        $this->middleware('permission:Delete Role',['only'=>['destroy']]);
+        $this->middleware('permission:Restore Role',['only'=>['restore']]);
     }
 
     /**
@@ -80,7 +80,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $data = Role::findOrFail($id);
+        $data = Role::with(['permissions'])->findOrFail($id);
 
         return response([
             'data' => $data

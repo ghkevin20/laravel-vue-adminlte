@@ -2,16 +2,13 @@
     <div>
         <modal title="View" :show="modalShow" @toggleShow="toggleShow">
             <div slot="modal-body" v-if="data">
-                <div class="d-flex justify-content-center align-items-center">
-                    <img :src="`/storage/avatars/${data.avatar}`" alt="Avatar" width="230">
-                </div>
                 <dl>
                     <dt>Name</dt>
                     <dd>{{ data.name }}</dd>
-                    <dt>Gender</dt>
-                    <dd>{{ data.gender }}</dd>
-                    <dt>Email</dt>
-                    <dd>{{ data.email }}</dd>
+                    <dt>Permissions</dt>
+                    <dd>
+                        <span class="badge badge-primary mr-1" v-for="permission in data.permissions" >{{ permission.name }}</span>
+                    </dd>
                     <dt>Created At</dt>
                     <dd>{{ data.created_at }}</dd>
                     <dt>Updated At</dt>
