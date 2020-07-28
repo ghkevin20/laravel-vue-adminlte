@@ -53243,7 +53243,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("v-select", {
                       class: {
-                        "is-invalid": this.invalidFields.includes("gender")
+                        "is-invalid": this.invalidFields.includes("roles")
                       },
                       attrs: {
                         multiple: "",
@@ -53269,7 +53269,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("div", { staticClass: "invalid-feedback" }, [
-                      _vm._v(_vm._s(this.invalidMessages.gender))
+                      _vm._v(_vm._s(this.invalidMessages.roles))
                     ])
                   ],
                   1
@@ -54183,7 +54183,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("v-select", {
                       class: {
-                        "is-invalid": this.invalidFields.includes("gender")
+                        "is-invalid": this.invalidFields.includes("permissions")
                       },
                       attrs: {
                         multiple: "",
@@ -54209,7 +54209,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("div", { staticClass: "invalid-feedback" }, [
-                      _vm._v(_vm._s(this.invalidMessages.gender))
+                      _vm._v(_vm._s(this.invalidMessages.permissions))
                     ])
                   ],
                   1
@@ -54322,7 +54322,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("v-select", {
                       class: {
-                        "is-invalid": this.invalidFields.includes("gender")
+                        "is-invalid": this.invalidFields.includes("permissions")
                       },
                       attrs: {
                         multiple: "",
@@ -54348,7 +54348,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("div", { staticClass: "invalid-feedback" }, [
-                      _vm._v(_vm._s(this.invalidMessages.gender))
+                      _vm._v(_vm._s(this.invalidMessages.permissions))
                     ])
                   ],
                   1

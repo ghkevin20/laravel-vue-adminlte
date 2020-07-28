@@ -18,9 +18,9 @@
                             :options="['Role 1', 'Role 2', 'Role 3', 'Role 4', 'Role 5', 'Role 6', 'Role 7']"
                             v-model="fields.roles"
                             id="roles"
-                            :class="{ 'is-invalid': this.invalidFields.includes('gender') }"
+                            :class="{ 'is-invalid': this.invalidFields.includes('roles') }"
                         ></v-select>
-                        <div class="invalid-feedback">{{ this.invalidMessages.gender }}</div>
+                        <div class="invalid-feedback">{{ this.invalidMessages.roles }}</div>
                     </div>
                 </div>
             </div>
