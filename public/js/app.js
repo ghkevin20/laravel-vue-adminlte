@@ -51247,57 +51247,67 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { ref: "modal", staticClass: "modal fade" }, [
-    _c("div", { staticClass: "modal-dialog modal-lg" }, [
-      _c("div", { staticClass: "modal-content" }, [
-        _c("div", { staticClass: "modal-header" }, [
-          _c("h4", { staticClass: "modal-title" }, [_vm._v(_vm._s(_vm.title))]),
+  return _c(
+    "div",
+    {
+      ref: "modal",
+      staticClass: "modal fade",
+      attrs: { "data-keyboard": "false", "data-backdrop": "static" }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog modal-lg" }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _c("div", { staticClass: "modal-header" }, [
+            _c("h4", { staticClass: "modal-title" }, [
+              _vm._v(_vm._s(_vm.title))
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "close",
+                attrs: { type: "button", "aria-label": "Close" },
+                on: { click: _vm.close }
+              },
+              [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+            )
+          ]),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "close",
-              attrs: { type: "button", "aria-label": "Close" },
-              on: { click: _vm.close }
-            },
-            [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "modal-body" }, [_vm._t("modal-body")], 2),
-        _vm._v(" "),
-        _c("div", { staticClass: "modal-footer justify-content-between" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-default",
-              attrs: { type: "button" },
-              on: { click: _vm.close }
-            },
-            [
-              _c("span", { staticClass: "fas fa-times-circle" }),
-              _vm._v(" Close")
-            ]
-          ),
+          _c("div", { staticClass: "modal-body" }, [_vm._t("modal-body")], 2),
           _vm._v(" "),
-          _vm.submit
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "submit" },
-                  on: { click: _vm.emitSubmit }
-                },
-                [
-                  _c("span", { staticClass: "fas fa-paper-plane" }),
-                  _vm._v(" Submit")
-                ]
-              )
-            : _vm._e()
+          _c("div", { staticClass: "modal-footer justify-content-between" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default",
+                attrs: { type: "button" },
+                on: { click: _vm.close }
+              },
+              [
+                _c("span", { staticClass: "fas fa-times-circle" }),
+                _vm._v(" Close")
+              ]
+            ),
+            _vm._v(" "),
+            _vm.submit
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "submit" },
+                    on: { click: _vm.emitSubmit }
+                  },
+                  [
+                    _c("span", { staticClass: "fas fa-paper-plane" }),
+                    _vm._v(" Submit")
+                  ]
+                )
+              : _vm._e()
+          ])
         ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
