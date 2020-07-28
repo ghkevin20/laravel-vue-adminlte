@@ -24,23 +24,27 @@
                                     </button>
                                 </div>
                             </div>
-                            <div v-if="controls.includes('filter')">
+                            <div v-if="controls.includes('scope')">
                                 &#160;
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
                                         <span class="fas fa-filter"></span>
-                                        {{ query.filter }}
+                                        {{ scopeText }}
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a href="javascript: void(0);" class="dropdown-item"
-                                           :class="{ active: query.filter === 'Active' }"
-                                           @click="filter($event)">Active</a>
+                                           :class="{ active: query.scope === 'active' }"
+                                           data-value="active"
+                                           @click="scope">Active</a>
                                         <a href="javascript: void(0);" class="dropdown-item"
-                                           :class="{ active: query.filter === 'Trashed' }"
-                                           @click="filter($event)">Trashed</a>
+                                           :class="{ active: query.scope === 'trashed' }"
+                                           data-value="trashed"
+                                           @click="scope">Trashed</a>
                                         <a href="javascript: void(0);" class="dropdown-item"
-                                           :class="{ active: query.filter === 'All' }" @click="filter($event)">All</a>
+                                           :class="{ active: query.scope === 'all' }"
+                                           data-value="all"
+                                           @click="scope">All</a>
                                     </div>
                                 </div>
                             </div>
@@ -53,8 +57,8 @@
                         <thead>
                         <tr>
                             <th v-for="column in columns"
-                                @click="(column.orderable !== false)?toggleOder(column.name):0"
-                                class="no-select" :class="{ 'cursor-pointer': column.orderable !== false}">
+                                @click="(column.sortable !== false)?toggleOder(column.name):0"
+                                class="no-select" :class="{ 'cursor-pointer': column.sortable !== false}">
                                 <span>{{ column.header }}</span>
                                 <span v-if="column.name === query.sort">
                                     <span v-if="query.order === 'asc'">&uarr;</span>
@@ -228,6 +232,7 @@
         },
         data() {
             return {
+                scopeText: 'Active',
                 model: {
                     current_page: 1,
                     last_page: 1,
@@ -240,7 +245,8 @@
                     order: (this.defaultOrder[1] !== undefined) ? this.defaultOrder[1] : 'desc',
                     per_page: 10,
                     search: '',
-                    filter: 'Active'
+                    scope: 'active',
+                    filter: {}
                 }
             }
         },
@@ -250,9 +256,52 @@
         methods: {
             fetchIndexData() {
                 var vm = this;
-                var url = `${this.source}?per_page=${this.query.per_page}&page=${this.query.page}&search=${this.query.search}&filter=${this.query.filter}${(this.query.sort) ? '&sort=' + this.query.sort + '&order=' + this.query.order : ''}`;
-                axios.get(url)
+
+                var url = vm.source;
+
+                var params = {
+                    per_page: vm.query.per_page,
+                    page: vm.query.page,
+                    search: vm.query.search,
+                    scope: vm.query.scope,
+                }
+
+                if (vm.query.sort !== "") {
+                    params.sort = ((vm.query.order === 'desc') ? '-' : '') + vm.query.sort
+                }
+
+                let includes = [];
+
+                for (const prop in vm.columns) {
+                    if (vm.columns.hasOwnProperty(prop)) {
+                        if (vm.columns[prop].included) {
+                            includes.push(vm.columns[prop].name);
+                        }
+
+                        if (vm.columns[prop].searchable !== false) {
+                            vm.query.filter[vm.columns[prop].name] = vm.query.search;
+                        }
+                    }
+                }
+
+                if (includes.length) {
+                    params.append = includes.join();
+                }
+
+                params.filter = [];
+                params.filter['name'] = 'Ad';
+
+                // for (const prop in vm.query.filter) {
+                //     if (vm.query.filter.hasOwnProperty(prop)) {
+                //         params.filter[prop] = vm.query.filter[prop];
+                //     }
+                // }
+
+                axios.get(url, {
+                    params: params
+                })
                     .then(function (response) {
+                        console.log(response)
                         vm.$set(vm.$data, 'model', response.data);
                     })
                     .catch(function (response) {
@@ -301,8 +350,9 @@
             range(start, end) {
                 return Array(end - start + 1).fill().map((_, idx) => start + idx)
             },
-            filter(event) {
-                this.query.filter = event.target.innerText;
+            scope(event) {
+                this.query.scope = event.target.dataset.value;
+                this.scopeText = event.target.innerText;
                 this.fetchIndexData();
             },
             create() {
@@ -379,15 +429,15 @@
                 this.fetchIndexData();
             }
         },
-        computed:{
+        computed: {
             currentPageNumber() {
                 return this.model.current_page ? this.model.current_page : 0
             },
             lastPageNumber() {
                 return this.model.last_page ? this.model.last_page : 0
             },
-            dataCount(){
-                return this.model.data?this.model.data.length:0;
+            dataCount() {
+                return this.model.data ? this.model.data.length : 0;
             }
         }
 

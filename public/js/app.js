@@ -2243,6 +2243,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "DataTable",
@@ -2291,6 +2295,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      scopeText: 'Active',
       model: {
         current_page: 1,
         last_page: 1,
@@ -2303,7 +2308,8 @@ __webpack_require__.r(__webpack_exports__);
         order: this.defaultOrder[1] !== undefined ? this.defaultOrder[1] : 'desc',
         per_page: 10,
         search: '',
-        filter: 'Active'
+        scope: 'active',
+        filter: {}
       }
     };
   },
@@ -2313,8 +2319,47 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     fetchIndexData: function fetchIndexData() {
       var vm = this;
-      var url = "".concat(this.source, "?per_page=").concat(this.query.per_page, "&page=").concat(this.query.page, "&search=").concat(this.query.search, "&filter=").concat(this.query.filter).concat(this.query.sort ? '&sort=' + this.query.sort + '&order=' + this.query.order : '');
-      axios.get(url).then(function (response) {
+      var url = vm.source;
+      var params = {
+        per_page: vm.query.per_page,
+        page: vm.query.page,
+        search: vm.query.search,
+        scope: vm.query.scope
+      };
+
+      if (vm.query.sort !== "") {
+        params.sort = (vm.query.order === 'desc' ? '-' : '') + vm.query.sort;
+      }
+
+      var includes = [];
+
+      for (var prop in vm.columns) {
+        if (vm.columns.hasOwnProperty(prop)) {
+          if (vm.columns[prop].included) {
+            includes.push(vm.columns[prop].name);
+          }
+
+          if (vm.columns[prop].searchable !== false) {
+            vm.query.filter[vm.columns[prop].name] = vm.query.search;
+          }
+        }
+      }
+
+      if (includes.length) {
+        params.append = includes.join();
+      }
+
+      params.filter = [];
+      params.filter['name'] = 'Ad'; // for (const prop in vm.query.filter) {
+      //     if (vm.query.filter.hasOwnProperty(prop)) {
+      //         params.filter[prop] = vm.query.filter[prop];
+      //     }
+      // }
+
+      axios.get(url, {
+        params: params
+      }).then(function (response) {
+        console.log(response);
         vm.$set(vm.$data, 'model', response.data);
       })["catch"](function (response) {
         console.log(response);
@@ -2364,8 +2409,9 @@ __webpack_require__.r(__webpack_exports__);
         return start + idx;
       });
     },
-    filter: function filter(event) {
-      this.query.filter = event.target.innerText;
+    scope: function scope(event) {
+      this.query.scope = event.target.dataset.value;
+      this.scopeText = event.target.innerText;
       this.fetchIndexData();
     },
     create: function create() {
@@ -4956,19 +5002,25 @@ __webpack_require__.r(__webpack_exports__);
         table: {
           refresh: 0,
           columns: [{
-            'name': 'id',
-            'header': 'ID'
+            name: 'id',
+            header: 'ID'
           }, {
-            'name': 'name',
-            'header': 'Name'
+            name: 'name',
+            header: 'Name'
           }, {
-            'name': 'created_at',
-            'header': 'Created At'
+            name: 'permissions_list',
+            header: 'Permissions',
+            sortable: false,
+            searchable: false,
+            included: true
           }, {
-            'name': 'updated_at',
-            'header': 'Updated At'
+            name: 'created_at',
+            header: 'Created At'
+          }, {
+            name: 'updated_at',
+            header: 'Updated At'
           }],
-          defaultOrder: [2, 'desc']
+          defaultOrder: [3, 'desc']
         },
         create: {
           show: false
@@ -5613,27 +5665,27 @@ __webpack_require__.r(__webpack_exports__);
         table: {
           refresh: 0,
           columns: [{
-            'name': 'id',
-            'header': 'ID'
+            name: 'id',
+            header: 'ID'
           }, {
-            'name': 'avatar',
-            'header': 'Avatar',
-            'orderable': false
+            name: 'avatar',
+            header: 'Avatar',
+            sortable: false
           }, {
-            'name': 'name',
-            'header': 'Name'
+            name: 'name',
+            header: 'Name'
           }, {
-            'name': 'gender',
-            'header': 'Gender'
+            name: 'gender',
+            header: 'Gender'
           }, {
-            'name': 'email',
-            'header': 'Email'
+            name: 'email',
+            header: 'Email'
           }, {
-            'name': 'created_at',
-            'header': 'Created At'
+            name: 'created_at',
+            header: 'Created At'
           }, {
-            'name': 'updated_at',
-            'header': 'Updated At'
+            name: 'updated_at',
+            header: 'Updated At'
           }],
           defaultOrder: [5, 'desc']
         },
@@ -49256,7 +49308,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.controls.includes("filter")
+              _vm.controls.includes("scope")
                 ? _c("div", [
                     _vm._v(
                       "\n                             \n                            "
@@ -49277,7 +49329,7 @@ var render = function() {
                           _c("span", { staticClass: "fas fa-filter" }),
                           _vm._v(
                             "\n                                    " +
-                              _vm._s(_vm.query.filter) +
+                              _vm._s(_vm.scopeText) +
                               "\n                                "
                           )
                         ]
@@ -49291,13 +49343,12 @@ var render = function() {
                             "a",
                             {
                               staticClass: "dropdown-item",
-                              class: { active: _vm.query.filter === "Active" },
-                              attrs: { href: "javascript: void(0);" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.filter($event)
-                                }
-                              }
+                              class: { active: _vm.query.scope === "active" },
+                              attrs: {
+                                href: "javascript: void(0);",
+                                "data-value": "active"
+                              },
+                              on: { click: _vm.scope }
                             },
                             [_vm._v("Active")]
                           ),
@@ -49306,13 +49357,12 @@ var render = function() {
                             "a",
                             {
                               staticClass: "dropdown-item",
-                              class: { active: _vm.query.filter === "Trashed" },
-                              attrs: { href: "javascript: void(0);" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.filter($event)
-                                }
-                              }
+                              class: { active: _vm.query.scope === "trashed" },
+                              attrs: {
+                                href: "javascript: void(0);",
+                                "data-value": "trashed"
+                              },
+                              on: { click: _vm.scope }
                             },
                             [_vm._v("Trashed")]
                           ),
@@ -49321,13 +49371,12 @@ var render = function() {
                             "a",
                             {
                               staticClass: "dropdown-item",
-                              class: { active: _vm.query.filter === "All" },
-                              attrs: { href: "javascript: void(0);" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.filter($event)
-                                }
-                              }
+                              class: { active: _vm.query.scope === "all" },
+                              attrs: {
+                                href: "javascript: void(0);",
+                                "data-value": "all"
+                              },
+                              on: { click: _vm.scope }
                             },
                             [_vm._v("All")]
                           )
@@ -49351,10 +49400,10 @@ var render = function() {
                       "th",
                       {
                         staticClass: "no-select",
-                        class: { "cursor-pointer": column.orderable !== false },
+                        class: { "cursor-pointer": column.sortable !== false },
                         on: {
                           click: function($event) {
-                            column.orderable !== false
+                            column.sortable !== false
                               ? _vm.toggleOder(column.name)
                               : 0
                           }
@@ -53382,7 +53431,7 @@ var render = function() {
               refresh: _vm.users.table.refresh,
               actions: ["create", "view", "edit", "delete"],
               "trash-actions": ["restore"],
-              controls: ["search", "filter"]
+              controls: ["search", "scope"]
             },
             on: {
               actionCreate: _vm.actionCreate,

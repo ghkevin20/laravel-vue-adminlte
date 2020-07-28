@@ -68,12 +68,19 @@
                     table: {
                         refresh: 0,
                         columns: [
-                            {'name': 'id', 'header': 'ID'},
-                            {'name': 'name', 'header': 'Name'},
-                            {'name': 'created_at', 'header': 'Created At'},
-                            {'name': 'updated_at', 'header': 'Updated At'},
+                            {name: 'id', header: 'ID'},
+                            {name: 'name', header: 'Name'},
+                            {
+                                name: 'permissions_list',
+                                header: 'Permissions',
+                                sortable: false,
+                                searchable: false,
+                                included: true
+                            },
+                            {name: 'created_at', header: 'Created At'},
+                            {name: 'updated_at', header: 'Updated At'},
                         ],
-                        defaultOrder: [2, 'desc']
+                        defaultOrder: [3, 'desc']
                     },
                     create: {
                         show: false

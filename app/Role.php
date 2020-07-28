@@ -15,4 +15,10 @@ class Role extends SpatieRole
         'created_at' => 'datetime:Y-M-d h:i A',
         'updated_at' => 'datetime:Y-M-d h:i A',
     ];
+
+    public function getPermissionsListAttribute()
+    {
+        return $this->permissions()->pluck('name')->implode(',');
+    }
+
 }

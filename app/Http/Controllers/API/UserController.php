@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class UserController extends Controller
 {
@@ -34,21 +35,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        $columns = [
-            'users.id',
-            'users.avatar',
-            'users.name',
-            'users.gender',
-            'users.email',
-            'DATE_FORMAT(users.created_at, "%Y-%m-%d %H:%i") AS created_at',
-            'users.updated_at',
-            'users.deleted_at',
-        ];
+        $request = app()->make('request');
 
-        $query = User::query()
-            ->selectRaw(implode(',',$columns));
+        $data = QueryBuilder::for(User::class)
+            ->allowedFilters('id','avatar', 'name','gender','email','created_at','updated_at')
+            ->allowedFields('id','avatar', 'name','gender','email','created_at','updated_at','deleted_at')
+            ->allowedSorts('id','avatar', 'name','gender','email', 'created_at','updated_at')
+            ->allowedAppends(['permissions_list'])
+            ->paginate($request->has('per_page')?$request->per_page:10);
 
-        return response(Datatable::make($query,$columns));
+        return response($data);
     }
 
     /**

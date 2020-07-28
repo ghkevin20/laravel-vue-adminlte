@@ -14,7 +14,7 @@
                 :refresh="users.table.refresh"
                 :actions="['create','view','edit','delete']"
                 :trash-actions="['restore']"
-                :controls="['search','filter']"
+                :controls="['search','scope']"
                 @actionCreate="actionCreate"
                 @actionView="actionView"
                 @actionEdit="actionEdit"
@@ -73,13 +73,13 @@
                     table: {
                         refresh: 0,
                         columns: [
-                            {'name': 'id', 'header': 'ID'},
-                            {'name': 'avatar', 'header': 'Avatar', 'orderable': false},
-                            {'name': 'name', 'header': 'Name'},
-                            {'name': 'gender', 'header': 'Gender'},
-                            {'name': 'email', 'header': 'Email'},
-                            {'name': 'created_at', 'header': 'Created At'},
-                            {'name': 'updated_at', 'header': 'Updated At'},
+                            {name: 'id', header: 'ID'},
+                            {name: 'avatar', header: 'Avatar', sortable: false},
+                            {name: 'name', header: 'Name'},
+                            {name: 'gender', header: 'Gender'},
+                            {name: 'email', header: 'Email'},
+                            {name: 'created_at', header: 'Created At'},
+                            {name: 'updated_at', header: 'Updated At'},
                         ],
                         defaultOrder: [5, 'desc']
                     },

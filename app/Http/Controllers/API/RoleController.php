@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Helpers\Datatable;
 use App\Http\Controllers\Controller;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\QueryBuilder\QueryBuilder;
+
 // Importing laravel-permission models
-use App\Role;
 
 class RoleController extends Controller
 {
@@ -32,24 +33,22 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $request = app()->make('request');
 
+        $data = QueryBuilder::for(Role::class)
+            ->allowedFilters('id', 'name','created_at','updated_at')
+            ->allowedFields('id', 'name','created_at','updated_at')
+            ->allowedSorts('id', 'name', 'created_at','updated_at')
+            ->allowedAppends(['permissions_list'])
+            ->paginate($request->has('per_page')?$request->per_page:10);
 
-        $columns = [
-            'roles.id',
-            'roles.name',
-            'roles.created_at',
-            'roles.updated_at',
-        ];
-
-        $query = Role::with(['permissions'])->select($columns);
-
-        return response(Datatable::make($query,$columns));
+        return response([$data,$request->all()]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -68,13 +67,13 @@ class RoleController extends Controller
 
         return response([
             'data' => $data
-        ],200);
+        ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -83,14 +82,14 @@ class RoleController extends Controller
 
         return response([
             'data' => $data
-        ],200);
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -102,7 +101,7 @@ class RoleController extends Controller
         ]);
 
         $validator = Validator::make($requestData, [
-            'name' => 'required|string|max:255|unique:roles,name,'.$id,
+            'name' => 'required|string|max:255|unique:roles,name,' . $id,
         ]);
 
         if ($validator->fails()) return response(['message' => 'There is a problem with your request', 'errors' => $validator->errors()], 422);
@@ -111,13 +110,13 @@ class RoleController extends Controller
 
         return response([
             'data' => $data
-        ],200);
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -126,7 +125,7 @@ class RoleController extends Controller
         $data->delete();
         return response([
             'data' => $data
-        ],200);
+        ], 200);
     }
 
 }

@@ -30,14 +30,14 @@ class Datatable
 
         $validator = Validator::make($request->only([
             'per_page', 'page', 'search',
-            'filter', 'sort', 'order'
+            'scope', 'sort', 'order'
         ]), [
             'per_page' => 'integer|min:1',
             'page' => 'integer|min:1',
             'search' => 'nullable|string|max:255',
             'sort' => 'nullable|alpha_dash|in:'.implode(',',array_keys($arrangedColumns)),
             'order' => 'required_with:sort|in:asc,desc',
-            'filter' => 'nullable|in:Active,Trashed,All',
+            'scope' => 'nullable|in:Active,Trashed,All',
         ]);
 
         if($validator->fails()) {
@@ -59,11 +59,11 @@ class Datatable
         }
 
 
-        if ($request->has('filter') && !is_null($request->get('filter'))) {
-            $filter = trim(strtolower($request->get('filter')));
-            if ($filter == 'trashed') {
+        if ($request->has('scope') && !is_null($request->get('scope'))) {
+            $scope = trim(strtolower($request->get('scope')));
+            if ($scope == 'trashed') {
                 $query->onlyTrashed();
-            } elseif ($filter === 'all') {
+            } elseif ($scope === 'all') {
                 $query->withTrashed();
             }
             // active no default filter
