@@ -35,13 +35,16 @@ class PermissionController extends Controller
     {
         $request = app()->make('request');
 
-        $data = QueryBuilder::for(Permission::class)
+        $data = QueryBuilder::for(Permission::class,$request)
             ->allowedFilters(AllowedFilter::custom('search', new SearchFields, 'id,name,created_at,updated_at'))
             ->allowedFields('id', 'name','created_at','updated_at')
             ->allowedSorts('id', 'name', 'created_at','updated_at')
-            ->allowedAppends(['roles_list'])
-            ->paginate($request->has('per_page')?$request->per_page:10);
-
+            ->allowedAppends(['roles_list']);
+        if($request->has('per_page')){
+            $data = $data->paginate($request->per_page); // Get paginator
+        }else{
+            $data = $data->get();
+        }
         return response($data);
     }
 

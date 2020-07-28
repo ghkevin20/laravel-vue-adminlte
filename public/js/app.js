@@ -5088,6 +5088,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_helpers_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/helpers/Modal */ "./resources/js/components/helpers/Modal.vue");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "./node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -5118,6 +5120,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 
@@ -5145,7 +5150,10 @@ __webpack_require__.r(__webpack_exports__);
         permissions: []
       },
       invalidFields: [],
-      invalidMessages: {}
+      invalidMessages: {},
+      options: {
+        permissions: []
+      }
     };
   },
   methods: {
@@ -5211,10 +5219,30 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    },
+    getPermissions: function getPermissions() {
+      var vm = this;
+      var parameters = {
+        scope: 'active',
+        fields: {
+          permissions: 'id,name'
+        }
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/permissions', {
+        params: parameters,
+        paramsSerializer: function paramsSerializer(params) {
+          return qs__WEBPACK_IMPORTED_MODULE_3___default.a.stringify(params);
+        }
+      }).then(function (response) {
+        vm.options.permissions = response.data;
+      })["catch"](function (response) {
+        console.log(response);
+      });
     }
   },
   mounted: function mounted() {
     this.setDefaultFields();
+    this.getPermissions();
   },
   watch: {
     show: function show(val) {
@@ -5239,6 +5267,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_helpers_Modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/helpers/Modal */ "./resources/js/components/helpers/Modal.vue");
+//
+//
 //
 //
 //
@@ -14440,7 +14470,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Ensure the size of the image fit the container perfectly */\nimg[data-v-474d0ade] {\n    display: block;\n\n    /* This rule is very important, please don't ignore this */\n    max-width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Ensure the size of the image fit the container perfectly */\nimg[data-v-474d0ade] {\n    display: block;\n\n    /* This rule is very important, please don't ignore this */\n    max-width: 100%;\n}\n", ""]);
 
 // exports
 
@@ -54186,23 +54216,19 @@ var render = function() {
                       attrs: {
                         multiple: "",
                         placeholder: "- Attach Permissions -",
-                        options: [
-                          "Permission 1",
-                          "Permission 2",
-                          "Permission 3",
-                          "Permission 4",
-                          "Permission 5",
-                          "Permission 6",
-                          "Permission 7"
-                        ],
+                        options: _vm.options.permissions,
+                        reduce: function(name) {
+                          return name.id
+                        },
+                        label: "name",
                         id: "permissions"
                       },
                       model: {
-                        value: _vm.fields.gender,
+                        value: _vm.fields.permissions,
                         callback: function($$v) {
-                          _vm.$set(_vm.fields, "gender", $$v)
+                          _vm.$set(_vm.fields, "permissions", $$v)
                         },
-                        expression: "fields.gender"
+                        expression: "fields.permissions"
                       }
                     }),
                     _vm._v(" "),
@@ -54326,14 +54352,14 @@ var render = function() {
                         multiple: "",
                         placeholder: "- Attach Permissions -",
                         options: [
-                          "Permission 1",
-                          "Permission 2",
-                          "Permission 3",
-                          "Permission 4",
-                          "Permission 5",
-                          "Permission 6",
-                          "Permission 7"
+                          { id: 1, name: "Browse User" },
+                          { id: 2, name: "Create User" },
+                          { id: 3, name: "Edit User" }
                         ],
+                        reduce: function(name) {
+                          return name.id
+                        },
+                        label: "name",
                         id: "permissions"
                       },
                       model: {

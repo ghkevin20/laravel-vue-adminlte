@@ -15,8 +15,10 @@
                         <v-select
                             multiple
                             placeholder="- Attach Permissions -"
-                            :options="['Permission 1', 'Permission 2', 'Permission 3', 'Permission 4', 'Permission 5', 'Permission 6', 'Permission 7']"
-                            v-model="fields.gender"
+                            :options="options.permissions"
+                            :reduce="name => name.id"
+                            label="name"
+                            v-model="fields.permissions"
                             id="permissions"
                             :class="{ 'is-invalid': this.invalidFields.includes('permissions') }"
                         ></v-select>
@@ -32,6 +34,7 @@
     import axios from 'axios';
     import Swal from 'sweetalert2';
     import Modal from "../../components/helpers/Modal";
+    import qs from "qs";
 
     export default {
         name: "CreateForm",
@@ -58,6 +61,9 @@
                 },
                 invalidFields: [],
                 invalidMessages: {},
+                options:{
+                    permissions: []
+                }
             }
         },
         methods: {
@@ -69,8 +75,8 @@
                 this.invalidFields = [];
                 this.invalidMessages = {};
             },
-            setDefaultFields(){
-                this.defaultFields = Object.assign({},this.fields)
+            setDefaultFields() {
+                this.defaultFields = Object.assign({}, this.fields)
             },
             clearFields() {
                 this.fields = Object.assign({}, this.defaultFields);
@@ -128,10 +134,33 @@
                         }
                     });
 
+            },
+            getPermissions() {
+                const vm = this;
+                var parameters = {
+                    scope: 'active',
+                    fields: {
+                        permissions: 'id,name'
+                    }
+                }
+
+                axios.get('/api/permissions', {
+                    params: parameters
+                    , paramsSerializer: params => {
+                        return qs.stringify(params)
+                    }
+                })
+                    .then(function (response) {
+                        vm.options.permissions = response.data;
+                    })
+                    .catch(function (response) {
+                        console.log(response);
+                    });
             }
         },
         mounted() {
             this.setDefaultFields();
+            this.getPermissions();
         },
         watch: {
             show: function (val) {
