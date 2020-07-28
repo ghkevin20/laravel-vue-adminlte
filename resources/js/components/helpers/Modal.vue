@@ -84,5 +84,5 @@
 </script>
 
 <style scoped>
-
+    .modal { overflow: auto !important; }
 </style>
