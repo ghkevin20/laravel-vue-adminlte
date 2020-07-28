@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('/roles', 'API\RoleController');
-
-
 Route::post('/login','API\AuthController@login');
 Route::post('/register','API\AuthController@register');
 Route::post('/logout','API\AuthController@logout');
@@ -30,7 +27,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     /**
      * Roles
      */
-//    Route::apiResource('/roles', 'API\RoleController');
+    Route::apiResource('/roles', 'API\RoleController');
 
     /**
      * Users
