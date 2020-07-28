@@ -50,6 +50,7 @@ class AuthController extends Controller
         }else{
             $data = Auth::user();
             $data->load('roles');
+            $data->load('permissions');
             return response([
                 'authenticated' => true,
                 'data' => $data
