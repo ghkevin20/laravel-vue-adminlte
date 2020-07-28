@@ -1987,6 +1987,7 @@ __webpack_require__.r(__webpack_exports__);
     var vm = this;
     $(this.$refs['avatar-cropper-modal']).on('hide.bs.modal', function (e) {
       e.stopPropagation();
+      vm.cropperDestroy();
     });
     $(this.$refs['avatar-cropper-modal']).on('shown.bs.modal', function () {
       var image = vm.$refs['avatar-cropper-image'];
@@ -1999,6 +2000,9 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    cropperDestroy: function cropperDestroy() {
+      this.cropper.destroy();
+    },
     close: function close() {
       $(this.$refs['avatar-cropper-modal']).modal('hide');
     },
@@ -2037,7 +2041,7 @@ __webpack_require__.r(__webpack_exports__);
           vm.$emit('updateBlob', blob);
         });
         this.close();
-        vm.cropper.destroy();
+        vm.cropperDestroy();
       }
     }
   },

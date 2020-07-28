@@ -59,6 +59,7 @@
             const vm = this;
             $(this.$refs['avatar-cropper-modal']).on('hide.bs.modal', function (e) {
                 e.stopPropagation();
+                vm.cropperDestroy();
             });
             $(this.$refs['avatar-cropper-modal']).on('shown.bs.modal', function () {
                 const image = vm.$refs['avatar-cropper-image'];
@@ -71,6 +72,9 @@
             });
         },
         methods: {
+            cropperDestroy() {
+                this.cropper.destroy();
+            },
             close() {
                 $(this.$refs['avatar-cropper-modal']).modal('hide');
             },
@@ -112,7 +116,7 @@
 
                     this.close();
 
-                    vm.cropper.destroy();
+                    vm.cropperDestroy();
                 }
             }
         },
