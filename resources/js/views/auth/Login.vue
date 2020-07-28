@@ -43,7 +43,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
+                                <input type="checkbox" id="remember" name="remember" v-model="fields.remember">
                                 <label for="remember">
                                     Remember Me
                                 </label>
@@ -96,7 +96,8 @@
             return {
                 fields: {
                     email: '',
-                    password: ''
+                    password: '',
+                    remember: false
                 },
                 errorMessage: '',
                 invalidFields: [],
@@ -112,7 +113,8 @@
                 axios.get('/sanctum/csrf-cookie').then(response => {
                     axios.post('/api/login', {
                         email: this.fields.email,
-                        password: this.fields.password
+                        password: this.fields.password,
+                        remember: this.fields.remember
                     })
                         .then(response2 => {
                             Swal.fire({

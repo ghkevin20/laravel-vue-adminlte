@@ -29,7 +29,7 @@ class AuthController extends Controller
 
         if ($validator->fails()) return response(['message' => 'There is a problem with your request', 'errors' => $validator->errors()], 422);
 
-        if (!Auth::attempt($user)) return response(['message' => 'Invalid login credentials.'], 401);
+        if (!Auth::attempt($user,$request->filled('remember'))) return response(['message' => 'Invalid login credentials.'], 401);
 
         return response([
             'data' => Auth::user(),

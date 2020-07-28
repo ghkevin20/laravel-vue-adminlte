@@ -3412,7 +3412,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       fields: {
         email: '',
-        password: ''
+        password: '',
+        remember: false
       },
       errorMessage: '',
       invalidFields: [],
@@ -3430,7 +3431,8 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/sanctum/csrf-cookie').then(function (response) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/login', {
           email: _this.fields.email,
-          password: _this.fields.password
+          password: _this.fields.password,
+          remember: _this.fields.remember
         }).then(function (response2) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
             icon: 'success',
@@ -52565,7 +52567,68 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(3)
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-8" }, [
+                _c("div", { staticClass: "icheck-primary" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fields.remember,
+                        expression: "fields.remember"
+                      }
+                    ],
+                    attrs: {
+                      type: "checkbox",
+                      id: "remember",
+                      name: "remember"
+                    },
+                    domProps: {
+                      checked: Array.isArray(_vm.fields.remember)
+                        ? _vm._i(_vm.fields.remember, null) > -1
+                        : _vm.fields.remember
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = _vm.fields.remember,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.fields,
+                                "remember",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.fields,
+                                "remember",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.fields, "remember", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "remember" } }, [
+                    _vm._v(
+                      "\n                                Remember Me\n                            "
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(3)
+            ])
           ]
         ),
         _vm._v(" "),
@@ -52638,29 +52701,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-8" }, [
-        _c("div", { staticClass: "icheck-primary" }, [
-          _c("input", { attrs: { type: "checkbox", id: "remember" } }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "remember" } }, [
-            _vm._v(
-              "\n                                Remember Me\n                            "
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-4" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary btn-block",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Sign In")]
-        )
-      ])
+    return _c("div", { staticClass: "col-4" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary btn-block", attrs: { type: "submit" } },
+        [_vm._v("Sign In")]
+      )
     ])
   }
 ]
