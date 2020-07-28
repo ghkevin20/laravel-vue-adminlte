@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Helpers\Datatable;
+use App\Helpers\SearchFields;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class UserController extends Controller
@@ -38,7 +40,13 @@ class UserController extends Controller
         $request = app()->make('request');
 
         $data = QueryBuilder::for(User::class)
-            ->allowedFilters('id','avatar', 'name','gender','email','created_at','updated_at')
+            ->allowedFilters(
+                AllowedFilter::custom(
+                    'search',
+                    new SearchFields,
+                    'id,avatar,name,gender,email,created_at,updated_at'
+                )
+            )
             ->allowedFields('id','avatar', 'name','gender','email','created_at','updated_at','deleted_at')
             ->allowedSorts('id','avatar', 'name','gender','email', 'created_at','updated_at')
             ->allowedAppends(['permissions_list'])

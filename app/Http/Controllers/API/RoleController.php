@@ -38,7 +38,6 @@ class RoleController extends Controller
         $request = app()->make('request');
 
         $data = QueryBuilder::for(Role::class)
-//            ->allowedFilters('id', 'name','created_at','updated_at')
             ->allowedFilters(AllowedFilter::custom('search', new SearchFields, 'id,name,created_at,updated_at'))
             ->allowedFields('id', 'name','created_at','updated_at')
             ->allowedSorts('id', 'name', 'created_at','updated_at')
