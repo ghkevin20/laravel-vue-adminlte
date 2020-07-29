@@ -44,7 +44,8 @@
                                 </p>
                             </router-link>
                         </li>
-                        <li class="nav-item has-treeview">
+                        <li class="nav-item has-treeview"
+                            v-if="this.hasAnyPermission(['Browse Role','Browse Permission'])">
                             <a href="javascript:void(0);" class="nav-link">
                                 <i class="nav-icon fas fa-user-lock"></i>
                                 <p>
@@ -53,13 +54,13 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
+                                <li class="nav-item" v-if="this.hasPermission('Browse Role')">
                                     <router-link to="/roles" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Roles</p>
                                     </router-link>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" v-if="this.hasPermission('Browse Permission')">
                                     <router-link to="/permissions" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Permissions</p>
@@ -68,7 +69,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <router-link to="/profile" class="nav-link" >
+                            <router-link to="/profile" class="nav-link">
                                 <i class="nav-icon fas fa-user-circle"></i>
                                 <p>
                                     Profile
@@ -93,11 +94,9 @@
 </template>
 
 <script>
-    import {mapGetters} from "vuex";
-
     export default {
         name: "MainSideBar",
-        props:{
+        props: {
             appNameFirst: {
                 type: String,
                 required: true
@@ -106,6 +105,15 @@
             user: {
                 type: Object,
                 required: true
+            },
+            hasRole: {
+                type: Function
+            },
+            hasPermission: {
+                type: Function
+            },
+            hasAnyPermission: {
+                type: Function
             },
         },
         methods: {
@@ -126,12 +134,12 @@
                     treeView ? treeView.classList.add('menu-open') : 0;
                 });
             },
-            navEventListener(){
+            navEventListener() {
                 let _this = this;
                 let singleLinks = document.querySelectorAll('.nav-link:not(.has-treeview)');
                 singleLinks.forEach(function (item, index) {
-                    if(!item.closest('.has-treeview')){
-                        item.addEventListener('click',function(){
+                    if (!item.closest('.has-treeview')) {
+                        item.addEventListener('click', function () {
                             _this.closeAllTreeView();
                         })
                     }

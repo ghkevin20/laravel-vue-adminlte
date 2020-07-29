@@ -2842,7 +2842,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -2937,7 +2936,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "MainSideBar",
   props: {
@@ -2949,6 +2948,15 @@ __webpack_require__.r(__webpack_exports__);
     user: {
       type: Object,
       required: true
+    },
+    hasRole: {
+      type: Function
+    },
+    hasPermission: {
+      type: Function
+    },
+    hasAnyPermission: {
+      type: Function
     }
   },
   methods: {
@@ -3039,6 +3047,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -3086,7 +3097,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['appNameFirst', 'appNameLast', 'user']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['appNameFirst', 'appNameLast', 'user', 'hasRole', 'hasPermission', 'hasAnyPermission']))
 });
 
 /***/ }),
@@ -52317,48 +52328,61 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c("li", { staticClass: "nav-item has-treeview" }, [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c("ul", { staticClass: "nav nav-treeview" }, [
-                    _c(
-                      "li",
-                      { staticClass: "nav-item" },
-                      [
-                        _c(
-                          "router-link",
-                          { staticClass: "nav-link", attrs: { to: "/roles" } },
-                          [
-                            _c("i", { staticClass: "far fa-circle nav-icon" }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Roles")])
-                          ]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item" },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "nav-link",
-                            attrs: { to: "/permissions" }
-                          },
-                          [
-                            _c("i", { staticClass: "far fa-circle nav-icon" }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Permissions")])
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  ])
-                ]),
+                this.hasAnyPermission(["Browse Role", "Browse Permission"])
+                  ? _c("li", { staticClass: "nav-item has-treeview" }, [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("ul", { staticClass: "nav nav-treeview" }, [
+                        this.hasPermission("Browse Role")
+                          ? _c(
+                              "li",
+                              { staticClass: "nav-item" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "nav-link",
+                                    attrs: { to: "/roles" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "far fa-circle nav-icon"
+                                    }),
+                                    _vm._v(" "),
+                                    _c("p", [_vm._v("Roles")])
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        this.hasPermission("Browse Permission")
+                          ? _c(
+                              "li",
+                              { staticClass: "nav-item" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "nav-link",
+                                    attrs: { to: "/permissions" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "far fa-circle nav-icon"
+                                    }),
+                                    _vm._v(" "),
+                                    _c("p", [_vm._v("Permissions")])
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e()
+                      ])
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "li",
@@ -52471,7 +52495,10 @@ var render = function() {
         attrs: {
           user: _vm.user,
           "app-name-first": _vm.appNameFirst,
-          "app-name-last": _vm.appNameLast
+          "app-name-last": _vm.appNameLast,
+          "has-role": _vm.hasRole,
+          "has-permission": _vm.hasPermission,
+          "has-any-permission": _vm.hasAnyPermission
         },
         on: { logout: _vm.logout }
       }),

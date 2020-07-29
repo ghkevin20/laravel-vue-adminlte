@@ -12,6 +12,9 @@
             :user="user"
             :app-name-first="appNameFirst"
             :app-name-last="appNameLast"
+            :has-role="hasRole"
+            :has-permission="hasPermission"
+            :has-any-permission="hasAnyPermission"
             @logout="logout"
         ></main-side-bar>
 
@@ -72,6 +75,9 @@
                 'appNameFirst',
                 'appNameLast',
                 'user',
+                'hasRole',
+                'hasPermission',
+                'hasAnyPermission'
             ])
         }
     }
