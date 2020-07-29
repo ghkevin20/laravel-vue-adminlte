@@ -49,11 +49,13 @@ class AuthController extends Controller
             ], 200);
         }else{
             $data = Auth::user();
-            $data->load('roles');
-            $data->load('permissions');
             return response([
                 'authenticated' => true,
-                'data' => $data
+                'data' => [
+                    'user'=>$data,
+                    'roles'=>$data->getRoleNames(),
+                    'permissions'=>$data->getPermissionsViaRoles()->pluck('name'),
+                ]
             ], 200);
         }
     }

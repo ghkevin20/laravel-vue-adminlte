@@ -12,8 +12,8 @@
                 :columns="users.table.columns"
                 :default-order="users.table.defaultOrder"
                 :refresh="users.table.refresh"
-                :actions="['create','view','edit','delete']"
-                :trash-actions="['restore']"
+                :actions="users.actions"
+                :trash-actions="users.trashActions"
                 :controls="['search','scope']"
                 @actionCreate="actionCreate"
                 @actionView="actionView"
@@ -48,6 +48,7 @@
 
 <script>
     import axios from 'axios';
+    import {mapGetters} from 'vuex';
     import ContentHeader from '../../layouts/ContentHeader';
     import MainContent from '../../layouts/MainContent';
     import DataTable from "../../components/helpers/DataTable";
@@ -90,6 +91,8 @@
                         ],
                         defaultOrder: [6, 'desc']
                     },
+                    actions: [],
+                    trashActions: [],
                     create: {
                         show: false
                     },
@@ -148,7 +151,34 @@
                     .catch(function (response) {
                         console.log(response);
                     });
+            },
+            setPermissionControl() {
+                // users.actions
+                if (this.hasPermission('Create User')) {
+                    this.users.actions.push('create');
+                }
+                if (this.hasPermission('View User')) {
+                    this.users.actions.push('view');
+                }
+                if (this.hasPermission('Edit User')) {
+                    this.users.actions.push('edit');
+                }
+                if (this.hasPermission('Delete User')) {
+                    this.users.actions.push('delete');
+                }
+                // users.trashActions
+                if (this.hasPermission('Restore User')) {
+                    this.users.trashActions.push('restore');
+                }
             }
+        },
+        mounted() {
+            this.setPermissionControl();
+        },
+        computed: {
+            ...mapGetters([
+                'hasPermission'
+            ])
         }
     }
 </script>

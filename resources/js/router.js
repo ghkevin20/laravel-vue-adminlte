@@ -52,16 +52,19 @@ const routes = [
                 path: '/users',
                 name: 'Users',
                 component: require('./views/users').default,
+                meta: {permission: ['Browse User']}
             },
             {
                 path: '/roles',
                 name: 'Roles',
                 component: require('./views/roles').default,
+                meta: {permission: ['Browse Role']}
             },
             {
                 path: '/permissions',
                 name: 'Permissions',
                 component: require('./views/permissions').default,
+                meta: {permission: ['Browse Permission']}
             },
         ]
     }, // authentication required
@@ -84,11 +87,19 @@ router.beforeEach((to, from, next) => {
                 // alert('alert');
                 if (response.data.authenticated) {
                     store.dispatch('authenticate');
-                    store.dispatch('setUser', response.data.data);
+                    store.dispatch('setUser', response.data.data.user);
+                    store.dispatch('setRoles', response.data.data.roles);
+                    store.dispatch('setPermissions', response.data.data.permissions);
 
                     if (find.meta.validate.includes('guest')) {
                         next({path: '/home'});
-                    }else{
+                    } else {
+                        if(to.meta.hasOwnProperty('permission')){
+                            if(!store.getters.hasAnyPermission(to.meta.permission)){
+                                // 403
+                                next('/403');
+                            }
+                        }
                         next();
                     }
                 } else {
@@ -97,7 +108,7 @@ router.beforeEach((to, from, next) => {
 
                     if (find.meta.validate.includes('auth')) {
                         next({path: '/login'});
-                    }else{
+                    } else {
                         next();
                     }
                 }
@@ -108,9 +119,9 @@ router.beforeEach((to, from, next) => {
                 store.dispatch('disprove');
                 store.dispatch('unsetUser');
 
-                if(to.path !== '/login'){
+                if (to.path !== '/login') {
                     next({path: '/login'});
-                }else{
+                } else {
                     next()
                 }
             });

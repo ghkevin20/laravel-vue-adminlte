@@ -85,7 +85,7 @@ class UserController extends Controller
         $requestData['password'] = Hash::make($requestData['password']);
 
         $data = User::create($requestData);
-        $data->roles()->sync($request->roles);
+        $data->syncRoles($request->roles);
 
         return response([
             'data' => $data
@@ -138,7 +138,7 @@ class UserController extends Controller
         if ($validator->fails()) return response(['message' => 'There is a problem with your request', 'errors' => $validator->errors()], 422);
 
         if (!$request->has('password')) {
-            $requestData['password'] = Hash::make($data['password']);
+            $requestData['password'] = $data['password'];
         } else {
             $requestData['password'] = Hash::make($requestData['password']);
         }
@@ -158,7 +158,7 @@ class UserController extends Controller
         }
 
         $data->update($requestData);
-        $data->roles()->sync($request->roles);
+        $data->syncRoles($request->roles);
 
         return response([
             'data' => $data

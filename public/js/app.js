@@ -6227,12 +6227,19 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _layouts_ContentHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../layouts/ContentHeader */ "./resources/js/layouts/ContentHeader.vue");
-/* harmony import */ var _layouts_MainContent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../layouts/MainContent */ "./resources/js/layouts/MainContent.vue");
-/* harmony import */ var _components_helpers_DataTable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/helpers/DataTable */ "./resources/js/components/helpers/DataTable.vue");
-/* harmony import */ var _CreateForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CreateForm */ "./resources/js/views/users/CreateForm.vue");
-/* harmony import */ var _ViewForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ViewForm */ "./resources/js/views/users/ViewForm.vue");
-/* harmony import */ var _EditForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./EditForm */ "./resources/js/views/users/EditForm.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _layouts_ContentHeader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../layouts/ContentHeader */ "./resources/js/layouts/ContentHeader.vue");
+/* harmony import */ var _layouts_MainContent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../layouts/MainContent */ "./resources/js/layouts/MainContent.vue");
+/* harmony import */ var _components_helpers_DataTable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/helpers/DataTable */ "./resources/js/components/helpers/DataTable.vue");
+/* harmony import */ var _CreateForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CreateForm */ "./resources/js/views/users/CreateForm.vue");
+/* harmony import */ var _ViewForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ViewForm */ "./resources/js/views/users/ViewForm.vue");
+/* harmony import */ var _EditForm__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./EditForm */ "./resources/js/views/users/EditForm.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -6281,6 +6288,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -6291,12 +6299,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Users",
   components: {
-    ContentHeader: _layouts_ContentHeader__WEBPACK_IMPORTED_MODULE_1__["default"],
-    MainContent: _layouts_MainContent__WEBPACK_IMPORTED_MODULE_2__["default"],
-    DataTable: _components_helpers_DataTable__WEBPACK_IMPORTED_MODULE_3__["default"],
-    CreateForm: _CreateForm__WEBPACK_IMPORTED_MODULE_4__["default"],
-    ViewForm: _ViewForm__WEBPACK_IMPORTED_MODULE_5__["default"],
-    EditForm: _EditForm__WEBPACK_IMPORTED_MODULE_6__["default"]
+    ContentHeader: _layouts_ContentHeader__WEBPACK_IMPORTED_MODULE_2__["default"],
+    MainContent: _layouts_MainContent__WEBPACK_IMPORTED_MODULE_3__["default"],
+    DataTable: _components_helpers_DataTable__WEBPACK_IMPORTED_MODULE_4__["default"],
+    CreateForm: _CreateForm__WEBPACK_IMPORTED_MODULE_5__["default"],
+    ViewForm: _ViewForm__WEBPACK_IMPORTED_MODULE_6__["default"],
+    EditForm: _EditForm__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   data: function data() {
     return {
@@ -6343,6 +6351,8 @@ __webpack_require__.r(__webpack_exports__);
           }],
           defaultOrder: [6, 'desc']
         },
+        actions: [],
+        trashActions: [],
         create: {
           show: false
         },
@@ -6396,8 +6406,35 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (response) {
         console.log(response);
       });
+    },
+    setPermissionControl: function setPermissionControl() {
+      // users.actions
+      if (this.hasPermission('Create User')) {
+        this.users.actions.push('create');
+      }
+
+      if (this.hasPermission('View User')) {
+        this.users.actions.push('view');
+      }
+
+      if (this.hasPermission('Edit User')) {
+        this.users.actions.push('edit');
+      }
+
+      if (this.hasPermission('Delete User')) {
+        this.users.actions.push('delete');
+      } // users.trashActions
+
+
+      if (this.hasPermission('Restore User')) {
+        this.users.trashActions.push('restore');
+      }
     }
-  }
+  },
+  mounted: function mounted() {
+    this.setPermissionControl();
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['hasPermission']))
 });
 
 /***/ }),
@@ -55551,8 +55588,8 @@ var render = function() {
               columns: _vm.users.table.columns,
               "default-order": _vm.users.table.defaultOrder,
               refresh: _vm.users.table.refresh,
-              actions: ["create", "view", "edit", "delete"],
-              "trash-actions": ["restore"],
+              actions: _vm.users.actions,
+              "trash-actions": _vm.users.trashActions,
               controls: ["search", "scope"]
             },
             on: {
@@ -73203,15 +73240,24 @@ var routes = [{
   }, {
     path: '/users',
     name: 'Users',
-    component: __webpack_require__(/*! ./views/users */ "./resources/js/views/users/index.vue")["default"]
+    component: __webpack_require__(/*! ./views/users */ "./resources/js/views/users/index.vue")["default"],
+    meta: {
+      permission: ['Browse User']
+    }
   }, {
     path: '/roles',
     name: 'Roles',
-    component: __webpack_require__(/*! ./views/roles */ "./resources/js/views/roles/index.vue")["default"]
+    component: __webpack_require__(/*! ./views/roles */ "./resources/js/views/roles/index.vue")["default"],
+    meta: {
+      permission: ['Browse Role']
+    }
   }, {
     path: '/permissions',
     name: 'Permissions',
-    component: __webpack_require__(/*! ./views/permissions */ "./resources/js/views/permissions/index.vue")["default"]
+    component: __webpack_require__(/*! ./views/permissions */ "./resources/js/views/permissions/index.vue")["default"],
+    meta: {
+      permission: ['Browse Permission']
+    }
   }]
 } // authentication required
 ];
@@ -73232,13 +73278,22 @@ router.beforeEach(function (to, from, next) {
       // alert('alert');
       if (response.data.authenticated) {
         _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('authenticate');
-        _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('setUser', response.data.data);
+        _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('setUser', response.data.data.user);
+        _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('setRoles', response.data.data.roles);
+        _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('setPermissions', response.data.data.permissions);
 
         if (find.meta.validate.includes('guest')) {
           next({
             path: '/home'
           });
         } else {
+          if (to.meta.hasOwnProperty('permission')) {
+            if (!_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters.hasAnyPermission(to.meta.permission)) {
+              // 403
+              next('/403');
+            }
+          }
+
           next();
         }
       } else {
@@ -73296,7 +73351,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     appNameFirst: 'Laravel',
     appNameLast: 'Vue Admin',
     isAuth: false,
-    user: {}
+    user: {},
+    roles: [],
+    permissions: []
   },
   mutations: {
     setAuth: function setAuth(state, value) {
@@ -73304,6 +73361,12 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     },
     setUser: function setUser(state, value) {
       state.user = value;
+    },
+    setRoles: function setRoles(state, value) {
+      state.roles = value;
+    },
+    setPermissions: function setPermissions(state, value) {
+      state.permissions = value;
     }
   },
   actions: {
@@ -73322,6 +73385,14 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     unsetUser: function unsetUser(_ref4) {
       var commit = _ref4.commit;
       commit('setUser', {});
+    },
+    setRoles: function setRoles(_ref5, data) {
+      var commit = _ref5.commit;
+      commit('setRoles', data);
+    },
+    setPermissions: function setPermissions(_ref6, data) {
+      var commit = _ref6.commit;
+      commit('setPermissions', data);
     }
   },
   getters: {
@@ -73336,6 +73407,33 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
     },
     user: function user(state) {
       return state.user;
+    },
+    isSuperAdmin: function isSuperAdmin(state) {
+      return state.roles.includes('Super Admin');
+    },
+    hasRole: function hasRole(state, getters) {
+      return function (role) {
+        return getters.isSuperAdmin ? true : state.roles.includes(role);
+      };
+    },
+    hasPermission: function hasPermission(state, getters) {
+      return function (permission) {
+        return getters.isSuperAdmin ? true : state.permissions.includes(permission);
+      };
+    },
+    hasAnyRole: function hasAnyRole(state, getters) {
+      return function (roles) {
+        return getters.isSuperAdmin ? true : roles.some(function (role) {
+          return state.roles.includes(role);
+        });
+      };
+    },
+    hasAnyPermission: function hasAnyPermission(state, getters) {
+      return function (permissions) {
+        return getters.isSuperAdmin ? true : permissions.some(function (permission) {
+          return state.permissions.includes(permission);
+        });
+      };
     }
   },
   plugins: [Object(vuex_persistedstate__WEBPACK_IMPORTED_MODULE_2__["default"])({
