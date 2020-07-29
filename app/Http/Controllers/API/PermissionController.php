@@ -126,4 +126,25 @@ class PermissionController extends Controller
             'data' => $data
         ], 200);
     }
+
+    /**
+     * Count total new rows scoped of the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function countScoped($scope)
+    {
+        $data = Permission::query();
+        if(strtolower($scope) === 'trashed'){
+            $data->onlyTrashed();
+        }else if (strtolower($scope) === 'all'){
+            $data->withTrashed();
+        }else{
+            // active
+        }
+        return response([
+            'count' => $data->get()->count()
+        ], 200);
+    }
 }

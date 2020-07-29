@@ -3234,8 +3234,32 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response);
       });
     },
-    countRoles: function countRoles() {},
-    countPermissions: function countPermissions() {}
+    countRoles: function countRoles() {
+      var vm = this;
+      var scope = 'active'; // active , trashed, all
+
+      var url = '/api/roles/count/scoped/' + scope;
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
+        if (response.status === 200) {
+          vm.count.roles = response.data.count;
+        }
+      })["catch"](function (response) {
+        console.log(response);
+      });
+    },
+    countPermissions: function countPermissions() {
+      var vm = this;
+      var scope = 'active'; // active , trashed, all
+
+      var url = '/api/permissions/count/scoped/' + scope;
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
+        if (response.status === 200) {
+          vm.count.permissions = response.data.count;
+        }
+      })["catch"](function (response) {
+        console.log(response);
+      });
+    }
   },
   mounted: function mounted() {
     this.countNewUsers();

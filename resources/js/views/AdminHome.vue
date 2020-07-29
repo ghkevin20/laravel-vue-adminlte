@@ -131,10 +131,32 @@
                     });
             },
             countRoles() {
-
+                const vm = this;
+                const scope = 'active'; // active , trashed, all
+                const url = '/api/roles/count/scoped/' + scope;
+                axios.get(url)
+                    .then(function (response) {
+                        if (response.status === 200) {
+                            vm.count.roles = response.data.count;
+                        }
+                    })
+                    .catch(function (response) {
+                        console.log(response);
+                    });
             },
             countPermissions() {
-
+                const vm = this;
+                const scope = 'active'; // active , trashed, all
+                const url = '/api/permissions/count/scoped/' + scope;
+                axios.get(url)
+                    .then(function (response) {
+                        if (response.status === 200) {
+                            vm.count.permissions = response.data.count;
+                        }
+                    })
+                    .catch(function (response) {
+                        console.log(response);
+                    });
             },
         },
         mounted() {
