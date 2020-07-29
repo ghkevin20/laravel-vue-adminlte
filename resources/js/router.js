@@ -68,6 +68,24 @@ const routes = [
             },
         ]
     }, // authentication required
+    {
+        path: '/',
+        component : require('./layouts/Error').default,
+        children: [
+            {
+                path: '/403',
+                component: require('./views/errors/403').default
+            },
+            {
+                path: '/404',
+                component: require('./views/errors/404').default
+            },
+            {
+                path: '*',
+                component: require('./views/errors/404').default
+            }
+        ]
+    } // Not Found
 ];
 
 const router = new VueRouter({
