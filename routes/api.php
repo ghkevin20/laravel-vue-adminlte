@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,13 +12,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/users/count/new/{secondsAgo}', 'API\UserController@countNew');
 
-Route::post('/login','API\AuthController@login');
-Route::post('/register','API\AuthController@register');
-Route::post('/logout','API\AuthController@logout');
-Route::post('/check','API\AuthController@check');
-Route::post('/password/forgot','API\ForgotPasswordController@sendResetLinkEmail');
-Route::post('/password/reset','API\ResetPasswordController@reset');
+Route::post('/login', 'API\AuthController@login');
+Route::post('/register', 'API\AuthController@register');
+Route::post('/logout', 'API\AuthController@logout');
+Route::post('/check', 'API\AuthController@check');
+Route::post('/password/forgot', 'API\ForgotPasswordController@sendResetLinkEmail');
+Route::post('/password/reset', 'API\ResetPasswordController@reset');
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -43,8 +43,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     /**
      * Profile
      */
-    Route::post('/profile/update','API\ProfileController@update');
-    Route::post('/profile/change-password','API\ProfileController@changePassword');
-    Route::post('/profile/upload-avatar','API\ProfileController@uploadAvatar');
+    Route::post('/profile/update', 'API\ProfileController@update');
+    Route::post('/profile/change-password', 'API\ProfileController@changePassword');
+    Route::post('/profile/upload-avatar', 'API\ProfileController@uploadAvatar');
 
 });

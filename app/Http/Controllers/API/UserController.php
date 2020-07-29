@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Helpers\Datatable;
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -190,6 +192,21 @@ class UserController extends Controller
         $user->restore();
         return response([
             'data' => $user
+        ], 200);
+    }
+
+    /**
+     * Count total new rows of the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function countNew($secondsAgo)
+    {
+        $pastDate = Carbon::now()->subSecond($secondsAgo)->format('Y-m-d H:i:s');
+        $data = User::where('created_at','>=',$pastDate)->withoutTrashed()->count();
+        return response([
+            'data' => $data
         ], 200);
     }
 }
