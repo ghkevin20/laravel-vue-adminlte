@@ -15,7 +15,6 @@ try {
     require('bootstrap');
 
     require('admin-lte')
-    require('ionicons')
     // window.AdminLTE = require('admin-lte/build/js/AdminLTE')
 
 

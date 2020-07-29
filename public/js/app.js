@@ -3102,6 +3102,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_ContentHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../layouts/ContentHeader */ "./resources/js/layouts/ContentHeader.vue");
 /* harmony import */ var _layouts_MainContent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../layouts/MainContent */ "./resources/js/layouts/MainContent.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -3177,6 +3179,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3191,8 +3198,50 @@ __webpack_require__.r(__webpack_exports__);
       breadCrumbs: [{
         item: 'Home',
         active: true
-      }]
+      }],
+      count: {
+        newUsers: 0,
+        activeUsers: 0,
+        roles: 0,
+        permissions: 0
+      }
     };
+  },
+  methods: {
+    countNewUsers: function countNewUsers() {
+      var vm = this;
+      var secondsAgo = 86400; // 1 day
+
+      var url = '/api/users/count/new/' + secondsAgo;
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
+        if (response.status === 200) {
+          vm.count.newUsers = response.data.count;
+        }
+      })["catch"](function (response) {
+        console.log(response);
+      });
+    },
+    countActiveUsers: function countActiveUsers() {
+      var vm = this;
+      var scope = 'active'; // active , trashed, all
+
+      var url = '/api/users/count/scoped/' + scope;
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
+        if (response.status === 200) {
+          vm.count.activeUsers = response.data.count;
+        }
+      })["catch"](function (response) {
+        console.log(response);
+      });
+    },
+    countRoles: function countRoles() {},
+    countPermissions: function countPermissions() {}
+  },
+  mounted: function mounted() {
+    this.countNewUsers();
+    this.countActiveUsers();
+    this.countRoles();
+    this.countPermissions();
   }
 });
 
@@ -14621,17 +14670,6 @@ function toComment(sourceMap) {
 	return '/*# ' + data + ' */';
 }
 
-
-/***/ }),
-
-/***/ "./node_modules/ionicons/dist/index.mjs":
-/*!**********************************************!*\
-  !*** ./node_modules/ionicons/dist/index.mjs ***!
-  \**********************************************/
-/*! exports provided: addIcons */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'C:\\laragon\\www\\laraveladmin\\node_modules\\ionicons\\dist\\index.mjs'");
 
 /***/ }),
 
@@ -52117,7 +52155,7 @@ var render = function() {
               { staticClass: "small-box bg-info" },
               [
                 _c("div", { staticClass: "inner" }, [
-                  _c("h3", [_vm._v("150")]),
+                  _c("h3", [_vm._v(_vm._s(_vm.count.newUsers))]),
                   _vm._v(" "),
                   _c("p", [_vm._v("New Users")])
                 ]),
@@ -52145,7 +52183,7 @@ var render = function() {
               { staticClass: "small-box bg-success" },
               [
                 _c("div", { staticClass: "inner" }, [
-                  _c("h3", [_vm._v("53")]),
+                  _c("h3", [_vm._v(_vm._s(_vm.count.activeUsers))]),
                   _vm._v(" "),
                   _c("p", [_vm._v("Active Users")])
                 ]),
@@ -52173,7 +52211,7 @@ var render = function() {
               { staticClass: "small-box bg-warning" },
               [
                 _c("div", { staticClass: "inner" }, [
-                  _c("h3", [_vm._v("44")]),
+                  _c("h3", [_vm._v(_vm._s(_vm.count.roles))]),
                   _vm._v(" "),
                   _c("p", [_vm._v("Roles")])
                 ]),
@@ -52201,7 +52239,7 @@ var render = function() {
               { staticClass: "small-box bg-danger" },
               [
                 _c("div", { staticClass: "inner" }, [
-                  _c("h3", [_vm._v("65")]),
+                  _c("h3", [_vm._v(_vm._s(_vm.count.permissions))]),
                   _vm._v(" "),
                   _c("p", [_vm._v("Permissions")])
                 ]),
@@ -72117,9 +72155,7 @@ try {
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 
-  __webpack_require__(/*! admin-lte */ "./node_modules/admin-lte/dist/js/adminlte.min.js");
-
-  __webpack_require__(/*! ionicons */ "./node_modules/ionicons/dist/index.mjs"); // window.AdminLTE = require('admin-lte/build/js/AdminLTE')
+  __webpack_require__(/*! admin-lte */ "./node_modules/admin-lte/dist/js/adminlte.min.js"); // window.AdminLTE = require('admin-lte/build/js/AdminLTE')
 
 } catch (e) {}
 /**
