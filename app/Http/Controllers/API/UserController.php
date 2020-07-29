@@ -21,7 +21,7 @@ class UserController extends Controller
          * Super Admin role always granted in all permissions
          * Check User if there's a permission
          */
-        $this->middleware('permission:Browse User', ['only' => ['index']]);
+        $this->middleware('permission:Browse User', ['only' => ['index','countNew','countScoped']]);
         $this->middleware('permission:Create User', ['only' => ['store']]);
         $this->middleware('permission:Edit User', ['only' => ['show', 'update']]);
         $this->middleware('permission:View User', ['only' => ['show']]);

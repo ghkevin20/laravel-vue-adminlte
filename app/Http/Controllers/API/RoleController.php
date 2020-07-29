@@ -16,7 +16,7 @@ class RoleController extends Controller
          * Super Admin role always granted in all permissions
          * Check User if there's a permission
          */
-        $this->middleware('permission:Browse Role', ['only' => ['index']]);
+        $this->middleware('permission:Browse Role', ['only' => ['index','countScoped']]);
         $this->middleware('permission:Create Role', ['only' => ['store']]);
         $this->middleware('permission:Edit Role', ['only' => ['show', 'update']]);
         $this->middleware('permission:View Role', ['only' => ['show']]);

@@ -16,7 +16,7 @@ class PermissionController extends Controller
          * Super Admin role always granted in all permissions
          * Check User if there's a permission
          */
-        $this->middleware('permission:Browse Permission', ['only' => ['index']]);
+        $this->middleware('permission:Browse Permission', ['only' => ['index','countScoped']]);
         $this->middleware('permission:Create Permission', ['only' => ['store']]);
         $this->middleware('permission:Edit Permission', ['only' => ['show', 'update']]);
         $this->middleware('permission:View Permission', ['only' => ['show']]);
