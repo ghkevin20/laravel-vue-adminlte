@@ -8,8 +8,6 @@ use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-// Importing laravel-permission models
-
 class RoleController extends Controller
 {
     public function __construct()
