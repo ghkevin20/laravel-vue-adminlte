@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/users/count/new/{secondsAgo}', 'API\UserController@countNew');
+Route::get('/users/count/scoped/{scope}', 'API\UserController@countScoped');
 
 Route::post('/login', 'API\AuthController@login');
 Route::post('/register', 'API\AuthController@register');

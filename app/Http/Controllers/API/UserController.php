@@ -206,7 +206,28 @@ class UserController extends Controller
         $pastDate = Carbon::now()->subSecond($secondsAgo)->format('Y-m-d H:i:s');
         $data = User::where('created_at','>=',$pastDate)->withoutTrashed()->count();
         return response([
-            'data' => $data
+            'count' => $data
+        ], 200);
+    }
+
+    /**
+     * Count total new rows scoped of the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function countScoped($scope)
+    {
+        $data = User::query();
+        if(strtolower($scope) === 'trashed'){
+            $data->onlyTrashed();
+        }else if (strtolower($scope) === 'all'){
+            $data->withTrashed();
+        }else{
+            // active
+        }
+        return response([
+            'count' => $data->get()->count()
         ], 200);
     }
 }
