@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Helpers\SearchFields;
+use App\Helpers\Datatable;
 use App\Http\Controllers\Controller;
 use App\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class PermissionController extends Controller
 {
@@ -18,12 +16,12 @@ class PermissionController extends Controller
          * Super Admin role always granted in all permissions
          * Check User if there's a permission
          */
-        $this->middleware('permission:Browse Permission',['only'=>['index']]);
-        $this->middleware('permission:Create Permission',['only'=>['store']]);
-        $this->middleware('permission:Edit Permission',['only'=>['show','update']]);
-        $this->middleware('permission:View Permission',['only'=>['show']]);
-        $this->middleware('permission:Delete Permission',['only'=>['destroy']]);
-        $this->middleware('permission:Restore Permission',['only'=>['restore']]);
+        $this->middleware('permission:Browse Permission', ['only' => ['index']]);
+        $this->middleware('permission:Create Permission', ['only' => ['store']]);
+        $this->middleware('permission:Edit Permission', ['only' => ['show', 'update']]);
+        $this->middleware('permission:View Permission', ['only' => ['show']]);
+        $this->middleware('permission:Delete Permission', ['only' => ['destroy']]);
+        $this->middleware('permission:Restore Permission', ['only' => ['restore']]);
     }
 
     /**
@@ -33,25 +31,19 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $request = app()->make('request');
-
-        $data = QueryBuilder::for(Permission::class,$request)
-            ->allowedFilters(AllowedFilter::custom('search', new SearchFields, 'id,name,created_at,updated_at'))
-            ->allowedFields('id', 'name','created_at','updated_at')
-            ->allowedSorts('id', 'name', 'created_at','updated_at')
-            ->allowedAppends(['roles_list']);
-        if($request->has('per_page')){
-            $data = $data->paginate($request->per_page); // Get paginator
-        }else{
-            $data = $data->get();
-        }
-        return response($data);
+        return Datatable::make(
+            Permission::class,
+            ['id', 'name', 'created_at', 'updated_at'], // searchFields
+            ['id', 'name', 'created_at', 'updated_at'], // allowedFields
+            ['id', 'name', 'created_at', 'updated_at'], // allowedSorts
+            ['roles_list'] // allowedAppends
+        );
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -78,7 +70,7 @@ class PermissionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -93,8 +85,8 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -123,7 +115,7 @@ class PermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
