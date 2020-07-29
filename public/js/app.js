@@ -3135,6 +3135,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_MainContent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../layouts/MainContent */ "./resources/js/layouts/MainContent.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3214,6 +3221,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -3235,6 +3243,12 @@ __webpack_require__.r(__webpack_exports__);
         activeUsers: 0,
         roles: 0,
         permissions: 0
+      },
+      show: {
+        newUsers: false,
+        activeUsers: false,
+        roles: false,
+        permissions: false
       }
     };
   },
@@ -3293,11 +3307,24 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.countNewUsers();
-    this.countActiveUsers();
-    this.countRoles();
-    this.countPermissions();
-  }
+    if (this.hasPermission('Browse User')) {
+      this.countNewUsers();
+      this.countActiveUsers();
+      this.show.newUsers = true;
+      this.show.activeUsers = true;
+    }
+
+    if (this.hasPermission('Browse Role')) {
+      this.countRoles();
+      this.show.roles = true;
+    }
+
+    if (this.hasPermission('Browse Permission')) {
+      this.countPermissions();
+      this.show.permissions = true;
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['hasPermission']))
 });
 
 /***/ }),
@@ -52532,120 +52559,185 @@ var render = function() {
       _vm._v(" "),
       _c("main-content", [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-lg-3 col-6" }, [
-            _c(
-              "div",
-              { staticClass: "small-box bg-info" },
-              [
-                _c("div", { staticClass: "inner" }, [
-                  _c("h3", [_vm._v(_vm._s(_vm.count.newUsers))]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("New Users")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "icon" }, [
-                  _c("i", { staticClass: "fas fa-user-plus" })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  { staticClass: "small-box-footer", attrs: { to: "/users" } },
-                  [
-                    _vm._v("More info "),
-                    _c("i", { staticClass: "fas fa-arrow-circle-right" })
-                  ]
-                )
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.show.newUsers,
+                  expression: "show.newUsers"
+                }
               ],
-              1
-            )
-          ]),
+              staticClass: "col-lg-3 col-6"
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "small-box bg-info" },
+                [
+                  _c("div", { staticClass: "inner" }, [
+                    _c("h3", [_vm._v(_vm._s(_vm.count.newUsers))]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("New Users")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "icon" }, [
+                    _c("i", { staticClass: "fas fa-user-plus" })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "small-box-footer",
+                      attrs: { to: "/users" }
+                    },
+                    [
+                      _vm._v("More info "),
+                      _c("i", { staticClass: "fas fa-arrow-circle-right" })
+                    ]
+                  )
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-lg-3 col-6" }, [
-            _c(
-              "div",
-              { staticClass: "small-box bg-success" },
-              [
-                _c("div", { staticClass: "inner" }, [
-                  _c("h3", [_vm._v(_vm._s(_vm.count.activeUsers))]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("Active Users")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "icon" }, [
-                  _c("i", { staticClass: "fas fa-users" })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  { staticClass: "small-box-footer", attrs: { to: "/users" } },
-                  [
-                    _vm._v("More info "),
-                    _c("i", { staticClass: "fas fa-arrow-circle-right" })
-                  ]
-                )
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.show.activeUsers,
+                  expression: "show.activeUsers"
+                }
               ],
-              1
-            )
-          ]),
+              staticClass: "col-lg-3 col-6"
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "small-box bg-success" },
+                [
+                  _c("div", { staticClass: "inner" }, [
+                    _c("h3", [_vm._v(_vm._s(_vm.count.activeUsers))]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Active Users")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "icon" }, [
+                    _c("i", { staticClass: "fas fa-users" })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "small-box-footer",
+                      attrs: { to: "/users" }
+                    },
+                    [
+                      _vm._v("More info "),
+                      _c("i", { staticClass: "fas fa-arrow-circle-right" })
+                    ]
+                  )
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-lg-3 col-6" }, [
-            _c(
-              "div",
-              { staticClass: "small-box bg-warning" },
-              [
-                _c("div", { staticClass: "inner" }, [
-                  _c("h3", [_vm._v(_vm._s(_vm.count.roles))]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("Roles")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "icon" }, [
-                  _c("i", { staticClass: "fas fa-user-lock" })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  { staticClass: "small-box-footer", attrs: { to: "/roles" } },
-                  [
-                    _vm._v("More info "),
-                    _c("i", { staticClass: "fas fa-arrow-circle-right" })
-                  ]
-                )
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.show.roles,
+                  expression: "show.roles"
+                }
               ],
-              1
-            )
-          ]),
+              staticClass: "col-lg-3 col-6"
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "small-box bg-warning" },
+                [
+                  _c("div", { staticClass: "inner" }, [
+                    _c("h3", [_vm._v(_vm._s(_vm.count.roles))]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Roles")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "icon" }, [
+                    _c("i", { staticClass: "fas fa-user-lock" })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "small-box-footer",
+                      attrs: { to: "/roles" }
+                    },
+                    [
+                      _vm._v("More info "),
+                      _c("i", { staticClass: "fas fa-arrow-circle-right" })
+                    ]
+                  )
+                ],
+                1
+              )
+            ]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-lg-3 col-6" }, [
-            _c(
-              "div",
-              { staticClass: "small-box bg-danger" },
-              [
-                _c("div", { staticClass: "inner" }, [
-                  _c("h3", [_vm._v(_vm._s(_vm.count.permissions))]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("Permissions")])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "icon" }, [
-                  _c("i", { staticClass: "fas fa-key" })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "small-box-footer",
-                    attrs: { to: "/permissions" }
-                  },
-                  [
-                    _vm._v("More info "),
-                    _c("i", { staticClass: "fas fa-arrow-circle-right" })
-                  ]
-                )
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.show.permissions,
+                  expression: "show.permissions"
+                }
               ],
-              1
-            )
-          ])
+              staticClass: "col-lg-3 col-6"
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "small-box bg-danger" },
+                [
+                  _c("div", { staticClass: "inner" }, [
+                    _c("h3", [_vm._v(_vm._s(_vm.count.permissions))]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Permissions")])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "icon" }, [
+                    _c("i", { staticClass: "fas fa-key" })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "small-box-footer",
+                      attrs: { to: "/permissions" }
+                    },
+                    [
+                      _vm._v("More info "),
+                      _c("i", { staticClass: "fas fa-arrow-circle-right" })
+                    ]
+                  )
+                ],
+                1
+              )
+            ]
+          )
         ])
       ])
     ],

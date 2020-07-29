@@ -7,7 +7,7 @@
         <main-content>
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-3 col-6" v-show="show.newUsers">
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-3 col-6" v-show="show.activeUsers">
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-3 col-6" v-show="show.roles">
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-3 col-6" v-show="show.permissions">
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
@@ -81,6 +81,7 @@
     import ContentHeader from "../layouts/ContentHeader";
     import MainContent from "../layouts/MainContent";
     import axios from "axios";
+    import {mapGetters} from 'vuex';
 
     export default {
         name: "AdminHome",
@@ -98,6 +99,12 @@
                     activeUsers: 0,
                     roles: 0,
                     permissions: 0,
+                },
+                show: {
+                    newUsers: false,
+                    activeUsers: false,
+                    roles: false,
+                    permissions: false,
                 }
             }
         },
@@ -160,10 +167,25 @@
             },
         },
         mounted() {
-            this.countNewUsers();
-            this.countActiveUsers();
-            this.countRoles();
-            this.countPermissions();
+            if(this.hasPermission('Browse User')){
+                this.countNewUsers();
+                this.countActiveUsers();
+                this.show.newUsers = true;
+                this.show.activeUsers = true;
+            }
+            if(this.hasPermission('Browse Role')){
+                this.countRoles();
+                this.show.roles = true;
+            }
+            if(this.hasPermission('Browse Permission')){
+                this.countPermissions();
+                this.show.permissions = true;
+            }
+        },
+        computed: {
+            ...mapGetters([
+                'hasPermission'
+            ])
         }
     }
 </script>
