@@ -32,7 +32,7 @@
         "js-cookie": "^2.2.1",
         "qs": "^6.9.4",
         "sweetalert2": "^9.17.0",
-        "tempusdominus-bootstrap-4": "^5.1.2",
+        "v-calendar": "^1.0.8",
         "vue-chartjs": "^3.5.0",
         "vue-loading-overlay": "^3.3.2",
         "vue-router": "^3.3.4",
