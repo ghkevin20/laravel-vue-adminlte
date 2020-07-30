@@ -5,9 +5,9 @@
                 <dl>
                     <dt>Name</dt>
                     <dd>{{ data.name }}</dd>
-                    <dt>Permissions</dt>
+                    <dt>Roles</dt>
                     <dd>
-                        <span class="badge badge-primary mr-1" v-for="permission in data.permissions" >{{ permission.name }}</span>
+                        <span class="badge badge-primary mr-1" v-for="role in data.roles" >{{ role.name }}</span>
                     </dd>
                     <dt>Created At</dt>
                     <dd>{{ data.created_at }}</dd>

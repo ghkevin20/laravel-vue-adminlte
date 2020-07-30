@@ -54329,15 +54329,15 @@ var render = function() {
                   _vm._v(" "),
                   _c("dd", [_vm._v(_vm._s(_vm.data.name))]),
                   _vm._v(" "),
-                  _c("dt", [_vm._v("Permissions")]),
+                  _c("dt", [_vm._v("Roles")]),
                   _vm._v(" "),
                   _c(
                     "dd",
-                    _vm._l(_vm.data.permissions, function(permission) {
+                    _vm._l(_vm.data.roles, function(role) {
                       return _c(
                         "span",
                         { staticClass: "badge badge-primary mr-1" },
-                        [_vm._v(_vm._s(permission.name))]
+                        [_vm._v(_vm._s(role.name))]
                       )
                     }),
                     0
