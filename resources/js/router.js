@@ -97,7 +97,7 @@ const router = new VueRouter({
 
 let pageLoader;
 router.beforeEach((to, from, next) => {
-    pageLoader = Vue.$loading.show();
+    pageLoader = Vue.$loading.show({color: '#007bff'});
 
     if (to.matched.some(record => record.meta.validate)) {
         const find = to.matched.find(record => record.meta.validate)
