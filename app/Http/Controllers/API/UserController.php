@@ -230,4 +230,38 @@ class UserController extends Controller
             'count' => $data->get()->count()
         ], 200);
     }
+
+    /**
+     * Per month count the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function reportPerMonth()
+    {
+        $users = User::select('id', 'created_at')
+            ->get()
+            ->groupBy(function($date) {
+                return Carbon::parse($date->created_at)->format('m'); // grouping by months
+            });
+
+        $months = [];
+        $data = [];
+
+        foreach ($users as $key => $value) {
+            $months[(int)$key] = count($value);
+        }
+
+        for($i = 1; $i <= 12; $i++){
+            if(!empty($months[$i])){
+                $data[$i] = $months[$i];
+            }else{
+                $data[$i] = 0;
+            }
+        }
+
+        return response([
+            'data' => $data
+        ], 200);
+    }
 }
