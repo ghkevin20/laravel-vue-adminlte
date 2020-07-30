@@ -120,10 +120,10 @@
                                 Welcome
                             </h3>
                         </div><!-- /.card-header -->
-                        <div class="card-body" >
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="d-flex align-items-center" style="min-height: 300px" >
+                                    <div class="d-flex align-items-center" style="min-height: 300px">
                                         <div class="text-center w-100">
                                             <h1 class="display-2">Hi {{ user.name }} !</h1>
                                             <p class="display-4">Welcome to {{ appNameFirst }} {{ appNameLast }}</p>
@@ -159,7 +159,11 @@
                             <!-- /.card-tools -->
                         </div>
                         <div class="card-body">
-                            <div id="world-map" style="height: 275px; width: 100%;"></div>
+                            <v-calendar
+                                is-expanded
+                                is-dark
+                                style="background-color: transparent;border: none"
+                                :attributes="calendar"></v-calendar>
                         </div>
                         <!-- /.card-body-->
                         <div class="card-footer bg-transparent">
@@ -182,11 +186,12 @@
     import {mapGetters} from 'vuex';
     import UsersBar from "./UsersBar";
     import UsersDoughnut from "./UsersDoughnut";
+    import VCalendar from 'v-calendar/lib/components/calendar.umd'
 
     export default {
         name: "MasterHome",
         components: {
-            ContentHeader, MainContent, UsersBar, UsersDoughnut
+            ContentHeader, MainContent, UsersBar, UsersDoughnut, VCalendar
         },
         data() {
             return {
@@ -205,7 +210,14 @@
                     activeUsers: false,
                     roles: false,
                     permissions: false,
-                }
+                },
+                calendar: [
+                    {
+                        key: 'today',
+                        highlight: true,
+                        dates: new Date(),
+                    }
+                ]
             }
         },
         methods: {
