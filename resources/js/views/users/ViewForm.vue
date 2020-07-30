@@ -12,6 +12,10 @@
                     <dd>{{ data.gender }}</dd>
                     <dt>Email</dt>
                     <dd>{{ data.email }}</dd>
+                    <dt>Roles</dt>
+                    <dd>
+                        <span class="badge badge-primary mr-1" v-for="role in data.roles" >{{ role.name }}</span>
+                    </dd>
                     <dt>Created At</dt>
                     <dd>{{ data.created_at }}</dd>
                     <dt>Updated At</dt>
