@@ -31,6 +31,8 @@
                         <a href="javascript:void(0);" @click="$emit('logout')" to="/profile" class="dropdown-item">
                             <i class="fas fa-sign-out-alt mr-2"></i> Logout
                         </a>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item dropdown-footer"></div>
                     </div>
                 </li>
 

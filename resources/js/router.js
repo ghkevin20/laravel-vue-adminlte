@@ -13,7 +13,7 @@ const routes = [
         children: [
             {
                 path: '/',
-                component: require('./views/Home').default,
+                component: require('./views/public').default,
             },
             {
                 path: '/login',
@@ -41,7 +41,7 @@ const routes = [
             {
                 path: '/home',
                 name: 'Home',
-                component: require('./views/AdminHome').default,
+                component: require('./views/master').default,
             },
             {
                 path: '/profile',
