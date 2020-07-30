@@ -1,7 +1,5 @@
 <template>
-    <div class="small">
-        <bar-chart :chart-data="dataCollection" :options="options"></bar-chart>
-    </div>
+    <bar-chart style="height: 300px" :chart-data="dataCollection" :options="options"></bar-chart>
 </template>
 
 <script>
@@ -82,18 +80,9 @@
                     },
                     responsive: true,
                     maintainAspectRatio: false,
-                    height: 200
                 }
-            },
-            getRandomInt() {
-                return Math.floor(Math.random() * (50 - 5 + 1)) + 5
             }
         }
     }
 </script>
 
-<style scoped>
-    /*.small {*/
-    /*    max-width: 300px;*/
-    /*}*/
-</style>

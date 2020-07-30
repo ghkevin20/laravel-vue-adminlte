@@ -91,7 +91,7 @@
                                         <a class="nav-link active" href="#bar-chart" data-toggle="tab">Bar</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#Doughnut-chart" data-toggle="tab">Donut</a>
+                                        <a class="nav-link" href="#doughnut-chart" data-toggle="tab">Donut</a>
                                     </li>
                                 </ul>
                             </div>
@@ -103,8 +103,9 @@
                                      style="position: relative;">
                                     <users-bar></users-bar>
                                 </div>
-                                <div class="chart tab-pane" id="Doughnut-chart" style="position: relative; height: 300px;">
-                                    <users-bar></users-bar>
+                                <div class="chart tab-pane" id="doughnut-chart"
+                                     style="position: relative;">
+                                    <users-doughnut></users-doughnut>
                                 </div>
                             </div>
                         </div><!-- /.card-body -->
@@ -157,11 +158,12 @@
     import axios from "axios";
     import {mapGetters} from 'vuex';
     import UsersBar from "./UsersBar";
+    import UsersDoughnut from "./UsersDoughnut";
 
     export default {
         name: "MasterHome",
         components: {
-            ContentHeader, MainContent, UsersBar
+            ContentHeader, MainContent, UsersBar, UsersDoughnut
         },
         data() {
             return {

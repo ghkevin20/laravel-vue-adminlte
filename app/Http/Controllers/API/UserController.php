@@ -264,4 +264,20 @@ class UserController extends Controller
             'data' => $data
         ], 200);
     }
+
+    /**
+     * Gender count the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function reportGender()
+    {
+        $male = User::where('gender', 'Male')->count();
+        $female = User::where('gender', 'Female')->count();
+        return response([
+            'male' => $male,
+            'female' => $female
+        ], 200);
+    }
 }

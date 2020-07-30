@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/users/report/months', 'API\UserController@reportPerMonth');
+Route::get('/users/report/gender', 'API\UserController@reportGender');
 
 Route::post('/login', 'API\AuthController@login');
 Route::post('/register', 'API\AuthController@register');
