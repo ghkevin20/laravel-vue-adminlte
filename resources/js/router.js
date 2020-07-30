@@ -143,6 +143,7 @@ router.beforeEach((to, from, next) => {
                 store.dispatch('unsetUser');
 
                 if (to.path !== '/login') {
+                    next(new Error('cancel'));
                     next({path: '/login'});
                 } else {
                     next()

@@ -74268,6 +74268,7 @@ router.beforeEach(function (to, from, next) {
       _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('unsetUser');
 
       if (to.path !== '/login') {
+        next(new Error('cancel'));
         next({
           path: '/login'
         });
