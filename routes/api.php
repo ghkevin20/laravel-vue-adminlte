@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/users/report/months', 'API\UserController@reportPerMonth');
-Route::get('/users/report/gender', 'API\UserController@reportGender');
 
 Route::post('/login', 'API\AuthController@login');
 Route::post('/register', 'API\AuthController@register');
@@ -40,6 +38,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     /**
      * Users
      */
+    Route::get('/users/report/months', 'API\UserController@reportPerMonth');
+    Route::get('/users/report/gender', 'API\UserController@reportGender');
     Route::get('/users/count/new/{secondsAgo}', 'API\UserController@countNew');
     Route::get('/users/count/scoped/{scope}', 'API\UserController@countScoped');
     Route::patch('/users/{user}/restore', 'API\UserController@restore');
