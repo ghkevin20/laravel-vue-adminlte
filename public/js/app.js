@@ -4216,6 +4216,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4323,7 +4346,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.show.permissions = true;
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['hasPermission']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['appNameFirst', 'appNameLast', 'user', 'hasAnyRole', 'hasAnyRole', 'hasPermission']))
 });
 
 /***/ }),
@@ -91971,71 +91994,115 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-lg-7 connectedSortable" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-header" }, [
-                _c("h3", { staticClass: "card-title" }, [
-                  _c("i", { staticClass: "fas fa-chart-pie mr-1" }),
-                  _vm._v(
-                    "\n                            Users\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-tools" }, [
-                  _c("ul", { staticClass: "nav nav-pills ml-auto" }, [
-                    _c("li", { staticClass: "nav-item" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "nav-link active",
-                          attrs: { href: "#bar-chart", "data-toggle": "tab" }
-                        },
-                        [_vm._v("Bar")]
+            _vm.hasAnyRole(["Super Admin", "Admin"])
+              ? _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "card-header" }, [
+                    _c("h3", { staticClass: "card-title" }, [
+                      _c("i", { staticClass: "fas fa-chart-pie mr-1" }),
+                      _vm._v(
+                        "\n                            Users\n                        "
                       )
                     ]),
                     _vm._v(" "),
-                    _c("li", { staticClass: "nav-item" }, [
+                    _c("div", { staticClass: "card-tools" }, [
+                      _c("ul", { staticClass: "nav nav-pills ml-auto" }, [
+                        _c("li", { staticClass: "nav-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "nav-link active",
+                              attrs: {
+                                href: "#bar-chart",
+                                "data-toggle": "tab"
+                              }
+                            },
+                            [_vm._v("Bar")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "nav-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "nav-link",
+                              attrs: {
+                                href: "#doughnut-chart",
+                                "data-toggle": "tab"
+                              }
+                            },
+                            [_vm._v("Donut")]
+                          )
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "tab-content p-0" }, [
                       _c(
-                        "a",
+                        "div",
                         {
-                          staticClass: "nav-link",
-                          attrs: {
-                            href: "#doughnut-chart",
-                            "data-toggle": "tab"
-                          }
+                          staticClass: "chart tab-pane active",
+                          staticStyle: { position: "relative" },
+                          attrs: { id: "bar-chart" }
                         },
-                        [_vm._v("Donut")]
+                        [_c("users-bar")],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "chart tab-pane",
+                          staticStyle: { position: "relative" },
+                          attrs: { id: "doughnut-chart" }
+                        },
+                        [_c("users-doughnut")],
+                        1
                       )
                     ])
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("div", { staticClass: "tab-content p-0" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "chart tab-pane active",
-                      staticStyle: { position: "relative" },
-                      attrs: { id: "bar-chart" }
-                    },
-                    [_c("users-bar")],
-                    1
-                  ),
+              : _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "card-header" }, [
+                    _c("h3", { staticClass: "card-title" }, [
+                      _c("i", { staticClass: "fas fa-bullhorn" }),
+                      _vm._v(
+                        "\n                            Welcome\n                        "
+                      )
+                    ])
+                  ]),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "chart tab-pane",
-                      staticStyle: { position: "relative" },
-                      attrs: { id: "doughnut-chart" }
-                    },
-                    [_c("users-doughnut")],
-                    1
-                  )
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "d-flex align-items-center",
+                            staticStyle: { "min-height": "300px" }
+                          },
+                          [
+                            _c("div", { staticClass: "text-center w-100" }, [
+                              _c("h1", { staticClass: "display-2" }, [
+                                _vm._v("Hi " + _vm._s(_vm.user.name) + " !")
+                              ]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "display-4" }, [
+                                _vm._v(
+                                  "Welcome to " +
+                                    _vm._s(_vm.appNameFirst) +
+                                    " " +
+                                    _vm._s(_vm.appNameLast)
+                                )
+                              ])
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
                 ])
-              ])
-            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-5 connectedSortable" }, [

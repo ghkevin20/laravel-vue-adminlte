@@ -79,7 +79,7 @@
                 <!-- Left col -->
                 <div class="col-lg-7 connectedSortable">
                     <!-- Custom tabs (Charts with tabs)-->
-                    <div class="card">
+                    <div class="card" v-if="hasAnyRole(['Super Admin','Admin'])">
                         <div class="card-header">
                             <h3 class="card-title">
                                 <i class="fas fa-chart-pie mr-1"></i>
@@ -106,6 +106,29 @@
                                 <div class="chart tab-pane" id="doughnut-chart"
                                      style="position: relative;">
                                     <users-doughnut></users-doughnut>
+                                </div>
+                            </div>
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                    <!-- Welcome -->
+                    <div class="card" v-else>
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-bullhorn"></i>
+                                Welcome
+                            </h3>
+                        </div><!-- /.card-header -->
+                        <div class="card-body" >
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="d-flex align-items-center" style="min-height: 300px" >
+                                        <div class="text-center w-100">
+                                            <h1 class="display-2">Hi {{ user.name }} !</h1>
+                                            <p class="display-4">Welcome to {{ appNameFirst }} {{ appNameLast }}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div><!-- /.card-body -->
@@ -244,24 +267,29 @@
             },
         },
         mounted() {
-            if(this.hasPermission('Browse User')){
+            if (this.hasPermission('Browse User')) {
                 this.countNewUsers();
                 this.countActiveUsers();
                 this.show.newUsers = true;
                 this.show.activeUsers = true;
             }
-            if(this.hasPermission('Browse Role')){
+            if (this.hasPermission('Browse Role')) {
                 this.countRoles();
                 this.show.roles = true;
             }
-            if(this.hasPermission('Browse Permission')){
+            if (this.hasPermission('Browse Permission')) {
                 this.countPermissions();
                 this.show.permissions = true;
             }
         },
         computed: {
             ...mapGetters([
-                'hasPermission'
+                'appNameFirst',
+                'appNameLast',
+                'user',
+                'hasAnyRole',
+                'hasAnyRole',
+                'hasPermission',
             ])
         }
     }
