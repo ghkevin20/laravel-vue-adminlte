@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -21,7 +20,7 @@ class UserController extends Controller
          * Super Admin role always granted in all permissions
          * Check User if there's a permission
          */
-        $this->middleware('permission:Browse User', ['only' => ['index','countNew','countScoped','reportPerMonth','reportGender']]);
+        $this->middleware('permission:Browse User', ['only' => ['index', 'countNew', 'countScoped', 'reportPerMonth', 'reportGender']]);
         $this->middleware('permission:Create User', ['only' => ['store']]);
         $this->middleware('permission:Edit User', ['only' => ['show', 'update']]);
         $this->middleware('permission:View User', ['only' => ['show']]);
@@ -131,17 +130,18 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'gender' => 'required|string|in:Male,Female',
             'email' => 'required|email|max:255|unique:users,email,' . $id,
-            'password' => 'string|min:8|max:16|confirmed',
+            'password' => 'nullable|string|min:8|max:16|confirmed',
             'password_confirmation' => 'required_with:password'
         ]);
 
         if ($validator->fails()) return response(['message' => 'There is a problem with your request', 'errors' => $validator->errors()], 422);
 
-        if (!$request->has('password')) {
-            $requestData['password'] = $data['password'];
-        } else {
+        if ($request->filled('password')) {
             $requestData['password'] = Hash::make($requestData['password']);
+        }else{
+            unset($requestData['password']);
         }
+
 
         if ($request->hasFile('avatar')) {
             // Delete Previous File
@@ -204,7 +204,7 @@ class UserController extends Controller
     public function countNew($secondsAgo)
     {
         $pastDate = Carbon::now()->subSecond($secondsAgo)->format('Y-m-d H:i:s');
-        $data = User::where('created_at','>=',$pastDate)->withoutTrashed()->count();
+        $data = User::where('created_at', '>=', $pastDate)->withoutTrashed()->count();
         return response([
             'count' => $data
         ], 200);
@@ -219,11 +219,11 @@ class UserController extends Controller
     public function countScoped($scope)
     {
         $data = User::query();
-        if(strtolower($scope) === 'trashed'){
+        if (strtolower($scope) === 'trashed') {
             $data->onlyTrashed();
-        }else if (strtolower($scope) === 'all'){
+        } else if (strtolower($scope) === 'all') {
             $data->withTrashed();
-        }else{
+        } else {
             // active
         }
         return response([
@@ -241,7 +241,7 @@ class UserController extends Controller
     {
         $users = User::select('id', 'created_at')
             ->get()
-            ->groupBy(function($date) {
+            ->groupBy(function ($date) {
                 return Carbon::parse($date->created_at)->format('m'); // grouping by months
             });
 
@@ -252,10 +252,10 @@ class UserController extends Controller
             $months[(int)$key] = count($value);
         }
 
-        for($i = 1; $i <= 12; $i++){
-            if(!empty($months[$i])){
+        for ($i = 1; $i <= 12; $i++) {
+            if (!empty($months[$i])) {
                 $data[$i] = $months[$i];
-            }else{
+            } else {
                 $data[$i] = 0;
             }
         }

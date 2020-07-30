@@ -6431,8 +6431,8 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('name', this.fields.name);
       formData.append('gender', this.fields.gender);
       formData.append('email', this.fields.email);
-      formData.append('password', this.fields.password);
-      formData.append('password_confirmation', this.fields.password_confirmation);
+      formData.append('password', this.fields.password !== undefined ? this.fields.password : '');
+      formData.append('password_confirmation', this.fields.password_confirmation !== undefined ? this.fields.password_confirmation : '');
 
       for (var prop in this.fields.roles) {
         if (this.fields.roles.hasOwnProperty(prop)) {
