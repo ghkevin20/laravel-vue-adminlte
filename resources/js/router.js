@@ -95,8 +95,10 @@ const router = new VueRouter({
     linkExactActiveClass: 'active'
 });
 
-
+let pageLoader;
 router.beforeEach((to, from, next) => {
+    pageLoader = Vue.$loading.show();
+
     if (to.matched.some(record => record.meta.validate)) {
         const find = to.matched.find(record => record.meta.validate)
 
@@ -110,12 +112,14 @@ router.beforeEach((to, from, next) => {
                     store.dispatch('setPermissions', response.data.data.permissions);
 
                     if (find.meta.validate.includes('guest')) {
+                        next(new Error('cancel'));
                         next({path: '/home'});
                     } else {
                         if(to.meta.hasOwnProperty('permission')){
                             if(!store.getters.hasAnyPermission(to.meta.permission)){
                                 // 403
-                                next('/403');
+                                next(new Error('cancel'));
+                                next({path: '/403'});
                             }
                         }
                         next();
@@ -125,6 +129,7 @@ router.beforeEach((to, from, next) => {
                     store.dispatch('unsetUser');
 
                     if (find.meta.validate.includes('auth')) {
+                        next(new Error('cancel'));
                         next({path: '/login'});
                     } else {
                         next();
@@ -147,7 +152,18 @@ router.beforeEach((to, from, next) => {
         next(); // make sure to always call next()!
     }
 
+});
+
+router.onError((e) => {
+    if(e.toString() === 'Error: cancel'){
+        pageLoader.hide();
+    }
 })
+
+router.afterEach((to, from) => {
+    pageLoader.hide();
+});
+
 
 export default router;
 

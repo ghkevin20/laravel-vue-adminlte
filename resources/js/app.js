@@ -5,8 +5,12 @@
  */
 import Vue from 'vue';
 import vSelect from 'vue-select';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 import store from './store';
 import router from './router';
+
+Vue.use(Loading);
 
 require('./bootstrap');
 
