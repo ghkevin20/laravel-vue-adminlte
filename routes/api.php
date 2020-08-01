@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/activity-logs', 'API\ActivityLogController@index');
+Route::get('/activity-logs/{activityLog}', 'API\ActivityLogController@show');
 
 Route::post('/login', 'API\AuthController@login');
 Route::post('/register', 'API\AuthController@register');

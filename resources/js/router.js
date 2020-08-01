@@ -66,6 +66,12 @@ const routes = [
                 component: require('./views/permissions').default,
                 meta: {permission: ['Browse Permission']}
             },
+            {
+                path: '/activity-logs',
+                name: 'Activity Logs',
+                component: require('./views/activity-logs').default,
+                meta: {permission: ['Browse Activity Log']}
+            },
         ]
     }, // authentication required
     {

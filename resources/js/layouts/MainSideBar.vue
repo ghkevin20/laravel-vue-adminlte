@@ -68,6 +68,14 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item" v-if="this.hasAnyRole(['Super Admin', 'Admin'])">
+                            <router-link to="/activity-logs" class="nav-link">
+                                <i class="nav-icon fas fa-history"></i>
+                                <p>
+                                    Activity Logs
+                                </p>
+                            </router-link>
+                        </li>
                         <li class="nav-item">
                             <router-link to="/profile" class="nav-link">
                                 <i class="nav-icon fas fa-user-circle"></i>
@@ -107,6 +115,9 @@
                 required: true
             },
             hasRole: {
+                type: Function
+            },
+            hasAnyRole: {
                 type: Function
             },
             hasPermission: {
