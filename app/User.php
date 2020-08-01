@@ -14,13 +14,6 @@ class User extends Authenticatable
     use HasRoles, SoftDeletes, Notifiable, LogsActivity;
 
     /**
-     * Set Guard Name
-     *
-     * @var string
-     */
-    protected $guard_name = 'sanctum';
-
-    /**
      * Log changes to all attributes
      *
      * @var bool
@@ -32,7 +25,14 @@ class User extends Authenticatable
      *
      * @var string[]
      */
-    protected static $logAttributesToIgnore = [ 'password'];
+    protected static $logAttributesToIgnore = ['password', 'remember_token'];
+
+    /**
+     * Set Guard Name
+     *
+     * @var string
+     */
+    protected $guard_name = 'sanctum';
 
     /**
      * The attributes that are mass assignable.
