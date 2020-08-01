@@ -21,11 +21,18 @@ class User extends Authenticatable
     protected static $logFillable = true;
 
     /**
-     * Ignore changes to attributes
+     * Ignore to log attributes
      *
      * @var string[]
      */
     protected static $logAttributesToIgnore = ['password', 'remember_token'];
+
+    /**
+     * Ignore changes to attributes
+     *
+     * @var string[]
+     */
+    protected static $ignoreChangedAttributes = ['remember_token'];
 
     /**
      * Set Guard Name
