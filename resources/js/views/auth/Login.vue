@@ -7,12 +7,13 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
-
-                <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="this.errorMessage">
-                    {{ this.errorMessage }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div v-if="this.errorMessage">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ this.errorMessage }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
 
                 <form role="form" method="post" @submit.prevent="login">
@@ -87,7 +88,7 @@
     export default {
         name: "Login",
         mounted() {
-           this.$root.$el.classList.add('login-page')
+            this.$root.$el.classList.add('login-page')
         },
         destroyed() {
             this.$root.$el.classList.remove('login-page')

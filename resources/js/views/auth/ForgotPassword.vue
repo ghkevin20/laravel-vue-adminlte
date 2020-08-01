@@ -8,11 +8,13 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.</p>
 
-                <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="this.errorMessage">
-                    {{ this.errorMessage }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div v-if="this.errorMessage">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ this.errorMessage }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
 
                 <form role="form" method="post" @submit.prevent="forgotPassword">
