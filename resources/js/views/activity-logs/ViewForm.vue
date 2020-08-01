@@ -5,7 +5,7 @@
                 <dl>
                     <dt>Log Name</dt>
                     <dd>{{ data.log_name }}</dd>
-                    <dt>Log Name</dt>
+                    <dt>Description</dt>
                     <dd>{{ data.description }}</dd>
                     <dt>Subject</dt>
                     <dd>{{ data.subject_type }}</dd>
