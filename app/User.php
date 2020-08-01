@@ -6,13 +6,33 @@ use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasRoles, SoftDeletes, Notifiable;
+    use HasRoles, SoftDeletes, Notifiable, LogsActivity;
 
+    /**
+     * Set Guard Name
+     *
+     * @var string
+     */
     protected $guard_name = 'sanctum';
+
+    /**
+     * Log changes to all attributes
+     *
+     * @var bool
+     */
+    protected static $logFillable = true;
+
+    /**
+     * Ignore changes to attributes
+     *
+     * @var string[]
+     */
+    protected static $logAttributesToIgnore = [ 'password'];
 
     /**
      * The attributes that are mass assignable.
