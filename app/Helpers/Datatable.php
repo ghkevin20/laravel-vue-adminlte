@@ -17,7 +17,7 @@ class Datatable
                 AllowedFilter::custom(
                     'search',
                     new SearchFields,
-                    implode(', ',$searchFields)
+                    implode(',',$searchFields)
                 )
             )
             ->allowedFields($allowedFields)

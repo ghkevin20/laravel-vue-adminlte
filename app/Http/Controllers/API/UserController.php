@@ -37,7 +37,7 @@ class UserController extends Controller
     {
         return Datatable::make(
             User::class,
-            ['id', 'avatar', 'name', 'gender', 'email', 'created_at', 'updated_at'], // searchFields
+            ['id', 'name', 'gender', 'email', 'created_at', 'updated_at'], // searchFields
             ['id', 'avatar', 'name', 'gender', 'email', 'created_at', 'updated_at', 'deleted_at'], // allowedFields
             ['id', 'avatar', 'name', 'gender', 'email', 'created_at', 'updated_at'], // allowedSorts
             ['roles_list'] // allowedAppends
