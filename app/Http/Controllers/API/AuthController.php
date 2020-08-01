@@ -31,6 +31,8 @@ class AuthController extends Controller
 
         if (!Auth::attempt($user,$request->filled('remember'))) return response(['message' => 'Invalid login credentials.'], 401);
 
+        activity()->log('Logged In');
+
         return response([
             'data' => Auth::user(),
         ], 200);
@@ -71,7 +73,11 @@ class AuthController extends Controller
         if (!Auth::check()) {
             return response(['message' => 'Unauthenticated.'], 401);
         }
+
+        activity()->log('Logged Out');
+
         Auth::logout();
+
         return response(['data' => true], 200);
     }
 
