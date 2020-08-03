@@ -8,33 +8,6 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: '/',
-        component: require('./layouts/Public').default,
-        meta: {validate: ['guest']},
-        children: [
-            {
-                path: '/',
-                component: require('./views/public').default,
-            },
-            {
-                path: '/login',
-                component: require('./views/auth/Login').default
-            },
-            {
-                path: '/register',
-                component: require('./views/auth/Register').default
-            },
-            {
-                path: '/forgot-password',
-                component: require('./views/auth/ForgotPassword').default
-            },
-            {
-                path: '/recover-password/:token',
-                component: require('./views/auth/RecoverPassword').default
-            },
-        ]
-    }, // can be access without authentication
-    {
-        path: '/',
         component: require('./layouts/Master').default,
         meta: {validate: ['auth']},
         children: [
@@ -76,7 +49,34 @@ const routes = [
     }, // authentication required
     {
         path: '/',
-        component : require('./layouts/Error').default,
+        component: require('./layouts/Public').default,
+        meta: {validate: ['guest']},
+        children: [
+            {
+                path: '/',
+                component: require('./views/auth/Login').default,
+            },
+            {
+                path: '/login',
+                component: require('./views/auth/Login').default
+            },
+            {
+                path: '/register',
+                component: require('./views/auth/Register').default
+            },
+            {
+                path: '/forgot-password',
+                component: require('./views/auth/ForgotPassword').default
+            },
+            {
+                path: '/recover-password/:token',
+                component: require('./views/auth/RecoverPassword').default
+            },
+        ]
+    }, // can be access without authentication
+    {
+        path: '/',
+        component: require('./layouts/Error').default,
         children: [
             {
                 path: '/403',
@@ -121,8 +121,8 @@ router.beforeEach((to, from, next) => {
                         next(new Error('cancel'));
                         next({path: '/home'});
                     } else {
-                        if(to.meta.hasOwnProperty('permission')){
-                            if(!store.getters.hasAnyPermission(to.meta.permission)){
+                        if (to.meta.hasOwnProperty('permission')) {
+                            if (!store.getters.hasAnyPermission(to.meta.permission)) {
                                 // 403
                                 next(new Error('cancel'));
                                 next({path: '/403'});
@@ -162,7 +162,7 @@ router.beforeEach((to, from, next) => {
 });
 
 router.onError((e) => {
-    if(e.toString() === 'Error: cancel'){
+    if (e.toString() === 'Error: cancel') {
         pageLoader.hide();
     }
 })
