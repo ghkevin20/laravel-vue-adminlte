@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\User;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class Install extends Command
 {
@@ -52,11 +51,11 @@ class Install extends Command
         // Generate Key
         $this::call('key:generate');
 
-        // Migrate
+        // Migrate fresh
         $this->call('migrate:fresh');
 
         // Create Default Roles And Permissions
-        $this->call('db:seed',['RoleAndPermissionSeeder']);
+        $this->call('db:seed', ['--class' => 'RoleAndPermissionSeeder']);
 
         // Create Super Admin
         User::create([
@@ -66,7 +65,7 @@ class Install extends Command
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ])->assignRole('Super Admin');
-        $this->info('Created Super Admin: '.$this->option('super-admin').' Password: password');
+        $this->info('Created Super Admin: ' . $this->option('super-admin') . ' Password: password');
 
         // Create Admin
         User::create([
@@ -89,7 +88,7 @@ class Install extends Command
         $this->info('Created User: user@demo.com Password: password');
 
         // Check to include sample data
-        if($this->option('sample')){
+        if ($this->option('sample')) {
             $this->info('With sample');
         }
 
