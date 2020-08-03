@@ -25,14 +25,14 @@ class User extends Authenticatable
      *
      * @var string[]
      */
-    protected static $logAttributesToIgnore = ['password', 'remember_token'];
+    protected static $logAttributesToIgnore = ['password', 'remember_token', 'created_at', 'updated_at'];
 
     /**
      * Ignore changes to attributes
      *
      * @var string[]
      */
-    protected static $ignoreChangedAttributes = ['remember_token'];
+    protected static $ignoreChangedAttributes = ['remember_token', 'created_at', 'updated_at'];
 
     /**
      * Set Guard Name
@@ -47,7 +47,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'avatar', 'name', 'email', 'gender', 'password',
+        'avatar', 'name', 'email', 'gender', 'password', 'created_at', 'updated_at'
     ];
 
     /**
