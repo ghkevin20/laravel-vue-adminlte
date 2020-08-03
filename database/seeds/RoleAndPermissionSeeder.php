@@ -55,6 +55,6 @@ class RoleAndPermissionSeeder extends Seeder
         /**
          * Role: User
          */
-        Role::create(['name'=>'Agent']);
+        Role::create(['name'=>'User']);
     }
 }
