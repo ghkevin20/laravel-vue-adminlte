@@ -27,7 +27,11 @@ class RoleAndPermissionSeeder extends Seeder
                 'View User',
                 'Delete User',
                 'Restore User'
-            ]
+            ],
+            'Activity Logs'=>[
+                'Browse Activity Log',
+                'View Activity Log'
+            ],
         );
 
         /**
@@ -49,7 +53,8 @@ class RoleAndPermissionSeeder extends Seeder
          */
         $role = Role::create(['name'=>'Admin']);
         $role->givePermissionTo([
-            $p['Users']
+            $p['Users'],
+            $p['Activity Logs'],
         ]);
 
         /**

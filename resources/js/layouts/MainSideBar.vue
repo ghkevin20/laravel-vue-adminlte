@@ -36,7 +36,7 @@
                                 </p>
                             </router-link>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" v-if="this.hasPermission('Browse User')">
                             <router-link to="/users" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
