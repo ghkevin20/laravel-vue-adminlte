@@ -89,7 +89,9 @@ class Install extends Command
 
         // Check to include sample data
         if ($this->option('sample')) {
-            $this->info('With sample');
+            // Seed User Sample
+            $this->call('db:seed', ['--class' => 'UserSeeder']);
+            $this->info('Seed user sample.');
         }
 
         $this->info('Finished installation. Thank you.');
