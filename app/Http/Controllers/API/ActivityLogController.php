@@ -16,8 +16,8 @@ class ActivityLogController extends Controller
          * Super Admin role always granted in all permissions
          * Check User if there's a permission
          */
-//        $this->middleware('permission:Browse Activity Log', ['only' => ['index']]);
-//        $this->middleware('permission:View Activity Log', ['only' => ['show']]);
+        $this->middleware('permission:Browse Activity Log', ['only' => ['index']]);
+        $this->middleware('permission:View Activity Log', ['only' => ['show']]);
     }
 
     /**
