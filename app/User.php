@@ -96,7 +96,7 @@ class User extends Authenticatable
      * @param string $value
      * @return string
      */
-    public function getAvatarUrlAttribute($value)
+    public function getAvatarUrlAttribute()
     {
         return $this->avatar ?
             asset('storage/avatars/'. $this->avatar)
