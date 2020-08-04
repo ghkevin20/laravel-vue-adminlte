@@ -42,6 +42,13 @@ class User extends Authenticatable
     protected $guard_name = 'sanctum';
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['avatar_url'];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -71,15 +78,40 @@ class User extends Authenticatable
         'deleted_at' => 'datetime:Y-M-d h:i A',
     ];
 
+//    /**
+//     * Get the user's avatar.
+//     *
+//     * @param string $value
+//     * @return string
+//     */
+//    public function getAvatarAttribute($value)
+//    {
+//        return $value ? $value : 'avatar-' . strtolower($this->gender) . '.png';
+//    }
+
+    /**
+     * Get the user's temporary avatar.
+     *
+     * @param string $value
+     * @return string
+     */
+    public function getDefaultAvatarAttribute($value)
+    {
+        return 'avatar-' . strtolower($this->gender) . '.png';
+
+    }
+
     /**
      * Get the user's avatar.
      *
      * @param string $value
      * @return string
      */
-    public function getAvatarAttribute($value)
+    public function getAvatarUrlAttribute($value)
     {
-        return $value ? $value : 'avatar-' . strtolower($this->gender) . '.png';
+        return $this->avatar ?
+            asset('storage/avatars'). $this->avatar
+            :asset('storage/default'). $this->default_avatar;
     }
 
     /**
