@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 
 class Install extends Command
 {
@@ -42,6 +43,9 @@ class Install extends Command
          * Installation
          */
         $this->info('Starting Installation...');
+
+        // Delete Directories
+        Storage::deleteDirectory('/public/avatars');
 
         // Clear Cache
         $this::call('cache:clear');
