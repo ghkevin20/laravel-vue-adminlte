@@ -37,13 +37,14 @@
     import ControlSideBar from './ControlSideBar';
     import MainFooter from './MainFooter';
     import {mapGetters} from 'vuex';
+    import auth from '../services/auth'
 
     export default {
         name: "Master",
         components: {
             MainHeader, MainSideBar, ContentWrapper, ControlSideBar, MainFooter
         },
-        beforeRouteEnter(to,from,next) {
+        beforeRouteEnter(to, from, next) {
             document.querySelector("body").classList.add('hold-transition');
             document.querySelector("body").classList.add('sidebar-mini');
             next()
@@ -56,22 +57,16 @@
             document.querySelector('body').classList.remove('hold-transition')
             $('ul[data-widget="treeview"]').Treeview('init');
         },
-        methods:{
+        methods: {
             logout() {
-                axios.post('/api/logout').then(response => {
-                    if (response.status === 200){
-                        this.$store.dispatch('disprove');
-                        this.$store.dispatch('unsetUser');
-                        this.$router.push("/login")
-                    }else{
-                        console.log(response)
-                    }
-                }).catch(error => {
-                    console.log(error)
-                });
+                const vm = this;
+                auth.logout()
+                    .then(function () {
+                        vm.$router.push({path: '/login'});
+                    });
             }
         },
-        computed:{
+        computed: {
             ...mapGetters([
                 'appNameFirst',
                 'appNameLast',
@@ -79,7 +74,8 @@
                 'hasRole',
                 'hasAnyRole',
                 'hasPermission',
-                'hasAnyPermission'
+                'hasAnyPermission',
+                'hasAnyPermission',
             ])
         }
     }

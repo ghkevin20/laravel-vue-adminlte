@@ -60,6 +60,9 @@ const store = new Vuex.Store({
         user: (state) => {
             return state.user;
         },
+        roles: (state) => {
+            return state.roles;
+        },
         isSuperAdmin: (state) => {
             return state.roles.includes('Super Admin');
         },

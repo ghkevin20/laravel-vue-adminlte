@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from './store';
-import axios from "axios";
+import auth from './services/auth'
 
 Vue.use(VueRouter);
 
@@ -106,18 +106,13 @@ router.beforeEach((to, from, next) => {
     pageLoader = Vue.$loading.show({color: '#007bff'});
 
     if (to.matched.some(record => record.meta.validate)) {
-        const find = to.matched.find(record => record.meta.validate)
+        const find = to.matched.find(record => record.meta.validate);
 
-        axios.post('/api/check')
-            .then(response => {
-                // alert('alert');
-                if (response.data.authenticated) {
-                    store.dispatch('authenticate');
-                    store.dispatch('setUser', response.data.data.user);
-                    store.dispatch('setRoles', response.data.data.roles);
-                    store.dispatch('setPermissions', response.data.data.permissions);
-
+        auth.check()
+            .then(function () {
+                if(store.getters.auth){
                     if (find.meta.validate.includes('guest')) {
+                        console.log('red from guest to home')
                         next(new Error('cancel'));
                         next({path: '/home'});
                     } else {
@@ -126,33 +121,20 @@ router.beforeEach((to, from, next) => {
                                 // 403
                                 next(new Error('cancel'));
                                 next({path: '/403'});
+                            }else{
+                                next();
                             }
+                        }else{
+                            next();
                         }
-                        next();
                     }
-                } else {
-                    store.dispatch('disprove');
-                    store.dispatch('unsetUser');
-
+                }else{
                     if (find.meta.validate.includes('auth')) {
                         next(new Error('cancel'));
                         next({path: '/login'});
                     } else {
                         next();
                     }
-                }
-            })
-            .catch(error => {
-                document.cookie = "XSRF-TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
-                store.dispatch('disprove');
-                store.dispatch('unsetUser');
-
-                if (to.path !== '/login') {
-                    next(new Error('cancel'));
-                    next({path: '/login'});
-                } else {
-                    next()
                 }
             });
     } else {
