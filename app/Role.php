@@ -22,7 +22,7 @@ class Role extends SpatieRole
      * @var array
      */
     protected $fillable = [
-        'name',
+        'name', 'guard_name'
     ];
 
     /**
