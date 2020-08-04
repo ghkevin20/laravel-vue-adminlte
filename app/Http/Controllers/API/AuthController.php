@@ -106,6 +106,9 @@ class AuthController extends Controller
 
         $data = User::create($requestData);
 
+        // Assign Default Role
+        $data->assignRole('User');
+
         return response([
             'data' => $data
         ],200);
