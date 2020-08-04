@@ -87,7 +87,6 @@ class User extends Authenticatable
     public function getDefaultAvatarAttribute()
     {
         return 'avatar-' . strtolower($this->gender) . '.png';
-
     }
 
     /**
