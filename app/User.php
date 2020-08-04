@@ -78,17 +78,6 @@ class User extends Authenticatable
         'deleted_at' => 'datetime:Y-M-d h:i A',
     ];
 
-//    /**
-//     * Get the user's avatar.
-//     *
-//     * @param string $value
-//     * @return string
-//     */
-//    public function getAvatarAttribute($value)
-//    {
-//        return $value ? $value : 'avatar-' . strtolower($this->gender) . '.png';
-//    }
-
     /**
      * Get the user's temporary avatar.
      *
@@ -112,17 +101,6 @@ class User extends Authenticatable
         return $this->avatar ?
             asset('storage/avatars/'. $this->avatar)
             :asset('storage/default/'. $this->default_avatar);
-    }
-
-    /**
-     * Check Actual Value of User's Avatar
-     *
-     * @param string $value
-     * @return string
-     */
-    public function getCheckAvatarAttribute()
-    {
-        return ($this->avatar == "avatar-" . strtolower($this->gender) . ".png") ? "" : $this->avatar;
     }
 
     /**
