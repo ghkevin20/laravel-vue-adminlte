@@ -4,7 +4,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="#" class="brand-link">
-                <img src="https://vuejs.org/images/logo.png" :alt="`${appNameFirst} ${appNameLast} Logo`"
+                <img src="/storage/default/app-logo.png" :alt="`${appNameFirst} ${appNameLast} Logo`"
                      class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">{{ `${appNameFirst} ${appNameLast}` }}</span>
             </a>
