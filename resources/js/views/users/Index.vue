@@ -64,7 +64,7 @@
         },
         data() {
             return {
-                title: this.$options.name,
+                title: this.$route.name,
                 breadCrumbs: [
                     {item: 'Home', to: '/home'},
                     {item: 'Users', active: true},
