@@ -12,7 +12,7 @@
                 :columns="permissions.table.columns"
                 :default-order="permissions.table.defaultOrder"
                 :refresh="permissions.table.refresh"
-                :actions="['view']"
+                :actions="permissions.actions"
                 :controls="['search']"
                 @actionView="actionView"
             ></data-table>
@@ -27,11 +27,11 @@
 
 <script>
     import axios from 'axios';
+    import {mapGetters} from 'vuex';
     import ContentHeader from '../../layouts/ContentHeader';
     import MainContent from '../../layouts/MainContent';
     import DataTable from "../../components/helpers/DataTable";
     import ViewForm from "./ViewForm";
-
 
     export default {
         name: "ActivityLogs",
@@ -67,7 +67,8 @@
                         id: '',
                         data: {},
                         show: false
-                    }
+                    },
+                    actions: [],
                 },
             }
         },
@@ -89,7 +90,21 @@
                         console.log(response);
                     });
 
+            },
+            setPermissionControl() {
+                // permissions.actions
+                if (this.hasPermission('View Activity Log')) {
+                    this.permissions.actions.push('view');
+                }
             }
+        },
+        mounted() {
+            this.setPermissionControl();
+        },
+        computed: {
+            ...mapGetters([
+                'hasPermission'
+            ])
         }
     }
 </script>
