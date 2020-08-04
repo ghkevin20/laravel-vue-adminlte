@@ -40,7 +40,7 @@
         props: {
             defaultPreviewSource: {
                 type: String,
-                default: '/storage/avatars/upload-image.png'
+                default: '/storage/default/upload-image.png'
             },
             previewClass:'',
             previewClickable: {

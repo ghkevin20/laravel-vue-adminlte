@@ -19,8 +19,8 @@
                 @actionView="actionView"
                 @actionEdit="actionEdit"
             >
-                <template v-slot:column_avatar="{ value }">
-                    <img :src="`/storage/avatars/${value}`" alt="Avatar" height="64" width="64">
+                <template v-slot:column_avatar_url="{ value }">
+                    <img :src="value" alt="Avatar" height="64" width="64">
                 </template>
             </data-table>
             <view-form
@@ -75,7 +75,7 @@
                         refresh: 0,
                         columns: [
                             {name: 'id', header: 'ID'},
-                            {name: 'avatar', header: 'Avatar', sortable: false},
+                            {name: 'avatar_url', header: 'Avatar', sortable: false},
                             {name: 'name', header: 'Name'},
                             {name: 'gender', header: 'Gender'},
                             {name: 'email', header: 'Email'},

@@ -4,7 +4,7 @@
             <div slot="modal-body" class="row">
                 <div class="col-12">
                     <div class="form-group d-flex justify-content-center align-items-center">
-                        <avatar-cropper :default-preview-source="`/storage/avatars/${this.data.avatar}`"
+                        <avatar-cropper :default-preview-source="this.data.avatar_url"
                                         @updateBlob="updateBlob"></avatar-cropper>
                     </div>
                     <div class="d-none form-control"

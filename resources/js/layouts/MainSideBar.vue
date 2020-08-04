@@ -14,7 +14,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img :src="`/storage/avatars/${user.avatar}`" class="img-circle elevation-2"
+                        <img :src="user.avatar_url" class="img-circle elevation-2"
                              alt="User Image">
                     </div>
                     <div class="info">

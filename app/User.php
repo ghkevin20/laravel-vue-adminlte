@@ -110,8 +110,8 @@ class User extends Authenticatable
     public function getAvatarUrlAttribute($value)
     {
         return $this->avatar ?
-            asset('storage/avatars'). $this->avatar
-            :asset('storage/default'). $this->default_avatar;
+            asset('storage/avatars/'. $this->avatar)
+            :asset('storage/default/'. $this->default_avatar);
     }
 
     /**

@@ -3,7 +3,7 @@
         <modal title="View" :show="modalShow" @toggleShow="toggleShow">
             <div slot="modal-body" v-if="data">
                 <div class="d-flex justify-content-center align-items-center">
-                    <img :src="`/storage/avatars/${data.avatar}`" alt="Avatar" width="230">
+                    <img :src="data.avatar_url" alt="Avatar" width="230">
                 </div>
                 <dl>
                     <dt>Name</dt>

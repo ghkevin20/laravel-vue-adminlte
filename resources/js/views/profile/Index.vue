@@ -15,7 +15,7 @@
                                     ref="avatar"
                                     preview-class="profile-user-img img-fluid img-circle"
                                     :preview-clickable="false"
-                                    :default-preview-source="`/storage/avatars/${user.avatar}`"
+                                    :default-preview-source="user.avatar_url"
                                     @updateBlob="uploadAvatar"
                                 >
                                 </avatar-cropper>
