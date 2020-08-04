@@ -147,7 +147,9 @@
                 }
 
                 let formData = new FormData();
-                formData.append('avatar', this.fields.avatar);
+                if (this.fields.avatar instanceof Blob) {
+                    formData.append('avatar', this.fields.avatar);
+                }
                 formData.append('name', this.fields.name);
                 formData.append('gender', this.fields.gender);
                 formData.append('email', this.fields.email);
