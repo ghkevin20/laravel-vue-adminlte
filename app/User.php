@@ -84,7 +84,7 @@ class User extends Authenticatable
      * @param string $value
      * @return string
      */
-    public function getDefaultAvatarAttribute($value)
+    public function getDefaultAvatarAttribute()
     {
         return 'avatar-' . strtolower($this->gender) . '.png';
 
