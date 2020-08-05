@@ -30,7 +30,7 @@
     import {mapGetters} from 'vuex';
     import ContentHeader from '../../layouts/ContentHeader';
     import MainContent from '../../layouts/MainContent';
-    import DataTable from "../../components/helpers/DataTable";
+    import DataTable from "../../components/DataTable";
     import ViewForm from "./ViewForm";
 
     export default {

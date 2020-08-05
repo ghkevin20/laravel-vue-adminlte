@@ -74,7 +74,7 @@
     import {mapGetters} from "vuex";
     import DetailsForm from "./DetailsForm";
     import SecurityForm from "./SecurityForm";
-    import AvatarCropper from "../../components/helpers/AvatarCropper";
+    import AvatarCropper from "../../components/AvatarCropper";
     import axios from "axios";
     import Swal from "sweetalert2";
 

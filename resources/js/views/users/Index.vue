@@ -51,7 +51,7 @@
     import {mapGetters} from 'vuex';
     import ContentHeader from '../../layouts/ContentHeader';
     import MainContent from '../../layouts/MainContent';
-    import DataTable from "../../components/helpers/DataTable";
+    import DataTable from "../../components/DataTable";
     import CreateForm from "./CreateForm";
     import ViewForm from "./ViewForm";
     import EditForm from "./EditForm";

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import Modal from "../../components/helpers/Modal";
+    import Modal from "../../components/Modal";
 
     export default {
         name: "ViewForm",

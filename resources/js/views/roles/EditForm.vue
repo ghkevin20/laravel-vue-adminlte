@@ -33,7 +33,7 @@
 <script>
     import axios from 'axios';
     import Swal from 'sweetalert2';
-    import Modal from "../../components/helpers/Modal";
+    import Modal from "../../components/Modal";
     import qs from "qs";
 
     export default {
