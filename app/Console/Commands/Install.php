@@ -47,6 +47,9 @@ class Install extends Command
         // Delete Directories
         Storage::deleteDirectory('/public/avatars');
 
+        // Storage Link
+        $this::call('storage:link');
+
         // Clear Cache
         $this::call('cache:clear');
         $this::call('route:clear');
