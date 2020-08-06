@@ -1,5 +1,13 @@
 # Useful Links
 
+####  [Laravel 7.0](https://laravel.com/docs/7.x)
+
+Laravel is a web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.
+
+#### [Bootstrap 4](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
+
+Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.
+
 ####  [AdminLTE 3](https://adminlte.io/docs/3.0/)
 
 Built on top of Bootstrap 4,
