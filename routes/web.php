@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::prefix('docs')->group(function () {
+    Route::get('/', 'DocsifyController@index')->name('docs.index');
+    Route::get('/{path}', 'DocsifyController@get')->name('docs.get')->where('path', '.*');
+});
 
 Route::get('/{vue?}', function () {
     return view('layouts.app');
