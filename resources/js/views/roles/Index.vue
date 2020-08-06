@@ -8,7 +8,6 @@
             <data-table
                 title="List"
                 :source="roles.source"
-                :soft-delete="false"
                 :columns="roles.table.columns"
                 :default-order="roles.table.defaultOrder"
                 :refresh="roles.table.refresh"

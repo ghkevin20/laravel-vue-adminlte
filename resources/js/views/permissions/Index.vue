@@ -8,7 +8,6 @@
             <data-table
                 title="List"
                 :source="permissions.source"
-                :soft-delete="false"
                 :columns="permissions.table.columns"
                 :default-order="permissions.table.defaultOrder"
                 :refresh="permissions.table.refresh"

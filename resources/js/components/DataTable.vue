@@ -191,10 +191,6 @@
         props: {
             title: '',
             source: '',
-            softDelete: {
-                type: Boolean,
-                default: false
-            },
             columns: {
                 required: true,
                 type: Array,

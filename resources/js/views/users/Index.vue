@@ -8,7 +8,6 @@
             <data-table
                 title="List"
                 :source="users.source"
-                :soft-delete="true"
                 :columns="users.table.columns"
                 :default-order="users.table.defaultOrder"
                 :refresh="users.table.refresh"

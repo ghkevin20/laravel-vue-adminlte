@@ -116,5 +116,7 @@
     <orderEntry type="module" module-name="laravel-vuejs" />
     <orderEntry type="module" module-name="laravel-vue-admin-docs" />
     <orderEntry type="module" module-name="laravel-vue-admin-lte" />
+    <orderEntry type="module" module-name="laravel-vue-admin-lte" />
+    <orderEntry type="module" module-name="laravel-vue-admin-lte" />
   </component>
 </module>
