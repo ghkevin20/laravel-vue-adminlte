@@ -71,8 +71,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-if="dataCount === 0">
-                            <td :colspan="columns.length" class="text-center">
+                        <tr v-if="isLoading">
+                            <td :colspan="columns.length + ((actions.length)?1:0)" class="text-center">
+                                <i>Retrieving data...</i>
+                            </td>
+                        </tr>
+                        <tr v-if="!isLoading && dataCount === 0">
+                            <td :colspan="columns.length + ((actions.length)?1:0)" class="text-center">
                                 <i>No result found.</i>
                             </td>
                         </tr>
@@ -243,15 +248,28 @@
                     per_page: 10,
                     search: '',
                     scope: 'active',
-                }
+                },
+                refCount: 0,
+                isLoading: false
             }
         },
         created() {
             this.fetchIndexData();
         },
         methods: {
+            setLoading(isLoading) {
+                if (isLoading) {
+                    this.refCount++;
+                    this.isLoading = true;
+                } else if (this.refCount > 0) {
+                    this.refCount--;
+                    this.isLoading = (this.refCount > 0);
+                }
+            },
             fetchIndexData() {
                 var vm = this;
+
+                vm.setLoading(true);
 
                 var url = vm.source;
 
@@ -291,9 +309,11 @@
                     .then(function (response) {
                         console.log(response)
                         vm.$set(vm.$data, 'model', response.data);
+                        vm.setLoading(false);
                     })
                     .catch(function (response) {
                         console.log(response);
+                        vm.setLoading(false);
                     });
             },
             toggleOder(column) {

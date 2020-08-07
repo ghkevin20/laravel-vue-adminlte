@@ -19,7 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dae9e418-bdd3-4bd7-b6dd-7491d38a2f7f" name="Default Changelist" comment="" />
+    <list default="true" id="dae9e418-bdd3-4bd7-b6dd-7491d38a2f7f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/DataTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/DataTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -183,7 +187,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1596759572552</updated>
-      <workItem from="1596759631495" duration="1397000" />
+      <workItem from="1596759631495" duration="8056000" />
     </task>
     <servers />
   </component>
