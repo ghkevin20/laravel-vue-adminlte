@@ -87,7 +87,7 @@
 
     export default {
         name: "Login",
-        created() {
+        mounted() {
             this.$root.$el.classList.add('login-page')
         },
         destroyed() {
