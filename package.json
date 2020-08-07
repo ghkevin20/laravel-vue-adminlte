@@ -27,8 +27,6 @@
         "admin-lte": "^3.0.5",
         "chart.js": "^2.9.3",
         "cropperjs": "^1.5.7",
-        "gridjs": "^1.12.0",
-        "gridjs-vue": "^0.3.5",
         "js-cookie": "^2.2.1",
         "qs": "^6.9.4",
         "sweetalert2": "^9.17.0",
