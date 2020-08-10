@@ -20,7 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dae9e418-bdd3-4bd7-b6dd-7491d38a2f7f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/laravel-vue-admin.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel-vue-admin.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/ProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +144,10 @@
       <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
       <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
       <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
-      <path value="$PROJECT_DIR$/vendor/mdebuf/laravel-docsify" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
     </include_path>
   </component>
   <component name="ProjectId" id="1fkQM7jaCgcNBqhIX3qtVfNVUek" />
@@ -183,7 +191,8 @@
       <updated>1596759572552</updated>
       <workItem from="1596759631495" duration="14204000" />
       <workItem from="1596852323438" duration="5215000" />
-      <workItem from="1597021617288" duration="4358000" />
+      <workItem from="1597021617288" duration="5565000" />
+      <workItem from="1597030762115" duration="5470000" />
     </task>
     <servers />
   </component>
@@ -208,6 +217,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1597037841548">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597037841548" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1596759947847">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -218,6 +231,10 @@
     </state>
     <state x="2714" y="443" key="NewPhpFileDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1596694241688" />
     <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597021675878" />
+    <state x="779" y="222" key="RollbackChangesDialog" timestamp="1597036327225">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="779" y="222" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597036327225" />
     <state x="2012" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1596679180049">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

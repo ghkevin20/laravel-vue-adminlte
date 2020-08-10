@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
@@ -73,12 +74,21 @@ class UserController extends Controller
         if ($validator->fails()) return response(['message' => 'There is a problem with your request', 'errors' => $validator->errors()], 422);
 
         if ($request->hasFile('avatar')) {
-            // Update the final filename to store and make it unique
-            $filename = uniqid(rand(100, 999)) . '_' . time() . '.png';
-            // Store in Storage
-            $request->file('avatar')->storeAs('public/avatars', $filename);
+
+            $image = $request->file('avatar');
+
+            $image_name = uniqid(rand(100, 999)) . '_' . time() . '.png';
+
+            $destinationPath = storage_path('app/public/avatars');
+
+            $resize_image = Image::make($image->getRealPath());
+
+            $resize_image->resize(300, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath . '/' . $image_name);
+
             // Store in Database
-            $requestData['avatar'] = $filename;
+            $requestData['avatar'] = $image_name;
         }
 
         $requestData['password'] = Hash::make($requestData['password']);
@@ -138,23 +148,31 @@ class UserController extends Controller
 
         if ($request->filled('password')) {
             $requestData['password'] = Hash::make($requestData['password']);
-        }else{
+        } else {
             unset($requestData['password']);
         }
 
 
         if ($request->hasFile('avatar')) {
             // Delete Previous File
-            if (!empty($data->checkavatar)) {
+            if (!is_null($data->avatar)) {
                 Storage::delete('public/avatars/' . $data->avatar);
             }
 
-            // Update the final filename to store and make it unique
-            $filename = uniqid(rand(100, 999)) . '_' . time() . '.png';
-            // Store in Storage
-            $request->file('avatar')->storeAs('public/avatars', $filename);
+            $image = $request->file('avatar');
+
+            $image_name = uniqid(rand(100, 999)) . '_' . time() . '.png';
+
+            $destinationPath = storage_path('app/public/avatars');
+
+            $resize_image = Image::make($image->getRealPath());
+
+            $resize_image->resize(300, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath . '/' . $image_name);
+
             // Store in Database
-            $requestData['avatar'] = $filename;
+            $requestData['avatar'] = $image_name;
         }
 
         $data->update($requestData);

@@ -4,17 +4,18 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
     /**
      * Update
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -35,13 +36,13 @@ class ProfileController extends Controller
 
         return response([
             'data' => $data
-        ],200);
+        ], 200);
     }
 
     /**
      * Change Password
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function changePassword(Request $request)
@@ -70,13 +71,13 @@ class ProfileController extends Controller
 
         return response([
             'data' => $data
-        ],200);
+        ], 200);
     }
 
     /**
      * Upload Avatar
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function uploadAvatar(Request $request)
@@ -95,16 +96,24 @@ class ProfileController extends Controller
 
         if ($request->hasFile('avatar')) {
             // Delete Previous File
-            if (!empty($data->checkavatar)){
-                Storage::delete('public/avatars/'.$data->avatar);
+            if (!is_null($data->avatar)) {
+                Storage::delete('public/avatars/' . $data->avatar);
             }
 
-            // Update the final filename to store and make it unique
-            $filename = uniqid(rand(100,999)).'_'.time().'.png';
-            // Store in Storage
-            $request->file('avatar')->storeAs('public/avatars',$filename);
+            $image = $request->file('avatar');
+
+            $image_name = uniqid(rand(100, 999)) . '_' . time() . '.png';
+
+            $destinationPath = storage_path('app/public/avatars');
+
+            $resize_image = Image::make($image->getRealPath());
+
+            $resize_image->resize(300, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath . '/' . $image_name);
+
             // Store in Database
-            $requestData['avatar'] = $filename;
+            $requestData['avatar'] = $image_name;
         }
 
         $data = $data->update([
@@ -113,6 +122,6 @@ class ProfileController extends Controller
 
         return response([
             'data' => $data
-        ],200);
+        ], 200);
     }
 }
