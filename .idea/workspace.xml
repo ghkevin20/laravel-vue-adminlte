@@ -20,12 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dae9e418-bdd3-4bd7-b6dd-7491d38a2f7f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/laravel-vue-admin.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel-vue-admin.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,13 +159,13 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\laragon\www\laravel-vue-admin\docs" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\laragon\www\laravel-vue-admin-demo\241420" />
       <recent name="C:\laragon\www\laravel-vue-admin" />
       <recent name="C:\laragon\www\laravel-vue-admin\resources\views\layouts" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\laravel-vue-admin\docs" />
     </key>
   </component>
   <component name="RunManager">
@@ -192,7 +187,7 @@
       <workItem from="1596759631495" duration="14204000" />
       <workItem from="1596852323438" duration="5215000" />
       <workItem from="1597021617288" duration="5565000" />
-      <workItem from="1597030762115" duration="5470000" />
+      <workItem from="1597030762115" duration="8971000" />
     </task>
     <servers />
   </component>
